@@ -1,3 +1,3 @@
-# The Omnyist Monorepo
+# The Multiverse
 
 More to come...
