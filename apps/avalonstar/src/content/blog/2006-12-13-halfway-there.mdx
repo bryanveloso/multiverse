@@ -35,22 +35,24 @@ Once I felt happy with that layout, I started to half-ass the front page.
 
 One of my peeves with the last version that developed after a while was the fact that I had about 3 or 4 ways to display posts and the categories that contained those posts, depending on which home page you got. I wanted to fix that and the widget you now see on the front page was one of the first I had worked on; I just never decided it if it looked better horizontal or vertical. Obviously, I finally decided on a horizontal display after playing around with it a little, adorning it with a little highlight based on the latest post. The code is pretty messy, but I'll show it to you guys anyway:
 
-    <ul id="cat-intro" class="naughtyfloats">
-    <?php for ( $counter = 1; $counter < 7; $counter++ ) {
-        $newest_post = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_status = 'publish' ORDER BY post_date_gmt DESC LIMIT 1");
-        query_posts("showposts=1&cat=$counter");
-        while (have_posts()) { the_post();
-        $short_title = smart_trim(the_title('', '', false), 25, false);
-        ?><li class="<?php echo 'cat'. $counter;?>< ?php if ( $newest_post == $post->ID ) { echo ' latest'; } ?>< ?php if ( $counter == 6 ) { echo ' last'; } ?>">
-        <?php if ( $newest_post == $post->ID ) { ?>
-        <h3><?php foreach((get_the_category()) as $cat) { echo '<a href="http://avalonstar.com/category/' . $cat->category_nicename .'" title="Go to the main page for ' . $cat->cat_name . '">' . $cat->cat_name . ''; } ?></h3>
-        <h4>My Latest Post</h4>
-        <?php } else { ?>
-        <h3><?php foreach((get_the_category()) as $cat) { echo '<a href="http://avalonstar.com/category/' . $cat->category_nicename .'" title="Go to the main page for ' . $cat->cat_name . '">' . $cat->cat_name . ''; } ?></h3>
-        <h4><a href="<?php the_permalink(); ?>"><?php echo $short_title; ?></a></h4>
-        <h5><?php the_time('F jS, Y'); ?></h5>
-    </li><?php } } } ?>
-    </ul><!-- #cat-intro -->
+```
+<ul id="cat-intro" class="naughtyfloats">
+<?php for ( $counter = 1; $counter < 7; $counter++ ) {
+    $newest_post = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_status = 'publish' ORDER BY post_date_gmt DESC LIMIT 1");
+    query_posts("showposts=1&cat=$counter");
+    while (have_posts()) { the_post();
+    $short_title = smart_trim(the_title('', '', false), 25, false);
+    ?><li class="<?php echo 'cat'. $counter;?>< ?php if ( $newest_post == $post->ID ) { echo ' latest'; } ?>< ?php if ( $counter == 6 ) { echo ' last'; } ?>">
+    <?php if ( $newest_post == $post->ID ) { ?>
+    <h3><?php foreach((get_the_category()) as $cat) { echo '<a href="http://avalonstar.com/category/' . $cat->category_nicename .'" title="Go to the main page for ' . $cat->cat_name . '">' . $cat->cat_name . ''; } ?></h3>
+    <h4>My Latest Post</h4>
+    <?php } else { ?>
+    <h3><?php foreach((get_the_category()) as $cat) { echo '<a href="http://avalonstar.com/category/' . $cat->category_nicename .'" title="Go to the main page for ' . $cat->cat_name . '">' . $cat->cat_name . ''; } ?></h3>
+    <h4><a href="<?php the_permalink(); ?>"><?php echo $short_title; ?></a></h4>
+    <h5><?php the_time('F jS, Y'); ?></h5>
+</li><?php } } } ?>
+</ul><!-- #cat-intro -->
+```
 
 After putting doing some dirty styling below this category widget, I moved on to actually giving it a bit more life (or not, depending on how you see things).
 
