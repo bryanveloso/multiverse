@@ -6,7 +6,10 @@
     "build": "turbo run build",
     "start": "turbo run start",
     "lint": "turbo run lint",
-    "clean": "turbo run clean && rm -rf node_modules"
+    "clean": "turbo run clean && rm -rf node_modules",
+    "build:avalonstar": "turbo run build --filter=avalonstar",
+    "build:bryanveloso": "turbo run build --filter=bryanveloso",
+    "build:omnyist": "turbo run build --filter=omnyist"
   },
   "devDependencies": {
     "prettier": "^3.3.3",
