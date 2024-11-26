@@ -12,6 +12,8 @@
   "dependencies": {
     "@astrojs/check": "0.9.4",
     "@astrojs/node": "9.0.0-beta.3",
+    "@multiverse/config": "workspace:*",
+    "@multiverse/ui": "workspace:*",
     "astro": "5.0.8",
     "typescript": "^5.6.3"
   }
