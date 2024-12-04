@@ -1,0 +1,44 @@
+---
+interface Props {
+  title?: string;
+  activeSite: 'mind' | 'work' | 'play';
+}
+
+const { title, activeSite } = Astro.props;
+
+const defaultTitles = {
+  mind: 'Avalonstar',
+  work: 'Bryan Veloso',
+  play: 'Omnyist',
+};
+
+const pageTitle = title || defaultTitles[activeSite];
+
+const getColumnWidth = (site: 'mind' | 'work' | 'play') => {
+  if (site === activeSite) {
+    return 'flex-1';
+  }
+  return 'w-0';
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <main class="flex h-screen w-full">
+      <div class={`${getColumnWidth('mind')}`}>
+        <slot name="mind" />
+      </div>
+      <div class={`${getColumnWidth('work')}`}>
+        <slot name="work" />
+      </div>
+      <div class={`${getColumnWidth('play')}`}>
+        <slot name="play" />
+      </div>
+    </main>
+  </body>
+</html>
