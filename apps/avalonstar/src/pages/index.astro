@@ -1,6 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import { Base } from '@multiverse/ui/layouts';
+import Timeline from '../components/Timeline';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
@@ -10,6 +11,32 @@ import FormattedDate from '../components/FormattedDate.astro';
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
+
+const eras = await getCollection('eras');
+
+const gaps = await getCollection('gaps');
+
+const timelineItems = [
+  ...posts.map((post) => ({
+    type: 'post',
+    title: post.data.title,
+    date: post.data.date,
+    id: post.id,
+  })),
+  ...eras.map((era) => ({
+    type: 'era',
+    title: era.data.title,
+    startDate: era.data.startDate,
+    endDate: era.data.endDate,
+    description: era.data.description,
+  })),
+  ...gaps.map((gap) => ({
+    type: 'gap',
+    title: gap.data.title,
+    date: gap.data.date,
+    description: gap.data.description,
+  })),
+];
 ---
 
 <!doctype html>
@@ -21,26 +48,11 @@ const posts = (await getCollection('blog')).sort(
     <Base activeSite="mind">
       <Fragment slot="mind">
         <main>
-          <ul>
-            {
-              posts.map((post) => (
-                <li>
-                  <a href={`/blog/${post.id}`}>
-                    <img src={post.data.heroImage} alt="" />
-                    <h2 class="title">{post.data.title}</h2>
-                    <p class="date">
-                      <FormattedDate date={post.data.date} />
-                    </p>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
+          <Timeline items={timelineItems} />
         </main>
       </Fragment>
       <Fragment slot="work">work</Fragment>
       <Fragment slot="play">play</Fragment>
     </Base>
-    <Footer />
   </body>
 </html>
