@@ -1,0 +1,11 @@
+{
+  "name": "@multiverse/shared",
+  "version": "0.0.1",
+  "private": true,
+  "files": [
+    "typescript"
+  ],
+  "dependencies": {
+    "typescript": "^5.6.3"
+  }
+}

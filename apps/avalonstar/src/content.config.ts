@@ -16,4 +16,26 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const eras = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: 'src/content/eras' }),
+
+  schema: z.object({
+    title: z.string(),
+    startDate: z.date(),
+    endDate: z.date().optional(), // Optional for ongoing eras
+    description: z.string(),
+    color: z.string().optional(), // Allow custom colors for different eras
+  }),
+});
+
+const gaps = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: 'src/content/gaps' }),
+
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    description: z.string().optional(),
+  }),
+});
+
+export const collections = { blog, eras, gaps };
