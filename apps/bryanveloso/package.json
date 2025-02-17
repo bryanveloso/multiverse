@@ -14,7 +14,7 @@
     "@astrojs/node": "9.0.0-beta.3",
     "@multiverse/config": "workspace:*",
     "@multiverse/ui": "workspace:*",
-    "astro": "5.0.0-beta.8",
+    "astro": "5.0.8",
     "typescript": "^5.6.3"
   }
 }
