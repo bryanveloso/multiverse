@@ -1,14 +1,25 @@
 ---
+import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
-export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map((post) => ({
-    params: { id: post.id },
-    props: { post },
-  }));
-}
+export const getStaticPaths = (async () => {
+  const blogEntries = await getCollection('blog');
+
+  return blogEntries.map((post) => {
+    const [date, ...idParts] = post.id.split('-');
+    const year = date.substring(0, 4);
+    const cleanId = idParts.slice(2).join('-');
+    const formattedId = `${year}/${cleanId}`;
+
+    console.log(formattedId);
+
+    return {
+      params: { id: formattedId },
+      props: { post },
+    };
+  });
+}) satisfies GetStaticPaths;
 
 const { post } = Astro.props;
 const { Content } = await render(post);
