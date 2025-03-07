@@ -12,33 +12,118 @@ const defaultTitles = {
   play: 'Omnyist',
 };
 
+const siteUrls = {
+  mind: 'https://avalonstar.com',
+  work: 'https://bryanveloso.com',
+  play: 'https://omnyist.com',
+};
+
+// For local development
+const devPorts = {
+  mind: '5321',
+  work: '5322',
+  play: '5323',
+};
+
+// For Docker
+const dockerPorts = {
+  mind: '4322',
+  work: '4321',
+  play: '4323',
+};
+
 const pageTitle = title || defaultTitles[activeSite];
 
 const getColumnWidth = (site: 'mind' | 'work' | 'play') => {
   if (site === activeSite) {
     return 'flex-1';
   }
-  return 'flex-0';
+  return 'w-16 hover:w-24 transition-all duration-300';
+};
+
+const isActive = (site: 'mind' | 'work' | 'play') => {
+  return site === activeSite;
 };
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
   </head>
-  <body>
-    <main class="flex h-screen w-full">
-      <div class={`${getColumnWidth('mind')}`}>
-        <slot name="mind" />
+  <body class="bg-gray-50 text-gray-900">
+    <div class="flex h-screen w-full overflow-hidden">
+      <!-- Mind (Avalonstar) -->
+      <div class={`${activeSite === 'mind' ? 'flex-1' : 'w-24'} h-screen border-r border-gray-200 transition-all duration-300 ease-in-out bg-white flex flex-col`}>
+        <div class="h-16 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
+          <a 
+            href={import.meta.env.DEV ? `http://localhost:${devPorts.mind}` : siteUrls.mind}
+            class="text-xl font-bold text-gray-500 hover:text-gray-900 truncate px-2"
+          >
+            Avalonstar
+          </a>
+        </div>
+        <div class="flex-1 overflow-auto">
+          {activeSite === 'mind' ? (
+            <div class="p-6">
+              <slot name="mind" />
+            </div>
+          ) : (
+            <div class="p-3 text-sm text-gray-500 hidden lg:block">
+              <p class="truncate">Navigate to Avalonstar</p>
+            </div>
+          )}
+        </div>
       </div>
-      <div class={`${getColumnWidth('work')}`}>
-        <slot name="work" />
+      
+      <!-- Work (Bryan Veloso) -->
+      <div class={`${activeSite === 'work' ? 'flex-1' : 'w-24'} h-screen border-r border-gray-200 transition-all duration-300 ease-in-out bg-white flex flex-col`}>
+        <div class="h-16 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
+          <a 
+            href={import.meta.env.DEV ? `http://localhost:${devPorts.work}` : siteUrls.work}
+            class="text-xl font-bold text-gray-500 hover:text-gray-900 truncate px-2"
+          >
+            Bryan Veloso
+          </a>
+        </div>
+        <div class="flex-1 overflow-auto">
+          {activeSite === 'work' ? (
+            <div class="p-6">
+              <slot name="work" />
+            </div>
+          ) : (
+            <div class="p-3 text-sm text-gray-500 hidden lg:block">
+              <p class="truncate">Navigate to Bryan Veloso</p>
+            </div>
+          )}
+        </div>
       </div>
-      <div class={`${getColumnWidth('play')}`}>
-        <slot name="play" />
+      
+      <!-- Play (Omnyist) -->
+      <div class={`${activeSite === 'play' ? 'flex-1' : 'w-24'} h-screen transition-all duration-300 ease-in-out bg-white flex flex-col`}>
+        <div class="h-16 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
+          <a 
+            href={import.meta.env.DEV ? `http://localhost:${devPorts.play}` : siteUrls.play}
+            class="text-xl font-bold text-gray-500 hover:text-gray-900 truncate px-2"
+          >
+            Omnyist
+          </a>
+        </div>
+        <div class="flex-1 overflow-auto">
+          {activeSite === 'play' ? (
+            <div class="p-6">
+              <slot name="play" />
+            </div>
+          ) : (
+            <div class="p-3 text-sm text-gray-500 hidden lg:block">
+              <p class="truncate">Navigate to Omnyist</p>
+            </div>
+          )}
+        </div>
       </div>
-    </main>
+    </div>
   </body>
 </html>

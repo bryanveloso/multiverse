@@ -1,16 +1,30 @@
 ---
+import { Base } from '@multiverse/ui/layouts';
 
+import '../styles/global.css';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base activeSite="work">
+  <Fragment slot="work">
+    <h1 class="text-3xl font-bold mb-6">Bryan Veloso</h1>
+    <p class="text-lg text-gray-700 mb-4">
+      Hi, I'm Bryan! I'm a designer and developer with a passion for the web.
+    </p>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div class="bg-white p-6 rounded-lg shadow-sm">
+        <h2 class="text-xl font-semibold mb-2">Work</h2>
+        <p class="text-gray-600">
+          I've worked with companies like Facebook, Patreon, and others to
+          create beautiful and functional user interfaces.
+        </p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-sm">
+        <h2 class="text-xl font-semibold mb-2">Projects</h2>
+        <p class="text-gray-600">
+          I'm constantly working on side projects and experiments to improve my
+          skills and create useful tools.
+        </p>
+      </div>
+    </div>
+  </Fragment>
+</Base>

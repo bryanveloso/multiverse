@@ -1,12 +1,9 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
 import { Base } from '@multiverse/ui/layouts';
 import Timeline from '../components/Timeline';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
-import FormattedDate from '../components/FormattedDate.astro';
+
+import '../styles/global.css';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -43,20 +40,9 @@ const timelineItems = [
 ];
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Base activeSite="mind">
-      <Fragment slot="mind">
-        <main>
-          <Timeline items={timelineItems} />
-        </main>
-      </Fragment>
-      <Fragment slot="work">work</Fragment>
-      <Fragment slot="play">play</Fragment>
-    </Base>
-  </body>
-</html>
+<Base activeSite="mind">
+  <Fragment slot="mind">
+    <h1 class="text-3xl font-bold mb-6">Avalonstar</h1>
+    <Timeline items={timelineItems} />
+  </Fragment>
+</Base>
