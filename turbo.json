@@ -4,14 +4,19 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build", "init-fonts"],
-      "outputs": [".astro/**", "dist/**"]
+      "outputs": [".astro/**", "dist/**"],
+      "env": ["NODE_ENV"]
     },
     "lint": {
       "outputs": []
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["NODE_ENV"]
+    },
+    "clean": {
+      "cache": false
     },
     "init-fonts": {
       "cache": false

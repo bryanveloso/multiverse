@@ -2,10 +2,21 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@avalonstar/ui/*": ["../../packages/ui/*"],
-      "@avalonstar/shared/*": ["../../packages/shared/*"],
+      "@multiverse/ui/*": ["../../packages/ui/*"],
+      "@multiverse/shared/*": ["../../packages/shared/*"],
       "@/*": ["./src/*"]
-    }
+    },
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   }
 }

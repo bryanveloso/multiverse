@@ -16,9 +16,9 @@ RUN apt-get update && apt-get install -y \
 # Install all dependencies
 RUN bun install --frozen-lockfile
 
-# Skip type checking for now to get the sites running
+# Build with proper type checking
 ARG APP_NAME
-RUN cd apps/${APP_NAME} && bun run astro build --skip-typecheck
+RUN cd apps/${APP_NAME} && bun run astro build
 
 # Runner stage 
 FROM node:slim AS runner

@@ -11,10 +11,14 @@
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",
-    "@astrojs/node": "9.1.0",
+    "@astrojs/mdx": "4.1.0",
+    "@astrojs/node": "9.1.2",
+    "@astrojs/react": "4.2.1",
     "@multiverse/config": "workspace:*",
+    "@multiverse/shared": "workspace:*",
     "@multiverse/ui": "workspace:*",
-    "astro": "5.3.0",
+    "@tailwindcss/vite": "^4.0.12",
+    "astro": "5.4.2",
     "typescript": "^5.6.3"
   }
 }
