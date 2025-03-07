@@ -21,14 +21,18 @@ const timelineItems = [
     type: 'post',
     title: post.data.title,
     date: post.data.date,
+    description: post.data.description,
+    slug: post.slug,
     id: post.id,
   })),
   ...eras.map((era) => ({
     type: 'era',
     title: era.data.title,
     startDate: era.data.startDate,
-    endDate: era.data.endDate,
+    // Set a default end date if not provided (to current date)
+    endDate: era.data.endDate || new Date(),
     description: era.data.description,
+    color: era.data.color,
   })),
   ...gaps.map((gap) => ({
     type: 'gap',

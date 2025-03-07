@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   server: {
-    port: 4321,
+    port: 5321,
   },
   site: 'https://avalonstar.com',
   integrations: [mdx(), react(), sitemap()],

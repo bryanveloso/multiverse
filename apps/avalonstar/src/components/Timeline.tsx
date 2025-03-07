@@ -4,8 +4,9 @@ interface TimelinePost {
   type: 'post';
   title: string;
   date: Date;
-  description: string;
-  slug: string;
+  description?: string;
+  slug?: string;
+  id?: string;
 }
 
 interface TimelineEra {
@@ -21,7 +22,7 @@ interface TimelineGap {
   type: 'gap';
   title: string;
   date: Date;
-  description: string;
+  description?: string;
 }
 
 type TimelineItem = TimelinePost | TimelineEra | TimelineGap;
@@ -41,7 +42,7 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
       if (item.type === 'era') {
         return [item.startDate, item.endDate];
       }
-      return [item.date];
+      return item.date ? [item.date] : [];
     });
 
     const earliestDate = new Date(
@@ -62,7 +63,7 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
           if (item.type === 'era') {
             return false; // Handle eras separately
           }
-          const itemDate = new Date(item.date);
+          const itemDate = new Date('date' in item ? item.date : new Date());
           return (
             itemDate.getMonth() === monthDate.getMonth() &&
             itemDate.getFullYear() === monthDate.getFullYear()
@@ -70,7 +71,10 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
         })
         .sort((a, b) => {
           // Sort items within the month newest first
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
+          if (a.type !== 'era' && b.type !== 'era') {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+          }
+          return 0;
         });
 
       // Find active eras for this month
@@ -191,14 +195,15 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
                   >
                     <h3 className="font-bold text-lg mb-1">{item.title}</h3>
                     <div className="text-sm text-gray-500 mb-2">
-                      {new Date(item.date).toLocaleDateString('en-US', {
+                      {item.type !== 'era' && new Date(item.date).toLocaleDateString('en-US', {
                         month: 'long',
                         day: 'numeric',
                         year: 'numeric',
                       })}
+                      {item.type === 'era' && `${new Date(item.startDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} - ${new Date(item.endDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`}
                     </div>
-                    <p className="text-gray-600">{item.description}</p>
-                    {item.type === 'post' && (
+                    {item.description && <p className="text-gray-600">{item.description}</p>}
+                    {item.type === 'post' && item.slug && (
                       <a
                         href={`/blog/${item.slug}`}
                         className="text-green-600 hover:text-green-700 text-sm mt-2 inline-block"
