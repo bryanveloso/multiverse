@@ -1,7 +1,10 @@
 ---
+import { BaseLayout } from '../components/BaseLayout';
+import type { SiteType } from '../components/BaseLayout';
+
 interface Props {
   title?: string;
-  activeSite: 'mind' | 'work' | 'play';
+  activeSite: SiteType;
 }
 
 const { title, activeSite } = Astro.props;
@@ -12,38 +15,7 @@ const defaultTitles = {
   play: 'Omnyist',
 };
 
-const siteUrls = {
-  mind: 'https://avalonstar.com',
-  work: 'https://bryanveloso.com',
-  play: 'https://omnyist.com',
-};
-
-// For local development
-const devPorts = {
-  mind: '5321',
-  work: '5322',
-  play: '5323',
-};
-
-// For Docker
-const dockerPorts = {
-  mind: '4322',
-  work: '4321',
-  play: '4323',
-};
-
 const pageTitle = title || defaultTitles[activeSite];
-
-const getColumnWidth = (site: 'mind' | 'work' | 'play') => {
-  if (site === activeSite) {
-    return 'flex-1';
-  }
-  return 'w-16 hover:w-24 transition-all duration-300';
-};
-
-const isActive = (site: 'mind' | 'work' | 'play') => {
-  return site === activeSite;
-};
 ---
 
 <!doctype html>
@@ -55,72 +27,65 @@ const isActive = (site: 'mind' | 'work' | 'play') => {
     <title>{pageTitle}</title>
     <slot name="head" />
   </head>
-  <body class="bg-gray-50 text-gray-900">
-    <div class="flex h-screen w-full overflow-hidden">
+  <body class="bg-zinc-950 text-gray-900 w-screen">
+    <div class="flex h-screen w-screen">
       <!-- Mind (Avalonstar) -->
-      <div class={`${activeSite === 'mind' ? 'flex-1' : 'w-24'} h-screen border-r border-gray-200 transition-all duration-300 ease-in-out bg-white flex flex-col`}>
-        <div class="h-16 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
-          <a 
-            href={import.meta.env.DEV ? `http://localhost:${devPorts.mind}` : siteUrls.mind}
-            class="text-xl font-bold text-gray-500 hover:text-gray-900 truncate px-2"
-          >
-            Avalonstar
-          </a>
-        </div>
-        <div class="flex-1 overflow-auto">
+      <div class={`${activeSite === 'mind' ? 'flex-auto' : 'w-24'} h-screen`}>
+        <div>
           {activeSite === 'mind' ? (
-            <div class="p-6">
+            <div class="m-6 bg-gray-900">
               <slot name="mind" />
             </div>
           ) : (
-            <div class="p-3 text-sm text-gray-500 hidden lg:block">
-              <p class="truncate">Navigate to Avalonstar</p>
+            <div class="h-16 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
+              <a
+                href={import.meta.env.DEV ? `http://localhost:5321` : 'https://avalonstar.com'}
+                class="text-xl font-bold text-gray-500 hover:text-gray-900 truncate px-2"
+              >
+                Avalonstar
+              </a>
             </div>
           )}
         </div>
       </div>
-      
+
       <!-- Work (Bryan Veloso) -->
-      <div class={`${activeSite === 'work' ? 'flex-1' : 'w-24'} h-screen border-r border-gray-200 transition-all duration-300 ease-in-out bg-white flex flex-col`}>
-        <div class="h-16 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
-          <a 
-            href={import.meta.env.DEV ? `http://localhost:${devPorts.work}` : siteUrls.work}
-            class="text-xl font-bold text-gray-500 hover:text-gray-900 truncate px-2"
-          >
-            Bryan Veloso
-          </a>
-        </div>
-        <div class="flex-1 overflow-auto">
+      <div
+        class={`${activeSite === 'work' ? 'flex-1' : 'w-[256px]'} h-screen p-6 work bg-amber-50 px-6`}
+      >
+        <div>
           {activeSite === 'work' ? (
             <div class="p-6">
               <slot name="work" />
             </div>
           ) : (
-            <div class="p-3 text-sm text-gray-500 hidden lg:block">
-              <p class="truncate">Navigate to Bryan Veloso</p>
+            <div class="h-screen items-center justify-center">
+              <a
+                href={import.meta.env.DEV ? `http://localhost:5322` : 'https://bryanveloso.com'}
+                class=""
+              >
+                <div class="transform -rotate-90">Bryan Veloso</div>
+              </a>
             </div>
           )}
         </div>
       </div>
-      
+
       <!-- Play (Omnyist) -->
-      <div class={`${activeSite === 'play' ? 'flex-1' : 'w-24'} h-screen transition-all duration-300 ease-in-out bg-white flex flex-col`}>
-        <div class="h-16 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
-          <a 
-            href={import.meta.env.DEV ? `http://localhost:${devPorts.play}` : siteUrls.play}
-            class="text-xl font-bold text-gray-500 hover:text-gray-900 truncate px-2"
-          >
-            Omnyist
-          </a>
-        </div>
-        <div class="flex-1 overflow-auto">
+      <div class={`${activeSite === 'play' ? 'flex-1' : 'w-24'} h-screen`}>
+        <div>
           {activeSite === 'play' ? (
             <div class="p-6">
               <slot name="play" />
             </div>
           ) : (
-            <div class="p-3 text-sm text-gray-500 hidden lg:block">
-              <p class="truncate">Navigate to Omnyist</p>
+            <div class="p-6">
+              <a
+                href={import.meta.env.DEV ? `http://localhost:5323` : 'https://omnyist.com'}
+                class=""
+              >
+                Omnyist
+              </a>
             </div>
           )}
         </div>

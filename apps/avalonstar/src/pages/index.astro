@@ -1,6 +1,7 @@
 ---
-import Site from '../layouts/Site.astro';
+import Base from '../layouts/Base.astro';
 import Timeline from '../components/Timeline';
+import { Button } from '@multiverse/ui/components';
 import { getCollection } from 'astro:content';
 
 // Get content collections
@@ -27,7 +28,7 @@ const timelineItems = [
     id: post.id,
     significance: post.data.significance || 3,
   })),
-  
+
   // Major life eras
   ...eras.map((era) => ({
     type: 'era',
@@ -37,7 +38,7 @@ const timelineItems = [
     description: era.data.description,
     color: era.data.color,
   })),
-  
+
   // Life events/gaps
   ...gaps.map((gap) => ({
     type: 'gap',
@@ -47,7 +48,7 @@ const timelineItems = [
     color: gap.data.color,
     significance: gap.data.significance || 3,
   })),
-  
+
   // Locations lived
   ...locations.map((location) => ({
     type: 'location',
@@ -57,7 +58,7 @@ const timelineItems = [
     description: location.data.description,
     color: location.data.color,
   })),
-  
+
   // Jobs held
   ...jobs.map((job) => ({
     type: 'job',
@@ -70,7 +71,8 @@ const timelineItems = [
 ];
 ---
 
-<Site title="Avalonstar" description="The mind of Bryan Veloso.">
-  <h1 class="text-3xl font-bold mb-6">Avalonstar</h1>
+<Base title="Avalonstar" description="The mind of Bryan Veloso.">
+  <h1 class="text-4xl font-bold mb-6">Avalonstar</h1>
+
   <Timeline items={timelineItems} />
-</Site>
+</Base>

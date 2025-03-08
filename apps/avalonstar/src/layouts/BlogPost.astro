@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import Site from './Site.astro';
+import Base from './Base.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import PostContext from '../components/PostContext.astro';
 import { getAuthorAge } from '../utils/age';
@@ -13,7 +13,7 @@ const isLegacyPost = date.getFullYear() < 2015;
 const authorAge = getAuthorAge(date);
 ---
 
-<Site title={title} description={description}>
+<Base title={title} description={description}>
   <div class="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-8">
     <article class="max-w-prose">
       {isLegacyPost && (
@@ -70,4 +70,4 @@ const authorAge = getAuthorAge(date);
       <PostContext date={date} />
     </aside>
   </div>
-</Site>
+</Base>
