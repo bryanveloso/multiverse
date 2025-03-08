@@ -1,11 +1,10 @@
 ---
-import { Base } from '@multiverse/ui/layouts';
+import Base from '../layouts/base.astro';
 
 import '../styles/global.css';
 ---
 
-<Base activeSite="play">
-  <Fragment slot="play">
+<Base title='omnyist' description='Welcome to Omnyist! This is where I share my gaming adventures and creative projects.'>
     <h1 class="text-3xl font-bold mb-6">Omnyist</h1>
     <p class="text-lg text-gray-700 mb-4">
       Welcome to Omnyist! This is where I share my gaming adventures and
@@ -27,5 +26,4 @@ import '../styles/global.css';
         </p>
       </div>
     </div>
-  </Fragment>
 </Base>

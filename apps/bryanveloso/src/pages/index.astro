@@ -1,30 +1,84 @@
 ---
-import { Base } from '@multiverse/ui/layouts';
+import Base from '../layouts/base.astro';
 
 import '../styles/global.css';
 ---
 
-<Base activeSite="work">
-  <Fragment slot="work">
-    <h1 class="text-3xl font-bold mb-6">Bryan Veloso</h1>
-    <p class="text-lg text-gray-700 mb-4">
-      Hi, I'm Bryan! I'm a designer and developer with a passion for the web.
-    </p>
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-      <div class="bg-white p-6 rounded-lg shadow-sm">
-        <h2 class="text-xl font-semibold mb-2">Work</h2>
-        <p class="text-gray-600">
-          I've worked with companies like Facebook, Patreon, and others to
-          create beautiful and functional user interfaces.
-        </p>
+<Base title="bryanvelo.so" description='The work of Bryan Veloso.'>
+
+  <div class="max-w-4xl mx-auto bg-cool-black">
+      <h1 class="text-3xl font-bold mb-6">Bryan Veloso</h1>
+      <p class="text-lg text-gray-700 mb-8">
+        Hi, I'm Bryan! I'm a designer and developer with over 15 years of experience creating beautiful, functional digital experiences for companies like GitHub, Twitch, and Facebook.
+      </p>
+      
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <a href="/portfolio" class="group">
+          <div class="bg-white p-6 rounded-lg shadow-sm transition duration-200 hover:shadow-md">
+            <h2 class="text-xl font-semibold mb-2 group-hover:text-amber-700">Portfolio</h2>
+            <p class="text-gray-600 mb-4">
+              View my professional work across companies like GitHub, Twitch, and Facebook, as well as personal projects.
+            </p>
+            <div class="text-amber-700 flex items-center">
+              <span>View portfolio</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+        </a>
+        
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+          <h2 class="text-xl font-semibold mb-2">About Me</h2>
+          <p class="text-gray-600 mb-4">
+            I specialize in user interface design, with a focus on creating experiences that are both visually appealing and highly functional.
+          </p>
+          <p class="text-gray-600">
+            When I'm not designing, I enjoy streaming, gaming, and sharing my knowledge with the community.
+          </p>
+        </div>
       </div>
-      <div class="bg-white p-6 rounded-lg shadow-sm">
-        <h2 class="text-xl font-semibold mb-2">Projects</h2>
-        <p class="text-gray-600">
-          I'm constantly working on side projects and experiments to improve my
-          skills and create useful tools.
-        </p>
+      
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-4">Featured Work</h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <a href="/portfolio/github" class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition duration-200">
+            <div class="p-5">
+              <h3 class="font-bold text-lg mb-1">GitHub</h3>
+              <p class="text-gray-600 text-sm mb-3">UI Design & Development</p>
+              <div class="text-amber-700 text-sm flex items-center">
+                <span>View details</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          </a>
+          <a href="/portfolio/twitch" class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition duration-200">
+            <div class="p-5">
+              <h3 class="font-bold text-lg mb-1">Twitch</h3>
+              <p class="text-gray-600 text-sm mb-3">Interactive Design</p>
+              <div class="text-amber-700 text-sm flex items-center">
+                <span>View details</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          </a>
+          <a href="/portfolio/avalonstar-tv" class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition duration-200">
+            <div class="p-5">
+              <h3 class="font-bold text-lg mb-1">Avalonstar TV</h3>
+              <p class="text-gray-600 text-sm mb-3">Streaming Design</p>
+              <div class="text-amber-700 text-sm flex items-center">
+                <span>View details</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
-  </Fragment>
 </Base>
