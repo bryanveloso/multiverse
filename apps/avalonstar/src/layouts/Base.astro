@@ -1,5 +1,8 @@
 ---
 import BaseHead from '../components/BaseHead.astro'
+import Footer from '../components/Footer.astro'
+import Header from '../components/Header.astro'
+
 import '../styles/global.css'
 
 type SiteType = 'mind' | 'work' | 'play'
@@ -33,24 +36,27 @@ const pageTitle = title || defaultTitles[activeSite]
     <BaseHead title={pageTitle} description={description} image={image} />
   </head>
   <body class="text-gray-900 w-screen h-dvh">
-    <div class="grid md:grid-cols-[1fr_48px_48px] w-screen relative">
+    <div
+      class="grid grid-cols-1 md:grid-cols-[1fr_48px_48px] w-screen relative"
+    >
       <!-- Mind (Avalonstar) -->
       <div class="">
+        <Header />
         <div class="max-w-7xl mx-auto">
           <slot />
         </div>
+        <Footer />
       </div>
 
       <!-- Work (Bryan Veloso) -->
       <div class="relative hidden md:block">
         <div class="sticky top-0 p-2 pl-0">
-          <a
-            href={import.meta.env.DEV
-              ? `http://localhost:5322`
-              : 'https://bryanveloso.com'}
-            class=""
-          >
-            <div class="bg-amber-100 h-[calc(100dvh-1rem)] rounded"><div class="pl-6 rotate-90 uppercase text-xs">bryanvelo.so</div></div>
+          <a href={import.meta.env.DEV ? `http://localhost:5322` : 'https://bryanvelo.so'}>
+            <div class="bg-amber-100 h-[calc(100dvh-1rem)] rounded flex justify-center">
+              <div class="pt-4 uppercase text-xs" style={{ writingMode: 'vertical-rl' }}>
+                <strong>work</strong> &mdash; bryanvelo.so
+              </div>
+            </div>
           </a>
         </div>
       </div>
@@ -63,7 +69,11 @@ const pageTitle = title || defaultTitles[activeSite]
               ? `http://localhost:5323`
               : 'https://omnyist.com'}
           >
-            <div class="bg-blue-100 h-[calc(100dvh-1rem)] rounded"><div class="pl-6 rotate-90 uppercase text-xs">omnyist</div></div>
+            <div class="bg-blue-100 h-[calc(100dvh-1rem)] rounded flex justify-center">
+              <div class="pt-4 uppercase text-xs" style={{ writingMode: 'vertical-rl' }}>
+                <strong>play</strong> &mdash; omnyist
+              </div>
+            </div>
           </a>
         </div>
       </div>

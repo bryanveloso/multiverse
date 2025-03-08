@@ -1,73 +1,76 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import Base from './Base.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import PostContext from '../components/PostContext.astro';
-import { getAuthorAge } from '../utils/age';
+import type { CollectionEntry } from 'astro:content'
+import Base from './Base.astro'
+import FormattedDate from '../components/FormattedDate.astro'
+import PostContext from '../components/PostContext.astro'
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data']
 
-const { title, description, date, updatedDate, heroImage } = Astro.props;
+const { title, description, date, updatedDate, heroImage } = Astro.props
 
-const isLegacyPost = date.getFullYear() < 2015;
-const authorAge = getAuthorAge(date);
+const isLegacyPost = date.getFullYear() < 2015
 ---
 
 <Base title={title} description={description}>
-  <div class="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-8">
-    <article class="max-w-prose">
-      {isLegacyPost && (
-        <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 text-sm">
-          <p>
-            This is a <strong>legacy post</strong> from before 2015. 
-            While the content has survived numerous site migrations, 
-            some formatting and links may be broken.
-          </p>
-        </div>
-      )}
+  <div class="grid grid-cols-1">
+    <article class="max-w-prose m-auto">
+      {
+        isLegacyPost && (
+          <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 text-sm">
+            <p class="prose prose-sm">
+              This is a <strong>legacy post</strong> written before 2015. While
+              the content has survived numerous site migrations and content
+              management systems, some formatting and links may be broken.
+            </p>
+          </div>
+        )
+      }
 
-      {heroImage && (
-        <div class="mb-6">
-          <img 
-            class="rounded-lg shadow-md w-full" 
-            width={1020} 
-            height={510} 
-            src={heroImage} 
-            alt="" 
-          />
-        </div>
-      )}
+      {
+        heroImage && (
+          <div class="mb-6">
+            <img
+              class="rounded-lg shadow-md w-full"
+              width={1020}
+              height={510}
+              src={heroImage}
+              alt=""
+            />
+          </div>
+        )
+      }
 
       <div class="mb-6">
         <div class="flex justify-between items-start mb-2">
           <div class="text-sm text-gray-500">
             <FormattedDate date={date} />
-            {updatedDate && (
-              <span class="italic ml-2">
-                (Updated: <FormattedDate date={updatedDate} />)
-              </span>
-            )}
+            {
+              updatedDate && (
+                <span class="italic ml-2">
+                  (Updated: <FormattedDate date={updatedDate} />)
+                </span>
+              )
+            }
           </div>
-          <span class="px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-700 md:hidden">
-            Age: {authorAge}
-          </span>
         </div>
         <h1 class="text-3xl font-bold mb-4">{title}</h1>
         <hr class="mb-6" />
       </div>
-      
-      <div class="prose prose-lg">
+
+      <PostContext date={date} />
+
+      <div class="prose prose-md">
         <slot />
       </div>
-      
+
       <div class="mt-8 pt-6 border-t border-gray-200">
-        <a href="/" class="text-green-600 hover:text-green-700">← Back to Timeline</a>
+        <a href="/" class="text-green-600 hover:text-green-700"
+          >← Back to Timeline</a
+        >
       </div>
     </article>
-    
+
     <!-- Post Context Sidebar -->
-    <aside class="hidden md:block">
-      <PostContext date={date} />
-    </aside>
+    <aside class="hidden md:block"></aside>
   </div>
 </Base>
