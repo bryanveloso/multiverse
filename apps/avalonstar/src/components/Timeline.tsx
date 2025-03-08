@@ -149,100 +149,9 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
 
   const timelineMonths = generateMonthlyTimeline();
 
-  // Sort eras, locations, and jobs newest first for the navigation
-  const sortedEras = items
-    .filter((item): item is TimelineEra => item.type === 'era')
-    .sort((a, b) => {
-      const aEndTime = a.endDate?.getTime() || new Date().getTime();
-      const bEndTime = b.endDate?.getTime() || new Date().getTime();
-      return bEndTime - aEndTime;
-    });
-    
-  const sortedLocations = items
-    .filter((item): item is TimelineLocation => item.type === 'location')
-    .sort((a, b) => {
-      const aEndDate = a.endDate || new Date();
-      const bEndDate = b.endDate || new Date();
-      return bEndDate.getTime() - aEndDate.getTime();
-    });
-    
-  const sortedJobs = items
-    .filter((item): item is TimelineJob => item.type === 'job')
-    .sort((a, b) => {
-      const aEndDate = a.endDate || new Date();
-      const bEndDate = b.endDate || new Date();
-      return bEndDate.getTime() - aEndDate.getTime();
-    });
-
   return (
     <div className="max-w-4xl mx-auto px-4">
-      <div className="grid grid-cols-[200px_1px_1fr] gap-8">
-        {/* Navigation panel */}
-        <div className="sticky top-4 h-fit space-y-6">
-          {/* Era Navigation */}
-          <div className="space-y-1">
-            <h3 className="font-medium text-xs uppercase text-gray-400 mb-2 px-2">Life Eras</h3>
-            {sortedEras.map((era, index) => (
-              <div
-                key={`era-nav-${index}`}
-                className="p-2 text-sm rounded-lg cursor-pointer hover:bg-gray-50"
-                style={{ color: era.color || '#4B5563' }}
-                onClick={() => {
-                  const element = document.getElementById(
-                    `era-${era.startDate.getTime()}`
-                  );
-                  element?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                {era.title}
-              </div>
-            ))}
-          </div>
-          
-          {/* Locations Navigation */}
-          {sortedLocations.length > 0 && (
-            <div className="space-y-1">
-              <h3 className="font-medium text-xs uppercase text-gray-400 mb-2 px-2">Locations</h3>
-              {sortedLocations.map((location, index) => (
-                <div
-                  key={`location-nav-${index}`}
-                  className="p-2 text-sm rounded-lg cursor-pointer hover:bg-gray-50"
-                  style={{ color: location.color || '#3B82F6' }}
-                  onClick={() => {
-                    const element = document.getElementById(
-                      `location-${location.startDate.getTime()}`
-                    );
-                    element?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  {location.name}
-                </div>
-              ))}
-            </div>
-          )}
-          
-          {/* Jobs Navigation */}
-          {sortedJobs.length > 0 && (
-            <div className="space-y-1">
-              <h3 className="font-medium text-xs uppercase text-gray-400 mb-2 px-2">Work</h3>
-              {sortedJobs.map((job, index) => (
-                <div
-                  key={`job-nav-${index}`}
-                  className="p-2 text-sm rounded-lg cursor-pointer hover:bg-gray-50"
-                  onClick={() => {
-                    const element = document.getElementById(
-                      `job-${job.startDate.getTime()}`
-                    );
-                    element?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  {job.title} <span className="text-xs text-gray-500 block">at {job.company}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
+      <div className="grid grid-cols-[1fr] gap-8">
         {/* Timeline Line */}
         <div className="relative">
           <div className="absolute top-0 bottom-0 left-0 w-px bg-gray-200" />
@@ -267,18 +176,18 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
                   <time className="text-sm font-medium text-gray-500">
                     {month.date.toLocaleDateString('en-US', {
                       month: 'long',
-                      year: 'numeric',
+                      year: 'numeric'
                     })}
                   </time>
                 </div>
               )}
 
               {/* All timeline indicators: Eras, Locations, Jobs */}
-              
+
               {/* Era indicators */}
               {month.activeEras.map((era, eraIndex) => {
-                const isStart = month.date.getTime() === era.startDate.getTime();
-                const isEnd = month.date.getTime() === era.endDate.getTime();
+                const isStart = month.date.getTime() === era.startDate.getTime()
+                const isEnd = month.date.getTime() === era.endDate.getTime()
 
                 return (
                   <div
@@ -290,25 +199,30 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
                       opacity: 0.3,
                       top: '-1rem',
                       bottom: '-1rem',
-                      borderTopLeftRadius: isEnd ? '6px' : '0', 
-                      borderTopRightRadius: isEnd ? '6px' : '0', 
+                      borderTopLeftRadius: isEnd ? '6px' : '0',
+                      borderTopRightRadius: isEnd ? '6px' : '0',
                       borderBottomLeftRadius: isStart ? '6px' : '0',
-                      borderBottomRightRadius: isStart ? '6px' : '0',
+                      borderBottomRightRadius: isStart ? '6px' : '0'
                     }}
-                  />
-                );
+                  >{era.title}</div>
+                )
               })}
-              
+
               {/* Location indicators (offset left of eras) */}
               {month.activeLocations.map((location, locIndex) => {
-                const endDate = location.endDate || new Date();
-                const isStart = month.date.getTime() === location.startDate.getTime();
-                const isEnd = month.date.getTime() === endDate.getTime();
+                const endDate = location.endDate || new Date()
+                const isStart =
+                  month.date.getTime() === location.startDate.getTime()
+                const isEnd = month.date.getTime() === endDate.getTime()
 
                 return (
                   <div
                     key={`location-${locIndex}`}
-                    id={isStart ? `location-${location.startDate.getTime()}` : undefined}
+                    id={
+                      isStart
+                        ? `location-${location.startDate.getTime()}`
+                        : undefined
+                    }
                     className="absolute -left-20 -ml-2 w-8"
                     style={{
                       backgroundColor: location.color || '#3B82F6', // Default blue
@@ -318,17 +232,17 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
                       borderTopLeftRadius: isEnd ? '6px' : '0',
                       borderTopRightRadius: isEnd ? '6px' : '0',
                       borderBottomLeftRadius: isStart ? '6px' : '0',
-                      borderBottomRightRadius: isStart ? '6px' : '0',
+                      borderBottomRightRadius: isStart ? '6px' : '0'
                     }}
-                  />
-                );
+                  >{location.name}</div>
+                )
               })}
-              
+
               {/* Job indicators (offset right of eras) */}
               {month.activeJobs.map((job, jobIndex) => {
-                const endDate = job.endDate || new Date();
-                const isStart = month.date.getTime() === job.startDate.getTime();
-                const isEnd = month.date.getTime() === endDate.getTime();
+                const endDate = job.endDate || new Date()
+                const isStart = month.date.getTime() === job.startDate.getTime()
+                const isEnd = month.date.getTime() === endDate.getTime()
 
                 return (
                   <div
@@ -343,30 +257,31 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
                       borderTopLeftRadius: isEnd ? '6px' : '0',
                       borderTopRightRadius: isEnd ? '6px' : '0',
                       borderBottomLeftRadius: isStart ? '6px' : '0',
-                      borderBottomRightRadius: isStart ? '6px' : '0',
+                      borderBottomRightRadius: isStart ? '6px' : '0'
                     }}
-                  />
-                );
+                  >{job.company}</div>
+                )
               })}
 
               {/* Items for this month */}
               <div className="space-y-4">
                 {month.items.map((item, itemIndex) => {
                   // Calculate opacity based on significance (if available)
-                  const significance = 'significance' in item ? item.significance || 3 : 3;
-                  const opacity = 0.6 + (significance * 0.08); // 1-5 scale maps to 0.68-1.0 opacity
-                  
+                  const significance =
+                    'significance' in item ? item.significance || 3 : 3
+                  const opacity = 0.6 + significance * 0.08 // 1-5 scale maps to 0.68-1.0 opacity
+
                   // Calculate author's age for the item's date
-                  let itemDate;
+                  let itemDate
                   if ('date' in item) {
-                    itemDate = item.date;
+                    itemDate = item.date
                   } else if ('startDate' in item) {
-                    itemDate = item.startDate;
+                    itemDate = item.startDate
                   } else {
-                    itemDate = new Date();
+                    itemDate = new Date()
                   }
-                  const authorAge = getAuthorAge(itemDate);
-                  
+                  const authorAge = getAuthorAge(itemDate)
+
                   return (
                     <div
                       key={`${item.type}-${itemIndex}`}
@@ -381,9 +296,10 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
                       `}
                       style={{
                         opacity: opacity,
-                        borderLeftColor: item.type === 'location' || item.type === 'job'
-                          ? (item.color || '#4B5563') 
-                          : undefined
+                        borderLeftColor:
+                          item.type === 'location' || item.type === 'job'
+                            ? item.color || '#4B5563'
+                            : undefined
                       }}
                       onClick={() => setActiveItem(`${item.type}-${itemIndex}`)}
                     >
@@ -391,58 +307,70 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
                       <div className="flex justify-between items-start">
                         <h3 className="font-bold text-lg mb-1">
                           {item.type === 'post' || item.type === 'gap'
-                            ? item.title 
-                            : item.type === 'location' 
+                            ? item.title
+                            : item.type === 'location'
                               ? item.name
-                              : item.type === 'job' 
+                              : item.type === 'job'
                                 ? `${item.title} at ${item.company}`
-                                : item.title
-                          }
+                                : item.title}
                         </h3>
                         <span className="px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-700">
                           Age: {authorAge}
                         </span>
                       </div>
-                      
+
                       {/* Date display */}
                       <div className="text-sm text-gray-500 mb-2">
                         {/* Single date items */}
-                        {(item.type === 'post' || item.type === 'gap') && 
+                        {(item.type === 'post' || item.type === 'gap') &&
                           new Date(item.date).toLocaleDateString('en-US', {
                             month: 'long',
                             day: 'numeric',
-                            year: 'numeric',
-                          })
-                        }
-                        
+                            year: 'numeric'
+                          })}
+
                         {/* Period items (with start/end dates) */}
-                        {item.type === 'era' && 
+                        {item.type === 'era' &&
                           `${new Date(item.startDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} - 
-                          ${item.endDate 
-                            ? new Date(item.endDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-                            : 'Present'}`
-                        }
-                        
+                          ${
+                            item.endDate
+                              ? new Date(item.endDate).toLocaleDateString(
+                                  'en-US',
+                                  { month: 'long', year: 'numeric' }
+                                )
+                              : 'Present'
+                          }`}
+
                         {/* Location period */}
-                        {item.type === 'location' && 
+                        {item.type === 'location' &&
                           `${item.startDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} - 
-                          ${item.endDate 
-                            ? item.endDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-                            : 'Present'}`
-                        }
-                        
+                          ${
+                            item.endDate
+                              ? item.endDate.toLocaleDateString('en-US', {
+                                  month: 'long',
+                                  year: 'numeric'
+                                })
+                              : 'Present'
+                          }`}
+
                         {/* Job period */}
-                        {item.type === 'job' && 
+                        {item.type === 'job' &&
                           `${item.startDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} - 
-                          ${item.endDate 
-                            ? item.endDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-                            : 'Present'}`
-                        }
+                          ${
+                            item.endDate
+                              ? item.endDate.toLocaleDateString('en-US', {
+                                  month: 'long',
+                                  year: 'numeric'
+                                })
+                              : 'Present'
+                          }`}
                       </div>
-                      
+
                       {/* Description */}
-                      {item.description && <p className="text-gray-600">{item.description}</p>}
-                      
+                      {item.description && (
+                        <p className="text-gray-600">{item.description}</p>
+                      )}
+
                       {/* Action links */}
                       {item.type === 'post' && item.id && (
                         <a
@@ -453,7 +381,7 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
                         </a>
                       )}
                     </div>
-                  );
+                  )
                 })}
               </div>
             </div>
@@ -461,5 +389,5 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

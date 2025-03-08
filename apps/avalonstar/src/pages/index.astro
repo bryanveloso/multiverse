@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import Timeline from '../components/Timeline';
-import { Button } from '@multiverse/ui/components';
 import { getCollection } from 'astro:content';
 
 // Get content collections
@@ -24,7 +23,6 @@ const timelineItems = [
     title: post.data.title,
     date: post.data.date,
     description: post.data.description,
-    slug: post.slug,
     id: post.id,
     significance: post.data.significance || 3,
   })),
