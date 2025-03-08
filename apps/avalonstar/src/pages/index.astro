@@ -1,19 +1,23 @@
 ---
-import { Base } from '@multiverse/ui/layouts';
+import Site from '../layouts/Site.astro';
 import Timeline from '../components/Timeline';
 import { getCollection } from 'astro:content';
 
-import '../styles/global.css';
-
+// Get content collections
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
 const eras = await getCollection('eras');
-
 const gaps = await getCollection('gaps');
 
+// Get new collections (may be empty initially)
+const locations = await getCollection('locations').catch(() => []);
+const jobs = await getCollection('jobs').catch(() => []);
+
+// Combine all into timeline items
 const timelineItems = [
+  // Blog posts
   ...posts.map((post) => ({
     type: 'post',
     title: post.data.title,
@@ -21,28 +25,52 @@ const timelineItems = [
     description: post.data.description,
     slug: post.slug,
     id: post.id,
+    significance: post.data.significance || 3,
   })),
+  
+  // Major life eras
   ...eras.map((era) => ({
     type: 'era',
     title: era.data.title,
     startDate: era.data.startDate,
-    // Set a default end date if not provided (to current date)
     endDate: era.data.endDate || new Date(),
     description: era.data.description,
     color: era.data.color,
   })),
+  
+  // Life events/gaps
   ...gaps.map((gap) => ({
     type: 'gap',
     title: gap.data.title,
     date: gap.data.date,
     description: gap.data.description,
+    color: gap.data.color,
+    significance: gap.data.significance || 3,
+  })),
+  
+  // Locations lived
+  ...locations.map((location) => ({
+    type: 'location',
+    name: location.data.name,
+    startDate: location.data.startDate,
+    endDate: location.data.endDate,
+    description: location.data.description,
+    color: location.data.color,
+  })),
+  
+  // Jobs held
+  ...jobs.map((job) => ({
+    type: 'job',
+    company: job.data.company,
+    title: job.data.title,
+    startDate: job.data.startDate,
+    endDate: job.data.endDate,
+    description: job.data.description,
   })),
 ];
 ---
 
-<Base activeSite="mind">
-  <Fragment slot="mind">
-    <h1 class="text-3xl font-bold mb-6">Avalonstar</h1>
-    <Timeline items={timelineItems} />
-  </Fragment>
-</Base>
+<Site title="Avalonstar" description="The mind of Bryan Veloso.">
+  <h1 class="text-3xl font-bold mb-6">Avalonstar</h1>
+  <Timeline items={timelineItems} />
+</Site>

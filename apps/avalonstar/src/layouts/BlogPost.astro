@@ -1,105 +1,73 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Site from './Site.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import PostContext from '../components/PostContext.astro';
+import { getAuthorAge } from '../utils/age';
 
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, date, updatedDate, heroImage } = Astro.props;
 
 const isLegacyPost = date.getFullYear() < 2015;
+const authorAge = getAuthorAge(date);
 ---
 
-<html lang="en">
-  <head>
-    <BaseHead title={title} description={description!} />
-    <style>
-      main {
-        width: calc(100% - 2em);
-        max-width: 100%;
-        margin: 0;
-      }
-      .hero-image {
-        width: 100%;
-      }
-      .hero-image img {
-        display: block;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
-      }
-      .prose {
-        width: 720px;
-        max-width: calc(100% - 2em);
-        margin: auto;
-        padding: 1em;
-        color: rgb(var(--gray-dark));
-      }
-      .title {
-        margin-bottom: 1em;
-        padding: 1em 0;
-        text-align: center;
-        line-height: 1;
-      }
-      .title h1 {
-        margin: 0 0 0.5em 0;
-      }
-      .date {
-        margin-bottom: 0.5em;
-        color: rgb(var(--gray));
-      }
-      .last-updated-on {
-        font-style: italic;
-      }
-    </style>
-  </head>
-
-  <body>
-    <Header />
-    <main>
-      <article>
-        <div class="legacy-warning">
-          {
-            isLegacyPost && (
-              <p>
-                The entry below is classified as a <strong>LEGACY</strong> post,
-                meaning that it was written (well) before the current version of
-                Avalonstar was released. Although these posts have survived the
-                numerous moves over years, there is no guarantee that
-                they&apos;ve survived the trip unscathed (especially the links).
-              </p>
-            )
-          }
+<Site title={title} description={description}>
+  <div class="grid grid-cols-1 md:grid-cols-[1fr_300px] gap-8">
+    <article class="max-w-prose">
+      {isLegacyPost && (
+        <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 text-sm">
+          <p>
+            This is a <strong>legacy post</strong> from before 2015. 
+            While the content has survived numerous site migrations, 
+            some formatting and links may be broken.
+          </p>
         </div>
+      )}
 
-        <div class="hero-image">
-          {
-            heroImage && (
-              <img width={1020} height={510} src={heroImage} alt="" />
-            )
-          }
+      {heroImage && (
+        <div class="mb-6">
+          <img 
+            class="rounded-lg shadow-md w-full" 
+            width={1020} 
+            height={510} 
+            src={heroImage} 
+            alt="" 
+          />
         </div>
-        <div class="prose">
-          <div class="title">
-            <div class="date">
-              <FormattedDate date={date} />
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
-            </div>
-            <h1>{title}</h1>
-            <hr />
+      )}
+
+      <div class="mb-6">
+        <div class="flex justify-between items-start mb-2">
+          <div class="text-sm text-gray-500">
+            <FormattedDate date={date} />
+            {updatedDate && (
+              <span class="italic ml-2">
+                (Updated: <FormattedDate date={updatedDate} />)
+              </span>
+            )}
           </div>
-          <slot />
+          <span class="px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-700 md:hidden">
+            Age: {authorAge}
+          </span>
         </div>
-      </article>
-    </main>
-    <Footer />
-  </body>
-</html>
+        <h1 class="text-3xl font-bold mb-4">{title}</h1>
+        <hr class="mb-6" />
+      </div>
+      
+      <div class="prose prose-lg">
+        <slot />
+      </div>
+      
+      <div class="mt-8 pt-6 border-t border-gray-200">
+        <a href="/" class="text-green-600 hover:text-green-700">← Back to Timeline</a>
+      </div>
+    </article>
+    
+    <!-- Post Context Sidebar -->
+    <aside class="hidden md:block">
+      <PostContext date={date} />
+    </aside>
+  </div>
+</Site>

@@ -53,6 +53,7 @@ const isActive = (site: 'mind' | 'work' | 'play') => {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
+    <slot name="head" />
   </head>
   <body class="bg-gray-50 text-gray-900">
     <div class="flex h-screen w-full overflow-hidden">
