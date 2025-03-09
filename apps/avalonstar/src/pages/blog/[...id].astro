@@ -12,8 +12,6 @@ export const getStaticPaths = (async () => {
     const cleanId = idParts.slice(2).join('-');
     const formattedId = `${year}/${cleanId}`;
 
-    console.log(formattedId);
-
     return {
       params: { id: formattedId },
       props: { post },
