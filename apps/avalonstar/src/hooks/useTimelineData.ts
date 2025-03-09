@@ -6,7 +6,8 @@ import type {
   TimelineEra,
   TimelineLocation,
   TimelineJob,
-  TimelineGap
+  TimelineGap,
+  TimelineContext
 } from '../types/timeline'
 
 export function useTimelineData(items: TimelineItem[]) {
@@ -86,13 +87,29 @@ export function useTimelineData(items: TimelineItem[]) {
     return date >= item.startDate && date <= endDate
   }
 
-  // Get context for a specific timeline point
-  const getContextForDate = (date: Date) => {
+  // Get context for a specific item
+  const getContextForItem = (item: TimelineItem): TimelineContext => {
+    const date =
+      'date' in item
+        ? item.date
+        : 'startDate' in item
+          ? item.startDate
+          : new Date()
+
+    // Calculate significance from the item or use default value
+    const significance =
+      'significance' in item
+        ? item.significance || 3
+        : item.type === 'event'
+          ? 5
+          : 3
+
     return {
       activeEras: eras.filter((era) => isActiveAtDate(era, date)),
       activeLocations: locations.filter((loc) => isActiveAtDate(loc, date)),
       activeJobs: jobs.filter((job) => isActiveAtDate(job, date)),
-      authorAge: getAuthorAge(date)
+      authorAge: getAuthorAge(date),
+      significance
     }
   }
 
@@ -104,6 +121,6 @@ export function useTimelineData(items: TimelineItem[]) {
     activeItem,
     setActiveItem,
     isActiveAtDate,
-    getContextForDate
+    getContextForItem
   }
 }

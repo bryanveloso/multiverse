@@ -61,12 +61,12 @@ const renderTimelineItem: FC<RenderTimelineItemProps> = ({
 }
 
 export default function Timeline({ items }: { items: TimelineItem[] }) {
-  const { sortedItems, activeItem, setActiveItem, getContextForDate } =
+  const { sortedItems, activeItem, setActiveItem, getContextForItem } =
     useTimelineData(items)
 
   return (
     <div className="max-w-4xl mx-auto px-4">
-      <div className="grid grid-cols-[24px_24px_24px_16px_1fr]">
+      <div className="grid grid-cols-[36px_36px_36px_16px_1fr]">
         <div className="grid col-span-5 grid-cols-subgrid">
           <div>E</div>
           <div>J</div>
@@ -76,7 +76,7 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
         </div>
 
         {sortedItems.map((item, itemIndex) => {
-          const context = getContextForDate(item.date)
+          const context = getContextForItem(item)
 
           return (
             <Fragment key={`${item.type}-${itemIndex}`}>

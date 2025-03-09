@@ -60,6 +60,7 @@ export interface TimelineContext {
   activeLocations: TimelineLocation[]
   activeJobs: TimelineJob[]
   authorAge: number
+  significance: number
 }
 
 // Component props with proper generics
