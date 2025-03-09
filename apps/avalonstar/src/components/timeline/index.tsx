@@ -1,21 +1,68 @@
-import { useState } from 'react'
-
+import { Fragment, type FC } from 'react'
 import { useTimelineData } from '../../hooks/useTimelineData'
-import { getAuthorAge } from '../../utils/age'
-
-import type {
-  TimelineItem,
-  TimelinePost,
-  TimelineEra,
-  TimelineLocation,
-  TimelineJob,
-  TimelineGap
-} from '../../types/timeline'
+import type { TimelineItem, TimelineContext } from '../../types/timeline'
 
 import { Event } from './event'
+import { Post } from './post'
+import { Gap } from './gap'
+
+interface RenderTimelineItemProps {
+  item: TimelineItem
+  itemIndex: number
+  context: TimelineContext
+  activeItem: string | null
+  setActiveItem: (id: string | null) => void
+}
+
+const renderTimelineItem: FC<RenderTimelineItemProps> = ({
+  item,
+  itemIndex,
+  context,
+  activeItem,
+  setActiveItem
+}) => {
+  const isActive = activeItem === `${item.type}-${itemIndex}`
+  const itemId = `${item.type}-${itemIndex}`
+
+  const componentMap = {
+    event: () => (
+      <Event
+        item={item}
+        itemIndex={itemIndex}
+        context={context}
+        isActive={isActive}
+        onActivate={() => setActiveItem(itemId)}
+      />
+    ),
+    gap: () => (
+      <Gap
+        item={item}
+        itemIndex={itemIndex}
+        context={context}
+        isActive={isActive}
+        onActivate={() => setActiveItem(itemId)}
+      />
+    ),
+    post: () => (
+      <Post
+        item={item}
+        itemIndex={itemIndex}
+        context={context}
+        isActive={isActive}
+        onActivate={() => setActiveItem(itemId)}
+      />
+    ),
+    default: () => <div className="">Unknown item type: {item.type}</div>
+  }
+
+  const renderFunction =
+    componentMap[item.type as keyof typeof componentMap] || componentMap.default
+  return renderFunction()
+}
 
 export default function Timeline({ items }: { items: TimelineItem[] }) {
-  const { sortedItems, activeItem, setActiveItem, getContextForDate } = useTimelineData(items)
+  const { sortedItems, activeItem, setActiveItem, getContextForDate } =
+    useTimelineData(items)
 
   return (
     <div className="max-w-4xl mx-auto px-4">
@@ -30,38 +77,20 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
 
         {sortedItems.map((item, itemIndex) => {
           const context = getContextForDate(item.date)
-          const isActive = activeItem === `${item.type}-${itemIndex}`
-          console.log(`context for ${item.date}`, context)
 
-          if (item.type === 'event') {
-            return <Event item={item} itemIndex={itemIndex} />
-          } else {
-            return (
-              <div
-                className="grid col-span-5 grid-cols-subgrid items-stretch"
-                key={`${item.type}-${itemIndex}`}
-              >
-                <div className="relative">1</div>
-                <div className="relative">2</div>
-                <div className="relative">3</div>
-                <div className="m-auto h-full relative">
-                  <div className="size-[9px] bg-amber-500 rounded-full absolute -left-[4px] top-2" />
-                  <div className="border-l border-amber-500 w-[1px] h-full" />
-                </div>
-                <div className="">
-                  {item.title} /{' '}
-                  {item.date.toLocaleDateString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric'
-                  })}
-                </div>
-              </div>
-            )
-          }
+          return (
+            <Fragment key={`${item.type}-${itemIndex}`}>
+              {renderTimelineItem({
+                item,
+                itemIndex,
+                context,
+                activeItem,
+                setActiveItem
+              })}
+            </Fragment>
+          )
         })}
       </div>
-
     </div>
   )
 }

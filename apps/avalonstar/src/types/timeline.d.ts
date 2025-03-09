@@ -1,86 +1,72 @@
-export interface TimelinePost {
-  type: 'post'
-  title: string
+// Base type shared by all timeline items
+interface BaseTimelineItem {
+  id?: string // Unique identifier
+  type: string // Discriminator for the union
+  title: string // Display title
+  description?: string // Optional description
+  color?: string // Optional styling color
+  significance?: number // Optional importance value
+}
+
+// Items with a single point in time
+interface TimelinePointItem extends BaseTimelineItem {
   date: Date
-  description?: string
-  slug?: string
-  id?: string
-  significance?: number
 }
 
-export interface TimelineEra {
-  type: 'era'
-  title: string
-  startDate: Date
-  endDate: Date
-  description: string
-  color?: string
-}
-
-export interface TimelineLocation {
-  type: 'location'
-  name: string
+// Items with a date range
+interface TimelineRangeItem extends BaseTimelineItem {
   startDate: Date
   endDate?: Date
-  description?: string
-  color?: string
 }
 
-export interface TimelineJob {
+// Specific item types
+interface TimelinePost extends TimelinePointItem {
+  type: 'post'
+  slug?: string
+  id: string // Required for posts
+}
+
+interface TimelineGap extends TimelinePointItem {
+  type: 'gap'
+}
+
+interface TimelineEra extends TimelineRangeItem {
+  type: 'era'
+}
+
+interface TimelineLocation extends TimelineRangeItem {
+  type: 'location'
+  name: string
+}
+
+interface TimelineJob extends TimelineRangeItem {
   type: 'job'
   company: string
   title: string
-  startDate: Date
-  endDate?: Date
-  description?: string
 }
 
-export interface TimelineGap {
-  type: 'gap'
-  title: string
-  date: Date
-  description?: string
-  color?: string
-  significance?: number
-}
-
-export interface TimelineEvent {
-  type: 'event'
-  title: string
-  date: Date
-  color: string
-  data: TimelineEra | TimelineLocation | TimelineJob
-}
-
+// Union of all direct timeline items
 export type TimelineItem =
   | TimelinePost
+  | TimelineGap
   | TimelineEra
   | TimelineLocation
   | TimelineJob
-  | TimelineGap
   | TimelineEvent
-
-// Processed timeline data with sorted items and active contexts
-export interface ProcessedTimelineData {
-  sortedItems: (TimelinePost | TimelineGap | TimelineEvent)[]
-  eras: TimelineEra[]
-  locations: TimelineLocation[]
-  jobs: TimelineJob[]
-}
 
 // Context data for a specific timeline point
 export interface TimelineContext {
   activeEras: TimelineEra[]
   activeLocations: TimelineLocation[]
   activeJobs: TimelineJob[]
-  authorAge: string
+  authorAge: number
 }
 
-// Props for timeline components
-export interface TimelineItemProps {
-  item: TimelinePost | TimelineGap | TimelineEvent
-  itemIndex: number
-  context: TimelineContext
+// Component props with proper generics
+export interface TimelineItemProps<T extends TimelineItem = TimelineItem> {
+  item: T
+  itemIndex: number // Using itemIndex instead of index
+  context: TimelineContext // Added context
   isActive: boolean
-  onActivate: (id: string) => void
+  onActivate: () => void
 }

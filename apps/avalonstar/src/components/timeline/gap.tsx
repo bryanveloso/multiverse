@@ -1,13 +1,15 @@
 import type { FC } from 'react'
 import type { TimelineItemProps } from '../../types/timeline'
 
-export const Post: FC<TimelineItemProps> = ({
+export const Gap: FC<TimelineItemProps> = ({
   item,
   itemIndex,
   context,
   isActive,
   onActivate
 }) => {
+  console.log(context);
+
   return (
     <div className="grid col-span-5 grid-cols-subgrid" onClick={onActivate}>
       <div className="relative">1</div>
