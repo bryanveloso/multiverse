@@ -86,6 +86,24 @@ export function useTimelineData(items: TimelineItem[]) {
       locations: {} as Record<string, number>
     }
 
+    eras.forEach((era) => {
+      if (!era.endDate) {
+        endOccurrences.eras[era.title] = 0
+      }
+    })
+
+    locations.forEach((location) => {
+      if (!location.endDate) {
+        endOccurrences.locations[location.name] = 0
+      }
+    })
+
+    jobs.forEach((job) => {
+      if (!job.endDate) {
+        endOccurrences.jobs[job.company] = 0
+      }
+    })
+
     sortedItems.forEach((item, index) => {
       const date =
         'date' in item
@@ -97,20 +115,29 @@ export function useTimelineData(items: TimelineItem[]) {
       // For each active context item, record this as the first occurrence
       // if we haven't seen it before
       eras.forEach((era) => {
-        if (isActiveAtDate(era, date) && !endOccurrences.eras[era.title]) {
+        if (
+          era.endDate &&
+          isActiveAtDate(era, date) &&
+          !endOccurrences.eras[era.title]
+        ) {
           endOccurrences.eras[era.title] = index
         }
       })
 
       // Similar for jobs and locations
       jobs.forEach((job) => {
-        if (isActiveAtDate(job, date) && !endOccurrences.jobs[job.company]) {
+        if (
+          job.endDate &&
+          isActiveAtDate(job, date) &&
+          !endOccurrences.jobs[job.company]
+        ) {
           endOccurrences.jobs[job.company] = index
         }
       })
 
       locations.forEach((location) => {
         if (
+          location.endDate &&
           isActiveAtDate(location, date) &&
           !endOccurrences.locations[location.name]
         ) {
