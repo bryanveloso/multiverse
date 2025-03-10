@@ -13,7 +13,9 @@ export const Event: FC<TimelineItemProps> = ({
       className="grid col-span-5 grid-cols-subgrid border-t border-amber-500"
       onClick={onActivate}
     >
-      <div className="col-span-5">{item.title}</div>
+      <div className="col-span-5">
+        <div className="p-2">{item.title}</div>
+      </div>
     </div>
   )
 }

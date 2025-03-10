@@ -71,11 +71,11 @@ export const LocationLine: FC<TimelineContext> = (context) => {
       {isEndOfLocation &&
         activeLocations.map((location) => (
           <div
-            key={location.title}
+            key={location.name}
             className="absolute text-[0.5rem] font-bold whitespace-nowrap top-0 uppercase"
             style={{ color: location.color, writingMode: 'vertical-lr' }}
           >
-            {location.title}
+            {location.name}
           </div>
         ))}
     </div>

@@ -14,17 +14,22 @@ export const Gap: FC<TimelineItemProps> = ({
       <JobLine {...context} />
       <LocationLine {...context} />
       <div className="m-auto h-full relative">
-        <div className="size-[9px] bg-amber-500 rounded-full absolute -left-[4px] top-2" />
-        <div className="border-l border-amber-500 w-[1px] h-full" />
+        <div className=" bg-mist rounded absolute -left-[4px] top-2 uppercase text-[10px] p-1">
+          <span>GAP</span>
+        </div>
+        {/* <div className="border-l border-mist w-[1px] h-full" /> */}
       </div>
-      <div className="">
-        {item.title} /{' '}
-        {'date' in item &&
-          item.date.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric'
-          })}
+      <div className="p-4">
+        <h2 className="font-bold">{item.title}</h2>
+        <time>
+          {'date' in item &&
+            item.date.toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric'
+            })}
+        </time>
+        <p className="">{item.description}</p>
       </div>
     </div>
   )

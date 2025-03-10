@@ -66,7 +66,7 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
 
   return (
     <div className="max-w-4xl mx-auto px-4">
-      <div className="grid grid-cols-[36px_36px_36px_16px_1fr]">
+      <div className="grid grid-cols-[36px_36px_36px_16px_1fr] text-sm">
         <div className="grid col-span-5 grid-cols-subgrid">
           <div>E</div>
           <div>J</div>
