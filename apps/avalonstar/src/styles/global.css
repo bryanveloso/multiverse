@@ -1,6 +1,25 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@theme {
+  --color-sage: #BBF4B0;
+  --color-periwinkle: #928ADD;
+  --color-pewter: #6D8591;
+  --color-buttermilk: #FFF683;
+  --color-lime: #5BE058;
+  --color-royal: #6644E8;
+  --color-sky: #1CDAF4;
+  --color-marigold: #FFDD33;
+  --color-frost: #E7F7E7;
+  --color-midnight: #241F33;
+  --color-mist: #B4CBD6;
+  --color-ink: #0D0A11;
+  --color-chalk: #EFEFEF;
+  --color-graphite: #939393;
+  --color-shadow: #23292F;
+  --color-onyx: #1A1F23;  
+}
+
 body {
   @apply antialiased;
 }

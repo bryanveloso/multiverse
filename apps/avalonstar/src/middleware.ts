@@ -1,6 +1,18 @@
 import { defineMiddleware } from "astro:middleware"
 
 export const onRequest = defineMiddleware(async ({ request }, next) => {
+  const url = new URL(request.url)
+
+  // Redirect just the /blog/ index page to /, but not blog posts
+  if (url.pathname === '/blog' || url.pathname === '/blog/') {
+    return new Response(null, {
+      status: 301, // Permanent redirect
+      headers: {
+        Location: '/'
+      }
+    })
+  }
+  
   const response = await next();
 
   // Only process font files.
