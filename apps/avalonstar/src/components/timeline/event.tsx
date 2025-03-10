@@ -9,8 +9,11 @@ export const Event: FC<TimelineItemProps> = ({
   onActivate
 }) => {
   return (
-    <div className="grid col-span-5 grid-cols-subgrid" onClick={onActivate}>
-      <div className="col-span-5 border-t border-amber-500">{item.title}</div>
+    <div
+      className="grid col-span-5 grid-cols-subgrid border-t border-amber-500"
+      onClick={onActivate}
+    >
+      <div className="col-span-5">{item.title}</div>
     </div>
   )
 }

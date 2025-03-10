@@ -61,6 +61,9 @@ export interface TimelineContext {
   activeJobs: TimelineJob[]
   authorAge: number
   significance: number
+  isEndOfEra: boolean
+  isEndOfJob: boolean
+  isEndOfLocation: boolean
 }
 
 // Component props with proper generics

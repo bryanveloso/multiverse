@@ -76,7 +76,7 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
         </div>
 
         {sortedItems.map((item, itemIndex) => {
-          const context = getContextForItem(item)
+          const context = getContextForItem(item, itemIndex)
 
           return (
             <Fragment key={`${item.type}-${itemIndex}`}>

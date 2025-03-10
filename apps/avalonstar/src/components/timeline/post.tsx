@@ -8,8 +8,6 @@ export const Post: FC<TimelineItemProps> = ({
   isActive,
   onActivate
 }) => {
-  console.log(context)
-
   return (
     <div className="grid col-span-5 grid-cols-subgrid" onClick={onActivate}>
       <EraLine {...context} />

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getAuthorAge } from '../utils/age'
 import type {
   TimelineItem,
@@ -13,8 +13,17 @@ import type {
 export function useTimelineData(items: TimelineItem[]) {
   const [activeItem, setActiveItem] = useState<string | null>(null)
 
+  // Function to check if an item is active at a given date
+  const isActiveAtDate = (
+    item: TimelineEra | TimelineLocation | TimelineJob,
+    date: Date
+  ) => {
+    const endDate = item.endDate || new Date()
+    return date >= item.startDate && date <= endDate
+  }
+
   // Memoize processed data to avoid recalculation on re-renders
-  const { sortedItems, eras, locations, jobs } = useMemo(() => {
+  const { sortedItems, eras, locations, jobs, endOccurrences } = useMemo(() => {
     // Filter and sort items by type
     const posts = items
       .filter((item): item is TimelinePost => item.type === 'post')
@@ -70,31 +79,73 @@ export function useTimelineData(items: TimelineItem[]) {
       ...jobEvents
     ].sort((a, b) => b.date.getTime() - a.date.getTime())
 
+    // Calculate end occurances for eras, locations, and jobs
+    const endOccurrences = {
+      eras: {} as Record<string, number>,
+      jobs: {} as Record<string, number>,
+      locations: {} as Record<string, number>
+    }
+
+    sortedItems.forEach((item, index) => {
+      const date =
+        'date' in item
+          ? item.date
+          : 'startDate' in item
+            ? (item as { startDate: Date }).startDate
+            : new Date()
+
+      // For each active context item, record this as the first occurrence
+      // if we haven't seen it before
+      eras.forEach((era) => {
+        if (isActiveAtDate(era, date) && !endOccurrences.eras[era.title]) {
+          endOccurrences.eras[era.title] = index
+        }
+      })
+
+      // Similar for jobs and locations
+      jobs.forEach((job) => {
+        if (isActiveAtDate(job, date) && !endOccurrences.jobs[job.company]) {
+          endOccurrences.jobs[job.company] = index
+        }
+      })
+
+      locations.forEach((location) => {
+        if (
+          isActiveAtDate(location, date) &&
+          !endOccurrences.locations[location.name]
+        ) {
+          endOccurrences.locations[location.name] = index
+        }
+      })
+    })
+
+    console.log(endOccurrences)
+
     return {
       sortedItems,
       eras,
       locations,
-      jobs
+      jobs,
+      endOccurrences
     }
   }, [items])
 
-  // Function to check if an item is active at a given date
-  const isActiveAtDate = (
-    item: TimelineEra | TimelineLocation | TimelineJob,
-    date: Date
-  ) => {
-    const endDate = item.endDate || new Date()
-    return date >= item.startDate && date <= endDate
-  }
-
   // Get context for a specific item
-  const getContextForItem = (item: TimelineItem): TimelineContext => {
+  const getContextForItem = (
+    item: TimelineItem,
+    itemIndex: number
+  ): TimelineContext => {
     const date =
       'date' in item
         ? item.date
         : 'startDate' in item
           ? item.startDate
           : new Date()
+
+    // Filter active eras, locations, and jobs
+    const activeEras = eras.filter((era) => isActiveAtDate(era, date))
+    const activeLocations = locations.filter((loc) => isActiveAtDate(loc, date))
+    const activeJobs = jobs.filter((job) => isActiveAtDate(job, date))
 
     // Calculate significance from the item or use default value
     const significance =
@@ -104,12 +155,26 @@ export function useTimelineData(items: TimelineItem[]) {
           ? 5
           : 3
 
+    // Calculate the ends of eras, locations, and jobs
+    const isEndOfEra = activeEras.some(
+      (era) => endOccurrences.eras[era.title] === itemIndex
+    )
+    const isEndOfJob = activeJobs.some(
+      (job) => endOccurrences.jobs[job.company] === itemIndex
+    )
+    const isEndOfLocation = activeLocations.some(
+      (loc) => endOccurrences.locations[loc.name] === itemIndex
+    )
+
     return {
-      activeEras: eras.filter((era) => isActiveAtDate(era, date)),
-      activeLocations: locations.filter((loc) => isActiveAtDate(loc, date)),
-      activeJobs: jobs.filter((job) => isActiveAtDate(job, date)),
+      activeEras,
+      activeLocations,
+      activeJobs,
       authorAge: getAuthorAge(date),
-      significance
+      significance,
+      isEndOfEra,
+      isEndOfJob,
+      isEndOfLocation
     }
   }
 
