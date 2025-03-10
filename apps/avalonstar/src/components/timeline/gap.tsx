@@ -13,7 +13,7 @@ export const Gap: FC<TimelineItemProps> = ({
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />
-      <div className="m-auto h-full relative">
+      <div className="h-full relative">
         <div className=" bg-mist rounded absolute -left-[4px] top-2 uppercase text-[10px] p-1">
           <span>GAP</span>
         </div>

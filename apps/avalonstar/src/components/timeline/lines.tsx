@@ -18,7 +18,7 @@ export const EraLine: FC<TimelineContext> = (context) => {
         activeEras.map((era) => (
           <div
             key={era.title}
-            className="absolute text-[0.5rem] font-bold whitespace-nowrap top-0 uppercase"
+            className="absolute text-[0.5rem] font-bold whitespace-nowrap top-0 uppercase pl-1"
             style={{ color: era.color, writingMode: 'vertical-lr' }}
           >
             {era.title}
@@ -32,7 +32,7 @@ export const JobLine: FC<TimelineContext> = (context) => {
   const { activeJobs, isEndOfJob } = context
 
   return (
-    <div className="m-auto h-full relative">
+    <div className="h-full relative">
       {activeJobs[0] ? (
         <div
           className="border-r w-[1px] h-full"
@@ -45,7 +45,7 @@ export const JobLine: FC<TimelineContext> = (context) => {
         activeJobs.map((job) => (
           <div
             key={job.title}
-            className="absolute text-[0.5rem] font-bold whitespace-nowrap top-0 uppercase"
+            className="absolute text-[0.5rem] font-bold whitespace-nowrap top-0 uppercase pl-1"
             style={{ color: job.color, writingMode: 'vertical-lr' }}
           >
             {job.company}
@@ -59,10 +59,10 @@ export const LocationLine: FC<TimelineContext> = (context) => {
   const { activeLocations, isEndOfLocation } = context
 
   return (
-    <div className="m-auto h-full relative">
+    <div className="h-full relative">
       {activeLocations[0] ? (
         <div
-          className="border-r w-[1px] h-full"
+          className="border-l w-[1px] h-full"
           style={{ borderColor: activeLocations[0]?.color }}
         ></div>
       ) : (
@@ -72,7 +72,7 @@ export const LocationLine: FC<TimelineContext> = (context) => {
         activeLocations.map((location) => (
           <div
             key={location.name}
-            className="absolute text-[0.5rem] font-bold whitespace-nowrap top-0 uppercase"
+            className="absolute text-[0.5rem] font-bold whitespace-nowrap top-0 uppercase pl-1"
             style={{ color: location.color, writingMode: 'vertical-lr' }}
           >
             {location.name}

@@ -10,7 +10,7 @@ export const Event: FC<TimelineItemProps> = ({
 }) => {
   return (
     <div
-      className="grid col-span-5 grid-cols-subgrid border-t border-amber-500"
+      className="grid col-span-5 grid-cols-subgrid border-t border-mist my-1"
       onClick={onActivate}
     >
       <div className="col-span-5">
