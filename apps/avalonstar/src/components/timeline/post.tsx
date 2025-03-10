@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { TimelineItemProps } from '../../types/timeline'
+import type { TimelineItemProps } from '@/types/timeline'
 import { EraLine, JobLine, LocationLine } from './lines'
 
 export const Post: FC<TimelineItemProps> = ({

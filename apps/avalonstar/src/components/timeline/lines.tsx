@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { TimelineContext } from "../../types/timeline";
+import type { TimelineContext } from '@/types/timeline'
 
 export const EraLine: FC<TimelineContext> = (context) => {
   const { activeEras, isEndOfEra } = context

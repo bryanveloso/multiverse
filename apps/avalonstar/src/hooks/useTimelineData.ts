@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
-import { getAuthorAge } from '../utils/age'
+import { useMemo, useState } from 'react'
 import type {
   TimelineItem,
   TimelinePost,
@@ -8,7 +7,8 @@ import type {
   TimelineJob,
   TimelineGap,
   TimelineContext
-} from '../types/timeline'
+} from '@/types/timeline'
+import { getAuthorAge } from '@/utils/age'
 
 export function useTimelineData(items: TimelineItem[]) {
   const [activeItem, setActiveItem] = useState<string | null>(null)
@@ -118,8 +118,6 @@ export function useTimelineData(items: TimelineItem[]) {
         }
       })
     })
-
-    console.log(endOccurrences)
 
     return {
       sortedItems,

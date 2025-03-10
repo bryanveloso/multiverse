@@ -1,6 +1,6 @@
 import { Fragment, type FC } from 'react'
-import { useTimelineData } from '../../hooks/useTimelineData'
-import type { TimelineItem, TimelineContext } from '../../types/timeline'
+import { useTimelineData } from '@/hooks/useTimelineData'
+import type { TimelineItem, TimelineContext } from '@/types/timeline'
 
 import { Event } from './event'
 import { Post } from './post'

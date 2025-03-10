@@ -1,7 +1,8 @@
 ---
-import Base from '../layouts/Base.astro';
-import Timeline from '../components/timeline';
 import { getCollection } from 'astro:content';
+
+import Base from '@/layouts/Base.astro';
+import Timeline from '@/components/timeline';
 
 // Get content collections
 const posts = (await getCollection('blog')).sort(

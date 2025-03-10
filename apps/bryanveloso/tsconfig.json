@@ -1,3 +1,9 @@
 {
-  "extends": "@multiverse/config/typescript/base"
+  "extends": "@multiverse/config/typescript/base",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
 }
