@@ -9,11 +9,13 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "build:avalonstar": "turbo run build --filter=avalonstar",
     "build:bryanveloso": "turbo run build --filter=bryanveloso",
-    "build:omnyist": "turbo run build --filter=omnyist"
+    "build:omnyist": "turbo run build --filter=omnyist",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "turbo": "^2.4.4",
     "typescript": "^5.8.2"
   },
