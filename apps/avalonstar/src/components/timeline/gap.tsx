@@ -9,12 +9,12 @@ export const Gap: FC<TimelineItemProps> = ({
   onActivate
 }) => {
   return (
-    <div className="grid col-span-5 grid-cols-subgrid" onClick={onActivate}>
+    <div className="col-span-5 grid grid-cols-subgrid" onClick={onActivate}>
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />
-      <div className="h-full relative">
-        <div className=" bg-mist rounded absolute -left-[4px] top-2 uppercase text-[10px] p-1">
+      <div className="relative h-full">
+        <div className="bg-mist absolute top-2 -left-[4px] rounded p-1 text-[10px] uppercase">
           <span>GAP</span>
         </div>
         {/* <div className="border-l border-mist w-[1px] h-full" /> */}

@@ -1,5 +1,5 @@
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { defineCollection, z } from 'astro:content'
+import { glob } from 'astro/loaders'
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: 'src/content/blog' }),
@@ -10,8 +10,9 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
     heroImage: z.string().optional(),
     significance: z.number().min(1).max(5).optional().default(3),
-  }),
-});
+    crosspost: z.boolean().optional().default(false)
+  })
+})
 
 const eras = defineCollection({
   loader: glob({ pattern: '**/*.md', base: 'src/content/eras' }),
@@ -20,9 +21,9 @@ const eras = defineCollection({
     startDate: z.coerce.date(),
     endDate: z.coerce.date().optional(), // Optional for ongoing eras
     description: z.string(),
-    color: z.string().optional(), // Allow custom colors for different eras
-  }),
-});
+    color: z.string().optional() // Allow custom colors for different eras
+  })
+})
 
 const gaps = defineCollection({
   loader: glob({ pattern: '**/*.md', base: 'src/content/gaps' }),
@@ -31,11 +32,11 @@ const gaps = defineCollection({
     date: z.coerce.date(),
     description: z.string().optional(),
     color: z.string().optional(),
-    significance: z.number().min(1).max(5).optional().default(3),
-  }),
-});
+    significance: z.number().min(1).max(5).optional().default(3)
+  })
+})
 
-// Simple location collection 
+// Simple location collection
 const locations = defineCollection({
   loader: glob({ pattern: '**/*.json', base: 'src/content/locations' }),
   schema: z.object({
@@ -43,9 +44,9 @@ const locations = defineCollection({
     startDate: z.coerce.date(),
     endDate: z.coerce.date().optional(),
     description: z.string().optional(),
-    color: z.string().optional(),
-  }),
-});
+    color: z.string().optional()
+  })
+})
 
 // Simple job collection
 const jobs = defineCollection({
@@ -55,14 +56,14 @@ const jobs = defineCollection({
     title: z.string(),
     startDate: z.coerce.date(),
     endDate: z.coerce.date().optional(),
-    description: z.string().optional(),
-  }),
-});
+    description: z.string().optional()
+  })
+})
 
-export const collections = { 
-  blog, 
-  eras, 
+export const collections = {
+  blog,
+  eras,
   gaps,
   locations,
   jobs
-};
+}

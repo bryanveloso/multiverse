@@ -1,14 +1,14 @@
-import type { Config } from 'tailwindcss';
-import defaultTheme from 'tailwindcss/defaultTheme';
+import type { Config } from 'tailwindcss'
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
-    },
-  },
-};
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans]
+      }
+    }
+  }
+}
 
-export default config;
+export default config

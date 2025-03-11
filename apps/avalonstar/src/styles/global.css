@@ -1,23 +1,28 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
+@import '@multiverse/shared/styles/fonts.css';
 
 @theme {
-  --color-sage: #BBF4B0;
-  --color-periwinkle: #928ADD;
-  --color-pewter: #6D8591;
-  --color-buttermilk: #FFF683;
-  --color-lime: #5BE058;
-  --color-royal: #6644E8;
-  --color-sky: #1CDAF4;
-  --color-marigold: #FFDD33;
-  --color-frost: #E7F7E7;
-  --color-midnight: #241F33;
-  --color-mist: #B4CBD6;
-  --color-ink: #0D0A11;
-  --color-chalk: #EFEFEF;
+  --color-sage: #bbf4b0;
+  --color-periwinkle: #928add;
+  --color-pewter: #6d8591;
+  --color-buttermilk: #fff683;
+  --color-lime: #5be058;
+  --color-royal: #6644e8;
+  --color-sky: #1cdaf4;
+  --color-marigold: #ffdd33;
+  --color-frost: #e7f7e7;
+  --color-midnight: #241f33;
+  --color-mist: #b4cbd6;
+  --color-ink: #0d0a11;
+  --color-chalk: #efefef;
   --color-graphite: #939393;
-  --color-shadow: #23292F;
-  --color-onyx: #1A1F23;  
+  --color-shadow: #23292f;
+  --color-onyx: #1a1f23;
+
+  --font-sans: 'Geologica Variable', sans-serif;
+  --font-caps: 'OpticianSans', sans-serif;
+  --font-miedinger: 'Miedinger', sans-serif;
 }
 
 body {

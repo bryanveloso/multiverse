@@ -6,7 +6,7 @@ services:
       args:
         APP_NAME: bryanveloso
     ports:
-      - "4321:3000"
+      - '4321:3000'
     environment:
       - NODE_ENV=production
     restart: unless-stopped
@@ -18,7 +18,7 @@ services:
       args:
         APP_NAME: avalonstar
     ports:
-      - "4322:3000"
+      - '4322:3000'
     environment:
       - NODE_ENV=production
     restart: unless-stopped
@@ -30,10 +30,10 @@ services:
       args:
         APP_NAME: omnyist
     ports:
-      - "4323:3000"
+      - '4323:3000'
     environment:
       - NODE_ENV=production
     restart: unless-stopped
-      
+
   # Cloudflare tunnel service is not included here.
   # Using our existing Cloudflare Zero Trust setup to point domains to these ports.

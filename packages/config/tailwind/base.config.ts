@@ -1,15 +1,15 @@
-import { Config } from 'tailwindcss';
-import defaultTheme from 'tailwindcss/defaultTheme';
+import { Config } from 'tailwindcss'
+import defaultTheme from 'tailwindcss/defaultTheme'
 
-import { fontFamily, fontWeight } from './font.config';
+import { fontFamily, fontWeight } from './font.config'
 
 const config: Config = {
   theme: {
     extend: {
       fontFamily,
-      fontWeight,
-    },
-  },
-};
+      fontWeight
+    }
+  }
+}
 
-export default config;
+export default config

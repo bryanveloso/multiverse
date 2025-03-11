@@ -9,7 +9,7 @@ export default {
       }
     }
   ],
-  linelength: 120,
+  printWidth: 120,
   singleQuote: true,
   semi: false,
   trailingComma: 'none'

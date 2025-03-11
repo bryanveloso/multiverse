@@ -1,13 +1,13 @@
-import type { Config } from 'tailwindcss';
-import baseConfig from '../config/tailwind/base.config';
+import type { Config } from 'tailwindcss'
+import baseConfig from '../config/tailwind/base.config'
 
 const config: Config = {
   ...baseConfig,
   content: [
     './components/**/*.{astro,js,ts,jsx,tsx}',
     './layouts/**/*.{astro,js,ts,jsx,tsx}',
-    './styles/**/*.css',
-  ],
-};
+    './styles/**/*.css'
+  ]
+}
 
-export default config;
+export default config

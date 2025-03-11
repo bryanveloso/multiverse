@@ -65,9 +65,9 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
     useTimelineData(items)
 
   return (
-    <div className="max-w-4xl mx-auto px-4">
+    <div className="mx-auto max-w-4xl px-4">
       <div className="grid grid-cols-[24px_24px_24px_24px_1fr] text-sm">
-        <div className="grid col-span-5 grid-cols-subgrid">
+        <div className="col-span-5 grid grid-cols-subgrid">
           <div>E</div>
           <div>J</div>
           <div>L</div>

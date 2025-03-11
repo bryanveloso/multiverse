@@ -1,36 +1,47 @@
-@layer base {
-  @font-face {
-    font-family: 'Miedinger';
-    src: url('/fonts/miedinger/thin.woff2') format('woff2');
-    font-weight: 100;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Miedinger';
-    src: url('/fonts/miedinger/light.woff2') format('woff2');
-    font-weight: 300;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Miedinger';
-    src: url('/fonts/miedinger/regular.woff2') format('woff2');
-    font-weight: 400;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Miedinger';
-    src: url('/fonts/miedinger/medium.woff2') format('woff2');
-    font-weight: 500;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Miedinger';
-    src: url('/fonts/miedinger/bold.woff2') format('woff2');
-    font-weight: 700;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'Miedinger';
+  src: url('https://cdn.velo.so/fonts/miedinger/thin.woff2') format('woff2');
+  font-weight: 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Miedinger';
+  src: url('https://cdn.velo.so/fonts/miedinger/light.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'Miedinger';
+  src: url('https://cdn.velo.so/fonts/miedinger/regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'Miedinger';
+  src: url('https://cdn.velo.so/fonts/miedinger/medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'Miedinger';
+  src: url('https://cdn.velo.so/fonts/miedinger/bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'OpticianSans';
+  src: url('https://cdn.velo.so/fonts/optiker-k.woff') format('woff');
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  text-rendering: optimizeLegibility;
 }

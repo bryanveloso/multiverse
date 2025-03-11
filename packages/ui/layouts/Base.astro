@@ -1,21 +1,21 @@
 ---
-import { BaseLayout } from '../components/BaseLayout';
-import type { SiteType } from '../components/BaseLayout';
+import { BaseLayout } from '../components/BaseLayout'
+import type { SiteType } from '../components/BaseLayout'
 
 interface Props {
-  title?: string;
-  activeSite: SiteType;
+  title?: string
+  activeSite: SiteType
 }
 
-const { title, activeSite } = Astro.props;
+const { title, activeSite } = Astro.props
 
 const defaultTitles = {
   mind: 'Avalonstar',
   work: 'Bryan Veloso',
-  play: 'Omnyist',
-};
+  play: 'Omnyist'
+}
 
-const pageTitle = title || defaultTitles[activeSite];
+const pageTitle = title || defaultTitles[activeSite]
 ---
 
 <!doctype html>
@@ -27,25 +27,31 @@ const pageTitle = title || defaultTitles[activeSite];
     <title>{pageTitle}</title>
     <slot name="head" />
   </head>
-  <body class="bg-zinc-950 text-gray-900 w-screen">
+  <body class="w-screen bg-zinc-950 text-gray-900">
     <div class="flex h-screen w-screen">
       <!-- Mind (Avalonstar) -->
       <div class={`${activeSite === 'mind' ? 'flex-auto' : 'w-24'} h-screen`}>
         <div>
-          {activeSite === 'mind' ? (
-            <div class="m-6 bg-gray-900">
-              <slot name="mind" />
-            </div>
-          ) : (
-            <div class="h-16 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
-              <a
-                href={import.meta.env.DEV ? `http://localhost:5321` : 'https://avalonstar.com'}
-                class="text-xl font-bold text-gray-500 hover:text-gray-900 truncate px-2"
-              >
-                Avalonstar
-              </a>
-            </div>
-          )}
+          {
+            activeSite === 'mind' ? (
+              <div class="m-6 bg-gray-900">
+                <slot name="mind" />
+              </div>
+            ) : (
+              <div class="flex h-16 items-center justify-center border-b border-gray-200 bg-gray-100">
+                <a
+                  href={
+                    import.meta.env.DEV
+                      ? `http://localhost:5321`
+                      : 'https://avalonstar.com'
+                  }
+                  class="truncate px-2 text-xl font-bold text-gray-500 hover:text-gray-900"
+                >
+                  Avalonstar
+                </a>
+              </div>
+            )
+          }
         </div>
       </div>
 
@@ -54,40 +60,52 @@ const pageTitle = title || defaultTitles[activeSite];
         class={`${activeSite === 'work' ? 'flex-1' : 'w-[256px]'} h-screen p-6 work bg-amber-50 px-6`}
       >
         <div>
-          {activeSite === 'work' ? (
-            <div class="p-6">
-              <slot name="work" />
-            </div>
-          ) : (
-            <div class="h-screen items-center justify-center">
-              <a
-                href={import.meta.env.DEV ? `http://localhost:5322` : 'https://bryanveloso.com'}
-                class=""
-              >
-                <div class="transform -rotate-90">Bryan Veloso</div>
-              </a>
-            </div>
-          )}
+          {
+            activeSite === 'work' ? (
+              <div class="p-6">
+                <slot name="work" />
+              </div>
+            ) : (
+              <div class="h-screen items-center justify-center">
+                <a
+                  href={
+                    import.meta.env.DEV
+                      ? `http://localhost:5322`
+                      : 'https://bryanveloso.com'
+                  }
+                  class=""
+                >
+                  <div class="-rotate-90 transform">Bryan Veloso</div>
+                </a>
+              </div>
+            )
+          }
         </div>
       </div>
 
       <!-- Play (Omnyist) -->
       <div class={`${activeSite === 'play' ? 'flex-1' : 'w-24'} h-screen`}>
         <div>
-          {activeSite === 'play' ? (
-            <div class="p-6">
-              <slot name="play" />
-            </div>
-          ) : (
-            <div class="p-6">
-              <a
-                href={import.meta.env.DEV ? `http://localhost:5323` : 'https://omnyist.com'}
-                class=""
-              >
-                Omnyist
-              </a>
-            </div>
-          )}
+          {
+            activeSite === 'play' ? (
+              <div class="p-6">
+                <slot name="play" />
+              </div>
+            ) : (
+              <div class="p-6">
+                <a
+                  href={
+                    import.meta.env.DEV
+                      ? `http://localhost:5323`
+                      : 'https://omnyist.com'
+                  }
+                  class=""
+                >
+                  Omnyist
+                </a>
+              </div>
+            )
+          }
         </div>
       </div>
     </div>
