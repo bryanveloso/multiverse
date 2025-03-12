@@ -14,13 +14,7 @@ interface RenderTimelineItemProps {
   setActiveItem: (id: string | null) => void
 }
 
-const renderTimelineItem: FC<RenderTimelineItemProps> = ({
-  item,
-  itemIndex,
-  context,
-  activeItem,
-  setActiveItem
-}) => {
+const renderTimelineItem: FC<RenderTimelineItemProps> = ({ item, itemIndex, context, activeItem, setActiveItem }) => {
   const isActive = activeItem === `${item.type}-${itemIndex}`
   const itemId = `${item.type}-${itemIndex}`
 
@@ -55,42 +49,38 @@ const renderTimelineItem: FC<RenderTimelineItemProps> = ({
     default: () => <div className="">Unknown item type: {item.type}</div>
   }
 
-  const renderFunction =
-    componentMap[item.type as keyof typeof componentMap] || componentMap.default
+  const renderFunction = componentMap[item.type as keyof typeof componentMap] || componentMap.default
   return renderFunction()
 }
 
 export default function Timeline({ items }: { items: TimelineItem[] }) {
-  const { sortedItems, activeItem, setActiveItem, getContextForItem } =
-    useTimelineData(items)
+  const { sortedItems, activeItem, setActiveItem, getContextForItem } = useTimelineData(items)
 
   return (
-    <div className="mx-auto max-w-4xl px-4">
-      <div className="grid grid-cols-[24px_24px_24px_24px_1fr] text-sm">
-        <div className="col-span-5 grid grid-cols-subgrid">
-          <div>E</div>
-          <div>J</div>
-          <div>L</div>
-          <div>T</div>
-          <div>P</div>
-        </div>
-
-        {sortedItems.map((item, itemIndex) => {
-          const context = getContextForItem(item, itemIndex)
-
-          return (
-            <Fragment key={`${item.type}-${itemIndex}`}>
-              {renderTimelineItem({
-                item,
-                itemIndex,
-                context,
-                activeItem,
-                setActiveItem
-              })}
-            </Fragment>
-          )
-        })}
+    <>
+      <div className="col-span-5 grid grid-cols-subgrid">
+        <div>E</div>
+        <div>J</div>
+        <div>L</div>
+        <div>T</div>
+        <div>P</div>
       </div>
-    </div>
+
+      {sortedItems.map((item, itemIndex) => {
+        const context = getContextForItem(item, itemIndex)
+
+        return (
+          <Fragment key={`${item.type}-${itemIndex}`}>
+            {renderTimelineItem({
+              item,
+              itemIndex,
+              context,
+              activeItem,
+              setActiveItem
+            })}
+          </Fragment>
+        )
+      })}
+    </>
   )
 }

@@ -46,13 +46,7 @@ interface TimelineJob extends TimelineRangeItem {
 }
 
 // Union of all direct timeline items
-export type TimelineItem =
-  | TimelinePost
-  | TimelineGap
-  | TimelineEra
-  | TimelineLocation
-  | TimelineJob
-  | TimelineEvent
+export type TimelineItem = TimelinePost | TimelineGap | TimelineEra | TimelineLocation | TimelineJob | TimelineEvent
 
 // Context data for a specific timeline point
 export interface TimelineContext {

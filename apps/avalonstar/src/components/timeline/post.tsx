@@ -4,12 +4,7 @@ import { cn } from '@/utils/style'
 
 import { EraLine, JobLine, LocationLine } from './lines'
 
-export const Post: FC<TimelineItemProps> = ({
-  item,
-  context,
-  isActive,
-  onActivate
-}) => {
+export const Post: FC<TimelineItemProps> = ({ item, context, isActive, onActivate }) => {
   const href = `/blog/${item.id.substring(0, 4)}/${item.id.split('-').slice(3).join('-')}`
 
   return (
@@ -17,19 +12,12 @@ export const Post: FC<TimelineItemProps> = ({
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />
-      <div className="relative m-auto h-full">
+      <div className="relative h-full">
         {/* <div className="size-[9px] bg-mist rounded-full absolute -left-[4px] top-2" /> */}
-        <div className="border-mist h-full w-[1px] border-l" />
+        <div className="h-full w-[1px] border-l dark:border-white/20" />
       </div>
       <div className="p-4">
-        <h2
-          className={cn('font-caps font-bold dark:text-white', {
-            'text-2xl': item.significance === 5
-          })}
-        >
-          <a href={href}>{item.title}</a>
-        </h2>
-        <time className="font-xs">
+        <time className="font-caps font-xs">
           {'date' in item &&
             item.date.toLocaleDateString('en-US', {
               month: 'long',
@@ -37,7 +25,14 @@ export const Post: FC<TimelineItemProps> = ({
               year: 'numeric'
             })}
         </time>
-        {item.significance > 3 && <p>{item.description}</p>}
+        <h2
+          className={cn('dark:text-white', {
+            'text-2xl': item.significance >= 4
+          })}
+        >
+          <a href={href}>{item.title}</a>
+        </h2>
+        {item.significance > 3 && <p className="dark:text-mist max-w-prose text-pretty">{item.description}</p>}
       </div>
     </div>
   )
