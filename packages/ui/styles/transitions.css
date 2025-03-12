@@ -1,0 +1,14 @@
+:root {
+  --transition-duration: 2s;
+  --source-color: transparent;
+  --target-color: var(--site-color, #fff);
+}
+
+html {
+  background-color: var(--target-color);
+  transition: background-color var(--transition-duration) ease;
+}
+
+html[data-from-site] {
+  background-color: var(--source-color);
+}
