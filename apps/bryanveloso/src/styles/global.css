@@ -21,4 +21,11 @@
   --color-cool-grey: oklch(0.79 0.012 255);
   --color-mid-grey: oklch(0.71 0.012 260);
   --color-dark-grey: oklch(0.4 0.012 265);
+
+  --font-hero: 'Gloock', serif;
+  --font-sans: 'Work Sans Variable', sans-serif;
+}
+
+body {
+  @apply antialiased;
 }
