@@ -12,8 +12,10 @@ export default defineConfig({
   },
   site: 'https://avalonstar.com',
   integrations: [mdx(), react(), sitemap()],
+  experimental: {
+    svg: true
+  },
   vite: {
-    // @ts-ignore - Works fine, but the types are wrong.
     plugins: [tailwindcss()]
   }
 })
