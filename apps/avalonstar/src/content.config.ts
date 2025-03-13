@@ -3,15 +3,16 @@ import { glob } from 'astro/loaders'
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: 'src/content/blog' }),
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    description: z.string().optional(),
-    updatedDate: z.coerce.date().optional(),
-    heroImage: z.string().optional(),
-    significance: z.number().min(1).max(5).optional().default(3),
-    crosspost: z.boolean().optional().default(false)
-  })
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      date: z.coerce.date(),
+      description: z.string().optional(),
+      updatedDate: z.coerce.date().optional(),
+      heroImage: image().optional(),
+      significance: z.number().min(1).max(5).optional().default(3),
+      crosspost: z.boolean().optional().default(false)
+    })
 })
 
 const eras = defineCollection({
@@ -36,7 +37,6 @@ const gaps = defineCollection({
   })
 })
 
-// Simple location collection
 const locations = defineCollection({
   loader: glob({ pattern: '**/*.json', base: 'src/content/locations' }),
   schema: z.object({
@@ -48,7 +48,6 @@ const locations = defineCollection({
   })
 })
 
-// Simple job collection
 const jobs = defineCollection({
   loader: glob({ pattern: '**/*.json', base: 'src/content/jobs' }),
   schema: z.object({
@@ -56,7 +55,8 @@ const jobs = defineCollection({
     title: z.string(),
     startDate: z.coerce.date(),
     endDate: z.coerce.date().optional(),
-    description: z.string().optional()
+    description: z.string().optional(),
+    color: z.string().optional()
   })
 })
 
