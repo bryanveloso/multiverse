@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import type { TimelineItemProps } from '@/types/timeline'
 import { EraLine, JobLine, LocationLine } from './lines'
 
-export const Event: FC<TimelineItemProps> = ({
+export const Era: FC<TimelineItemProps> = ({
   item,
   itemIndex,
   context,
@@ -18,9 +18,8 @@ export const Event: FC<TimelineItemProps> = ({
         <div className="h-full w-[1px] border-l dark:border-white/20" />
       </div>
       <div className="border-b dark:border-white/10">
-        <div className="p-4 uppercase text-xs font-bold">
-          {item.type === 'era' && <span>item.title</span>}
-          {item.era && item.title}
+        <div className="p-4 py-6 uppercase text-xs font-bold">
+          {item.title}
         </div>
       </div>
     </div>

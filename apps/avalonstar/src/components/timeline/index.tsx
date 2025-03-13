@@ -5,6 +5,8 @@ import type { TimelineItem, TimelineContext } from '@/types/timeline'
 import { Event } from './event'
 import { Post } from './post'
 import { Gap } from './gap'
+import { Era } from './era'
+import { Job } from './job'
 
 interface RenderTimelineItemProps {
   item: TimelineItem
@@ -14,11 +16,26 @@ interface RenderTimelineItemProps {
   setActiveItem: (id: string | null) => void
 }
 
-const renderTimelineItem: FC<RenderTimelineItemProps> = ({ item, itemIndex, context, activeItem, setActiveItem }) => {
+const renderTimelineItem: FC<RenderTimelineItemProps> = ({
+  item,
+  itemIndex,
+  context,
+  activeItem,
+  setActiveItem
+}) => {
   const isActive = activeItem === `${item.type}-${itemIndex}`
   const itemId = `${item.type}-${itemIndex}`
 
   const componentMap = {
+    era: () => (
+      <Era
+        item={item}
+        itemIndex={itemIndex}
+        context={context}
+        isActive={isActive}
+        onActivate={() => setActiveItem(itemId)}
+      />
+    ),
     event: () => (
       <Event
         item={item}
@@ -30,6 +47,15 @@ const renderTimelineItem: FC<RenderTimelineItemProps> = ({ item, itemIndex, cont
     ),
     gap: () => (
       <Gap
+        item={item}
+        itemIndex={itemIndex}
+        context={context}
+        isActive={isActive}
+        onActivate={() => setActiveItem(itemId)}
+      />
+    ),
+    job: () => (
+      <Job
         item={item}
         itemIndex={itemIndex}
         context={context}
@@ -49,7 +75,8 @@ const renderTimelineItem: FC<RenderTimelineItemProps> = ({ item, itemIndex, cont
     default: () => <div className="">Unknown item type: {item.type}</div>
   }
 
-  const renderFunction = componentMap[item.type as keyof typeof componentMap] || componentMap.default
+  const renderFunction =
+    componentMap[item.type as keyof typeof componentMap] || componentMap.default
   return renderFunction()
 }
 
@@ -59,9 +86,65 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
   return (
     <>
       <div className="col-span-5 grid grid-cols-subgrid">
-        <div>E</div>
-        <div>J</div>
-        <div>L</div>
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            id="Hourglass-Flip--Streamline-Nova"
+            className="size-4"
+          >
+            <path
+              fill="currentColor"
+              fillRule="evenodd"
+              d="M3 0c-0.55228 0 -1 0.447715 -1 1v6.5c0 0.37877 0.214 0.72503 0.55279 0.89443L9.76393 12l-7.21114 3.6056C2.214 15.775 2 16.1212 2 16.5V23c0 0.5523 0.44772 1 1 1h18c0.5523 0 1 -0.4477 1 -1v-6.5c0 -0.3788 -0.214 -0.725 -0.5528 -0.8944L14.2361 12l7.2111 -3.60557C21.786 8.22503 22 7.87877 22 7.5V1c0 -0.552285 -0.4477 -1 -1 -1H3Zm2.27775 7.52084L12 5l6.7222 2.52084L20 6.88197V2H4v4.88197l1.27775 0.63887ZM4 17.118l8 -4 8 4V22H4v-4.882Z"
+              clipRule="evenodd"
+              strokeWidth={1}
+            />
+          </svg>
+        </div>
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            id="Toolbox--Streamline-Nova"
+            className="size-4"
+          >
+            <desc>{'Toolbox Streamline Icon: https://streamlinehq.com'}</desc>
+            <path
+              fill="currentColor"
+              fillRule="evenodd"
+              d="M8 0c-0.55228 0 -1 0.447715 -1 1v4H1c-0.552285 0 -1 0.44772 -1 1v9c0 0.5523 0.447715 1 1 1v7c0 0.5523 0.44772 1 1 1h20c0.5523 0 1 -0.4477 1 -1v-7c0.5523 0 1 -0.4477 1 -1V6c0 -0.55228 -0.4477 -1 -1 -1h-6V1c0 -0.552285 -0.4477 -1 -1 -1H8Zm7 5V2H9v3h6Zm6 11h-6v1c0 0.5523 -0.4477 1 -1 1h-4c-0.55229 0 -1 -0.4477 -1 -1v-1H3v6h18v-6Zm1 -2h-7v-1c0 -0.5523 -0.4477 -1 -1 -1h-4c-0.55229 0 -1 0.4477 -1 1v1H2V7h20v7Zm-11 2h2v-2h-2v2Z"
+              clipRule="evenodd"
+              strokeWidth={1}
+            />
+          </svg>
+        </div>
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            className="size-4"
+          >
+            <desc>
+              {'Map Pin Home Streamline Icon: https://streamlinehq.com'}
+            </desc>
+            <path
+              stroke="currentColor"
+              strokeLinejoin="round"
+              strokeMiterlimit={10}
+              strokeWidth={2}
+              d="M20 8.79999C20 13.1 12 22.8 12 22.8S4 13.1 4 8.79999C4 4.49999 7.6 1 12 1s8 3.49999 8 7.79999Z"
+            />
+            <path
+              fill="currentColor"
+              d="M12 5 7 9h2v4h2v-3h2v3h2V9h2l-5 -4Z"
+              strokeWidth={1}
+            />
+          </svg>
+        </div>
         <div></div>
         <div></div>
       </div>

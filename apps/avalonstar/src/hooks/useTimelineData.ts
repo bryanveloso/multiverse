@@ -44,7 +44,7 @@ export function useTimelineData(items: TimelineItem[]) {
 
     // Create events for each era, location, and job
     const eraEvents = eras.map((era) => ({
-      type: 'event' as const,
+      type: 'era' as const,
       title: `${era.title}`,
       date: era.startDate,
       color: era.color || '#6B7280',
@@ -60,10 +60,11 @@ export function useTimelineData(items: TimelineItem[]) {
     }))
 
     const jobEvents = jobs.map((job) => ({
-      type: 'event' as const,
-      title: `Started at ${job.company} as ${job.title}`,
+      type: 'job' as const,
+      title: job.title,
+      company: job.company,
       date: job.startDate,
-      color: '#10B981',
+      color: job.color || '#10B981',
       data: job
     }))
 

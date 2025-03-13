@@ -9,14 +9,14 @@ export const Gap: FC<TimelineItemProps> = ({ item, context, isActive, onActivate
       <JobLine {...context} />
       <LocationLine {...context} />
       <div className="relative h-full flex flex-col justify-between">
-        <div className="h-[1px] w-4 bg-white/20" />
+        <div className="h-[1px] w-3 bg-white/20 relative -mt-[1px]" />
         <div
-          className="text-[10px] uppercase text-white/20"
+          className="text-[10px] uppercase font-bold text-white/20"
           style={{ writingMode: 'vertical-lr' }}
         >
           GAP
         </div>
-        <div className="h-[1px] w-4 bg-white/20" />
+        <div className="h-[1px] w-3 bg-white/20" />
       </div>
       <div className="p-4 py-6">
         <time className="font-caps font-xs text-graphite">

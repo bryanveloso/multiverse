@@ -32,12 +32,8 @@ export const Post: FC<TimelineItemProps> = ({ item, context, isActive, onActivat
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                id="Cross-Over-2--Streamline-Nova"
                 className="size-3"
               >
-                <desc>
-                  {'Cross Over 2 Streamline Icon: https://streamlinehq.com'}
-                </desc>
                 <path
                   fill="currentColor"
                   fillRule="evenodd"
