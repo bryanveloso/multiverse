@@ -1,8 +1,16 @@
 ---
+import '@fontsource/gloock'
+import '@fontsource-variable/work-sans';
+
 import BaseHead from '@/components/base-head.astro'
 import Header from '@/components/header.astro'
 
+import Contours from '@/assets/contours.svg'
+import ChevronTL from '@/assets/chevron-tl.svg'
+import Katakana from '@/assets/katakana.svg'
+
 import '../styles/global.css'
+import { Image } from 'astro:assets'
 
 type SiteType = 'mind' | 'work' | 'play'
 
@@ -34,16 +42,35 @@ const pageTitle = title || defaultTitles[activeSite]
   <head>
     <BaseHead title={pageTitle} description={description} image={image} />
   </head>
-  <body class="dark:bg-cool-black dark:text-white-frost w-screen h-dvh">
+  <body
+    class="dark:bg-midnight-blue bg-gradient-to-b dark:from-cool-black to-midnight-blue to-75% dark:text-white-frost w-screen relative"
+  >
+    <div aria-hidden="true" class="absolute mix-blend-soft-light">
+    </div>
     <div
-      class="grid grid-cols-1 md:grid-cols-[48px_1fr_48px] w-screen relative gap-2"
+      aria-hidden="true"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full mix-blend-overlay"
+    >
+      <Contours />
+    </div>
+    <div
+      class="relative grid w-screen grid-cols-1 gap-2 md:grid-cols-[48px_1fr_48px]"
     >
       <!-- Mind (Avalonstar) -->
       <div class="relative hidden md:block">
         <div class="sticky top-0 p-2 pr-0">
-          <a href={import.meta.env.DEV ? `http://localhost:5321` : 'https://avalonstar.com'}>
-            <div class="bg-amber-100 h-[calc(100dvh-1rem)] rounded flex justify-center">
-              <div class="pt-4 uppercase text-xs" style={{ writingMode: 'vertical-rl' }}>
+          <a
+            href={import.meta.env.DEV
+              ? `http://localhost:5321`
+              : 'https://avalonstar.com'}
+          >
+            <div
+              class="flex h-[calc(100dvh-1rem)] justify-center rounded "
+            >
+              <div
+                class="pt-4 text-xs uppercase"
+                style={{ writingMode: 'vertical-rl' }}
+              >
                 <strong>mind</strong> &mdash; avalonstar
               </div>
             </div>
@@ -52,7 +79,12 @@ const pageTitle = title || defaultTitles[activeSite]
       </div>
 
       <!-- Work (Bryan Veloso) -->
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div aria-hidden="true" class="absolute mt-6 flex items-center gap-2 mix-blend-soft-light">
+          <ChevronTL class="w-8 h-8 text-sky-blue" />
+          <Katakana class="h-4 text-white" />
+        </div>
+
         <Header />
         <slot />
       </div>
@@ -65,8 +97,13 @@ const pageTitle = title || defaultTitles[activeSite]
               ? `http://localhost:5323`
               : 'https://omnyist.com'}
           >
-            <div class="bg-blue-100 h-[calc(100dvh-1rem)] rounded flex justify-center">
-              <div class="pt-4 uppercase text-xs" style={{ writingMode: 'vertical-rl' }}>
+            <div
+              class="flex h-[calc(100dvh-1rem)] justify-center rounded "
+            >
+              <div
+                class="pt-4 text-xs uppercase"
+                style={{ writingMode: 'vertical-rl' }}
+              >
                 <strong>play</strong> &mdash; omnyist
               </div>
             </div>
