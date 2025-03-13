@@ -1,0 +1,74 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+import FormattedDate from '@/components/FormattedDate.astro'
+import LegacyDisclaimer from '@/components/blog/legacy-disclaimer.astro'
+import PostContext from '@/components/blog/post-context.astro'
+
+import Base from './base.astro'
+import { cn } from '@/utils/style'
+import { Image } from 'astro:assets'
+
+type Props = CollectionEntry<'blog'>['data']
+
+const { title, description, date, updatedDate, heroImage } = Astro.props
+
+const isLegacyPost = date.getFullYear() < 2015
+
+// We have so many overrides for Tailwind's Typography system that we need to apply them here.
+const prose =
+  'prose prose-em:font-serif prose-lead:text-md prose-lead:font-light dark:prose-lead:text-mist dark:prose-invert'
+---
+
+<Base title={title} description={description}>
+  <div>
+    {
+      heroImage && (
+        <div class="mb-6">
+          <Image class="w-full shadow-md" width={1020} height={510} src={heroImage} alt="" />
+        </div>
+      )
+    }
+
+    <div class="mb-6">
+      <div class="mb-2 flex items-start justify-between">
+        <div>
+          <FormattedDate date={date} />
+          {
+            updatedDate && (
+              <span class="ml-2 italic">
+                (Updated: <FormattedDate date={updatedDate} />)
+              </span>
+            )
+          }
+        </div>
+      </div>
+      <h1 class="font-caps mb-4 text-4xl font-bold">{title}</h1>
+    </div>
+    <article
+      class={cn(
+        `prose ${prose}`,
+        `grid grid-cols-[1fr_auto_1fr] gap-x-4 lg:grid-cols-[1fr_65ch_1fr] lg:gap-x-8 [&>*]:col-2`
+      )}
+    >
+      <div
+        class="h-48 border-x border-x-current bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed text-gray-950/5 max-sm:hidden"
+      >
+      </div>
+      <PostContext date={date} />
+
+      {isLegacyPost && <LegacyDisclaimer />}
+
+      <div class="">
+        <slot />
+      </div>
+
+      <div class="mt-8 border-t border-gray-200 pt-6">
+        <a href="/" class="text-green-600 hover:text-green-700">← Back to Timeline</a>
+      </div>
+    </article>
+
+    <!-- Post Context Sidebar -->
+    <aside class="hidden md:block"></aside>
+  </div>
+</Base>
