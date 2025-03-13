@@ -62,8 +62,8 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
         <div>E</div>
         <div>J</div>
         <div>L</div>
-        <div>T</div>
-        <div>P</div>
+        <div></div>
+        <div></div>
       </div>
 
       {sortedItems.map((item, itemIndex) => {

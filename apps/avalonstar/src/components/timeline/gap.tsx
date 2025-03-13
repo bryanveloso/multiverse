@@ -8,14 +8,18 @@ export const Gap: FC<TimelineItemProps> = ({ item, context, isActive, onActivate
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />
-      <div className="relative h-full">
-        <div className="absolute top-2 -left-[4px] rounded p-1 text-[10px] uppercase">
-          <span>GAP</span>
+      <div className="relative h-full flex flex-col justify-between">
+        <div className="h-[1px] w-4 bg-white/20" />
+        <div
+          className="text-[10px] uppercase text-white/20"
+          style={{ writingMode: 'vertical-lr' }}
+        >
+          GAP
         </div>
-        {/* <div className="border-l border-mist w-[1px] h-full" /> */}
+        <div className="h-[1px] w-4 bg-white/20" />
       </div>
-      <div className="p-4">
-        <time className="font-caps font-xs">
+      <div className="p-4 py-6">
+        <time className="font-caps font-xs text-graphite">
           {'date' in item &&
             item.date.toLocaleDateString('en-US', {
               month: 'long',
