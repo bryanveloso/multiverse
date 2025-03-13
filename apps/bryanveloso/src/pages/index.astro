@@ -1,69 +1,67 @@
 ---
-import Base from '../layouts/base.astro'
+import { getCollection, render } from 'astro:content'
+
+import Base from '@/layouts/base.astro'
 
 import '../styles/global.css'
+
+// Get content collections.
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.shipDate.valueOf() - a.data.shipDate.valueOf()
+)
+const quotes = await getCollection('quotes')
 ---
 
 <Base title="bryanvelo.so" description="The work of Bryan Veloso.">
-  <div class="max-w-4xl mx-auto">
-    <h1>I am not your typical web designer.</h1>
-    <p>I am a creative driven by my hobbies. I am unapologetic when I fight for end users. I thrive on supporting the unsupported. I believe AI exists to support and not supplant.</p>
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-      <a href="/portfolio" class="group">
-        <div
-          class="bg-white p-6 rounded-lg shadow-sm transition duration-200 hover:shadow-md"
-        >
-          <h2 class="text-xl font-semibold mb-2 group-hover:text-amber-700">
-            Portfolio
-          </h2>
-          <p class="text-gray-600 mb-4">
-            View my professional work across companies like GitHub, Twitch, and
-            Facebook, as well as personal projects.
-          </p>
-          <div class="text-amber-700 flex items-center">
-            <span>View portfolio</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4 ml-1 transition-transform duration-200 group-hover:translate-x-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"></path>
-            </svg>
-          </div>
-        </div>
-      </a>
+  <div class="mx-auto max-w-4xl">
+    <p
+      class="max-w-prose font-hero text-2xl sm:text-4xl bg-gradient-to-r from-cloud-grey/60 to-cloud-grey bg-clip-text text-transparent [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)]"
+    >
+      <span
+        class="text-white before:border-t-2 before:border-t-amber-50 before:w-full"
+        >I am weird.</span
+      > I am a creative driven by my hobbies. I am unapologetic when I fight for
+      end users. I thrive on supporting the unsupported. I believe in the power of
+      tech, not tech bros. I am a child of the original web standards movement. I
+      am a designer who codes. I influence without being an &ldquo;influencer.&rdquo;
+      <span class="text-sky-blue">I am not your typical tech professional.</span
+      >
+    </p>
 
-      <div class="bg-white p-6 rounded-lg shadow-sm">
-        <h2 class="text-xl font-semibold mb-2">About Me</h2>
-        <p class="text-gray-600 mb-4">
-          I specialize in user interface design, with a focus on creating
-          experiences that are both visually appealing and highly functional.
-        </p>
-        <p class="text-gray-600">
-          When I'm not designing, I enjoy streaming, gaming, and sharing my
-          knowledge with the community.
-        </p>
-      </div>
-
-      <div>
-“The guy that said "HOLY!" during the [Final Fantasy XIV] Shadowbringers E3 trailer.”
-—Fusionx, @rofldrg
-“Who remembers the OG’s of the web? 456 Berea Street, Stop Design, Mezzoblue, Avalonstar, SimpleBits, Authentic Boredom… Miss those days.”
-—Noah Stokes, @motherfuton
-“Wait until you see what he can do with a semicolon.”
-—Michael McHugh, @mmchugh
-“What's the equivalent of punk rock but for the tech industry? Because I feel like you are it.”
-—Elsie Ng, @_elsieng
-“He did that bowling thing, but that was it. 😜”
-—Dustin Diaz, @ded        
-      </div>
+    <div>
+      {
+        quotes.map((quote) => {
+          return (
+            <div class="mt-8">
+              <blockquote class="text-lg font-serif italic">
+                {quote.data.text}
+              </blockquote>
+              <cite class="block mt-2 text-sm font-medium">
+                {quote.data.author.name},{' '}
+                <a href={quote.data.author.url}>{quote.data.author.handle}</a>
+              </cite>
+            </div>
+          )
+        })
+      }
     </div>
 
+    <div>
+    {
+      projects.map(async (project) => {
+        const { Content } = await render(project)
+
+        return (
+          <div class="mt-8">
+            <h2 class="">{project.data.title}</h2>
+            <div class="">{project.data.shipDate}</div>
+            <div class="">
+              <Content />
+            </div>
+          </div>
+        )
+      })
+    }
+    </div>
   </div>
 </Base>
