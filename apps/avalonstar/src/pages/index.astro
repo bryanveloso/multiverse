@@ -1,20 +1,21 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from 'astro:content'
 
-import Base from '@/layouts/base.astro';
-import Timeline from '@/components/timeline';
+import Base from '@/layouts/base.astro'
+import Timeline from '@/components/timeline'
+import Footer from '@/components/footer.astro'
+import Header from '@/components/header.astro'
+
+import ChevronTL from '@/assets/chevron-tl.svg'
+import Katakana from '@/assets/katakana.svg'
+import { cn } from '@/utils/style'
 
 // Get content collections
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
-
-const eras = await getCollection('eras');
-const gaps = await getCollection('gaps');
-
-// Get new collections (may be empty initially)
-const locations = await getCollection('locations').catch(() => []);
-const jobs = await getCollection('jobs').catch(() => []);
+const eras = await getCollection('eras')
+const gaps = await getCollection('gaps')
+const jobs = await getCollection('jobs')
+const locations = await getCollection('locations')
+const posts = await getCollection('blog')
 
 // Combine all into timeline items
 const timelineItems = [
@@ -26,6 +27,7 @@ const timelineItems = [
     description: post.data.description,
     id: post.id,
     significance: post.data.significance || 3,
+    crosspost: post.data.crosspost
   })),
 
   // Major life eras
@@ -35,7 +37,7 @@ const timelineItems = [
     startDate: era.data.startDate,
     endDate: era.data.endDate || new Date(),
     description: era.data.description,
-    color: era.data.color,
+    color: era.data.color
   })),
 
   // Life events/gaps
@@ -45,7 +47,7 @@ const timelineItems = [
     date: gap.data.date,
     description: gap.data.description,
     color: gap.data.color,
-    significance: gap.data.significance || 3,
+    significance: gap.data.significance || 3
   })),
 
   // Locations lived
@@ -55,7 +57,7 @@ const timelineItems = [
     startDate: location.data.startDate,
     endDate: location.data.endDate,
     description: location.data.description,
-    color: location.data.color,
+    color: location.data.color
   })),
 
   // Jobs held
@@ -66,12 +68,32 @@ const timelineItems = [
     startDate: job.data.startDate,
     endDate: job.data.endDate,
     description: job.data.description,
-  })),
-];
+    color: job.data.color
+  }))
+]
 ---
 
-<Base title="Avalonstar" description="The mind of Bryan Veloso.">
-  <h1 class="text-4xl font-bold mb-6">Avalonstar</h1>
-
-  <Timeline items={timelineItems} />
+<Base title="Avalonstar">
+  <div class="grid grid-cols-1 gap-8 md:grid-cols-[1fr_3fr]">
+    <div
+      class="col-start-1 row-span-full bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat [--pattern-fg:var(--color-black)]/5 md:block dark:[--pattern-fg:var(--color-white)]/10"
+    >
+    </div>
+    <div
+      class={cn('col-start-1 grid grid-cols-[repeat(3,var(--event-line-width))_48px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px]')}
+    >
+      <div
+        aria-hidden="true"
+        class="absolute mt-6 flex items-center gap-2 mix-blend-soft-light"
+      >
+        <ChevronTL class="w-8 h-8 text-sage" />
+        <Katakana class="h-4 text-white" />
+      </div>
+      <Header />
+      <main class="col-span-5 grid grid-cols-subgrid text-sm">
+        <Timeline items={timelineItems} />
+      </main>
+      <Footer />
+    </div>
+  </div>
 </Base>

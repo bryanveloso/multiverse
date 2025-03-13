@@ -14,7 +14,7 @@ export const Post: FC<TimelineItemProps> = ({ item, context, isActive, onActivat
       <LocationLine {...context} />
       <div className="relative h-full">
         {/* <div className="size-[9px] bg-mist rounded-full absolute -left-[4px] top-2" /> */}
-        <div className="h-full w-[1px] border-l dark:border-white/20" />
+        <div className="h-full w-[1px] border-l dark:border-timeline" />
       </div>
       <div className="p-4">
         <div className="flex font-caps">

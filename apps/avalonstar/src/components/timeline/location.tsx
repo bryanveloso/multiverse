@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import type { TimelineItemProps } from '@/types/timeline'
 import { EraLine, JobLine, LocationLine } from './lines'
 
-export const Job: FC<TimelineItemProps> = ({
+export const Location: FC<TimelineItemProps> = ({
   item,
   itemIndex,
   context,
@@ -18,10 +18,7 @@ export const Job: FC<TimelineItemProps> = ({
         <div className="h-full w-[1px] border-l dark:border-timeline" />
       </div>
       <div className="border-b dark:border-timeline">
-        <div className="p-4 py-6 uppercase text-xs font-bold">
-          <div>{item.title}</div>
-          <div>{item.company}</div>
-        </div>
+        <div className="p-4 py-6 uppercase text-xs font-bold">{item.title}</div>
       </div>
     </div>
   )

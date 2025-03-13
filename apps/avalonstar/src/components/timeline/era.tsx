@@ -14,13 +14,11 @@ export const Era: FC<TimelineItemProps> = ({
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />
-      <div className="relative h-full border-b dark:border-white/10">
-        <div className="h-full w-[1px] border-l dark:border-white/20" />
+      <div className="relative h-full border-b dark:border-timeline">
+        <div className="h-full w-[1px] border-l dark:border-timeline" />
       </div>
-      <div className="border-b dark:border-white/10">
-        <div className="p-4 py-6 uppercase text-xs font-bold">
-          {item.title}
-        </div>
+      <div className="border-b dark:border-timeline">
+        <div className="p-4 py-6 uppercase text-xs font-bold">{item.title}</div>
       </div>
     </div>
   )
