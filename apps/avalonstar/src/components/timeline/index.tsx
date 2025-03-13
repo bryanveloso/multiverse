@@ -2,11 +2,11 @@ import { Fragment, type FC } from 'react'
 import { useTimelineData } from '@/hooks/useTimelineData'
 import type { TimelineItem, TimelineContext } from '@/types/timeline'
 
-import { Event } from './event'
-import { Post } from './post'
-import { Gap } from './gap'
 import { Era } from './era'
+import { Gap } from './gap'
 import { Job } from './job'
+import { Location } from './location'
+import { Post } from './post'
 
 interface RenderTimelineItemProps {
   item: TimelineItem
@@ -16,28 +16,13 @@ interface RenderTimelineItemProps {
   setActiveItem: (id: string | null) => void
 }
 
-const renderTimelineItem: FC<RenderTimelineItemProps> = ({
-  item,
-  itemIndex,
-  context,
-  activeItem,
-  setActiveItem
-}) => {
+const renderTimelineItem: FC<RenderTimelineItemProps> = ({ item, itemIndex, context, activeItem, setActiveItem }) => {
   const isActive = activeItem === `${item.type}-${itemIndex}`
   const itemId = `${item.type}-${itemIndex}`
 
   const componentMap = {
     era: () => (
       <Era
-        item={item}
-        itemIndex={itemIndex}
-        context={context}
-        isActive={isActive}
-        onActivate={() => setActiveItem(itemId)}
-      />
-    ),
-    event: () => (
-      <Event
         item={item}
         itemIndex={itemIndex}
         context={context}
@@ -63,6 +48,15 @@ const renderTimelineItem: FC<RenderTimelineItemProps> = ({
         onActivate={() => setActiveItem(itemId)}
       />
     ),
+    location: () => (
+      <Location
+        item={item}
+        itemIndex={itemIndex}
+        context={context}
+        isActive={isActive}
+        onActivate={() => setActiveItem(itemId)}
+      />
+    ),
     post: () => (
       <Post
         item={item}
@@ -75,8 +69,7 @@ const renderTimelineItem: FC<RenderTimelineItemProps> = ({
     default: () => <div className="">Unknown item type: {item.type}</div>
   }
 
-  const renderFunction =
-    componentMap[item.type as keyof typeof componentMap] || componentMap.default
+  const renderFunction = componentMap[item.type as keyof typeof componentMap] || componentMap.default
   return renderFunction()
 }
 
@@ -85,15 +78,9 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
 
   return (
     <>
-      <div className="col-span-5 grid grid-cols-subgrid">
+      <div className="col-span-5 grid grid-cols-subgrid items-start align-baseline">
         <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            id="Hourglass-Flip--Streamline-Nova"
-            className="size-4"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="size-3.5 text-white/10">
             <path
               fill="currentColor"
               fillRule="evenodd"
@@ -104,14 +91,7 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
           </svg>
         </div>
         <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            id="Toolbox--Streamline-Nova"
-            className="size-4"
-          >
-            <desc>{'Toolbox Streamline Icon: https://streamlinehq.com'}</desc>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="size-3.5 text-white/10">
             <path
               fill="currentColor"
               fillRule="evenodd"
@@ -122,31 +102,22 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
           </svg>
         </div>
         <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="size-4"
-          >
-            <desc>
-              {'Map Pin Home Streamline Icon: https://streamlinehq.com'}
-            </desc>
-            <path
-              stroke="currentColor"
-              strokeLinejoin="round"
-              strokeMiterlimit={10}
-              strokeWidth={2}
-              d="M20 8.79999C20 13.1 12 22.8 12 22.8S4 13.1 4 8.79999C4 4.49999 7.6 1 12 1s8 3.49999 8 7.79999Z"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="size-3.5 text-white/10">
             <path
               fill="currentColor"
-              d="M12 5 7 9h2v4h2v-3h2v3h2V9h2l-5 -4Z"
+              fillRule="evenodd"
+              d="M11.4 1.2c0.3556 -0.266667 0.8444 -0.266667 1.2 0l10 7.5c0.2518 0.18885 0.4 0.48524 0.4 0.8V22c0 0.5523 -0.4477 1 -1 1H2c-0.55228 0 -1 -0.4477 -1 -1V9.5c0 -0.31476 0.14819 -0.61115 0.4 -0.8l10 -7.5ZM3 10v11h18V10l-9 -6.75L3 10Z"
+              clipRule="evenodd"
               strokeWidth={1}
             />
           </svg>
         </div>
-        <div></div>
-        <div></div>
+        <div className="self-stretch">
+          <div className="dark:border-timeline h-full w-[1px] border-l" />
+        </div>
+        <div>
+          <div className="font-xs font-caps px-4 pb-6 text-white/10 uppercase">The Mind of Bryan Veloso</div>
+        </div>
       </div>
 
       {sortedItems.map((item, itemIndex) => {
