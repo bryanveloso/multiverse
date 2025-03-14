@@ -1,6 +1,9 @@
 @import 'tailwindcss';
-@plugin "@tailwindcss/typography";
-@import '@multiverse/shared/styles/fonts.css';
+@plugin '@tailwindcss/typography';
+
+/* Multiverse libraries. */
+@import '@multiverse/ui/styles/fonts.css';
+@import '@multiverse/ui/styles/variables.css';
 
 @theme {
   --color-sage: #bbf4b0;
@@ -21,96 +24,6 @@
   --color-onyx: #1a1f23;
 
   --color-timeline: #323639;
-
-  --color-red-100: #fcbeb9;
-  --color-red-200: #ff8e85;
-  --color-red-300: #ea534d;
-  --color-red-400: #ff2306;
-  --color-red-500: #d30c02;
-  --color-red-600: #b5130b;
-  --color-red-700: #910909;
-  --color-red-800: #630704;
-
-  --color-orange-100: #ffc08d;
-  --color-orange-200: #ffc238;
-  --color-orange-300: #f7a52d;
-  --color-orange-400: #ff8104;
-  --color-orange-500: #e27310;
-  --color-orange-600: #c9620d;
-  --color-orange-700: #a95500;
-  --color-orange-800: #52291a;
-
-  --color-yellow-100: #fff4c5;
-  --color-yellow-200: #ffed9f;
-  --color-yellow-300: #ffea6c;
-  --color-yellow-400: #fcea0d;
-  --color-yellow-500: #f7d634;
-  --color-yellow-600: #efb716;
-  --color-yellow-700: #bf8436;
-  --color-yellow-800: #664212;
-
-  --color-green-100: #c6ffa1;
-  --color-green-200: #94f953;
-  --color-green-300: #5be058;
-  --color-green-400: #66cc37;
-  --color-green-500: #5fad36;
-  --color-green-600: #4b8723;
-  --color-green-700: #30660e;
-  --color-green-800: #1a3509;
-
-  --color-turquoise-100: #a9ffee;
-  --color-turquoise-200: #81f7e1;
-  --color-turquoise-300: #59efd2;
-  --color-turquoise-400: #34d6b7;
-  --color-turquoise-500: #2cb59b;
-  --color-turquoise-600: #16938a;
-  --color-turquoise-700: #107770;
-  --color-turquoise-800: #0c5151;
-
-  --color-blue-100: #9ff4ff;
-  --color-blue-200: #43dcff;
-  --color-blue-300: #21acf9;
-  --color-blue-400: #266cf9;
-  --color-blue-500: #0f66bc;
-  --color-blue-600: #0b4baa;
-  --color-blue-700: #0e3f7a;
-  --color-blue-800: #0a2749;
-
-  --color-purple-100: #bcb3ff;
-  --color-purple-200: #8a76ff;
-  --color-purple-300: #7943ef;
-  --color-purple-400: #652ad8;
-  --color-purple-500: #4f2ba5;
-  --color-purple-600: #4b298c;
-  --color-purple-700: #32196d;
-  --color-purple-800: #2a134f;
-
-  --color-pink-100: #ffc0f9;
-  --color-pink-200: #ff8dea;
-  --color-pink-300: #ff5fe8;
-  --color-pink-400: #ea2fc7;
-  --color-pink-500: #c41697;
-  --color-pink-600: #a01f84;
-  --color-pink-700: #821775;
-  --color-pink-800: #590c43;
-
-  --color-gray-100: #f7f7f7;
-  --color-gray-200: #eaf0f4;
-  --color-gray-300: #ededed;
-  --color-gray-400: #dbdbdb;
-  --color-gray-500: #c1c1c1;
-  --color-gray-600: #868686;
-  --color-gray-700: #565656;
-  --color-gray-800: #3f3f3f;
-
-  --color-black-100: #000000;
-  --color-black-200: #0d0a11;
-  --color-black-300: #1b1c31;
-  --color-black-400: #1c1d28;
-  --color-black-500: #353642;
-  --color-black-600: #35363f;
-  --color-black-700: #404249;
-  --color-black-800: #484c54;
 
   --font-caps: 'OpticianSans', sans-serif;
   --font-miedinger: 'Miedinger', sans-serif;
