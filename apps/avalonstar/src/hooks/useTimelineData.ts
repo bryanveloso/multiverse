@@ -52,7 +52,7 @@ export function useTimelineData(items: TimelineItem[]) {
     }))
 
     const locationEvents = locations.map((location) => ({
-      type: 'event' as const,
+      type: 'location' as const,
       title: `Moved to ${location.name}`,
       date: location.startDate,
       color: location.color || '#3B82F6',

@@ -66,7 +66,11 @@ const renderTimelineItem: FC<RenderTimelineItemProps> = ({ item, itemIndex, cont
         onActivate={() => setActiveItem(itemId)}
       />
     ),
-    default: () => <div className="">Unknown item type: {item.type}</div>
+    default: () => (
+      <div className="">
+        Unknown item type: {item.type}: {JSON.stringify(item)}
+      </div>
+    )
   }
 
   const renderFunction = componentMap[item.type as keyof typeof componentMap] || componentMap.default

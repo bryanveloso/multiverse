@@ -6,6 +6,7 @@ interface BaseTimelineItem {
   description?: string // Optional description
   color?: string // Optional styling color
   significance?: number // Optional importance value
+  slug?: string // Optional slug
 }
 
 // Items with a single point in time
@@ -22,8 +23,8 @@ interface TimelineRangeItem extends BaseTimelineItem {
 // Specific item types
 interface TimelinePost extends TimelinePointItem {
   type: 'post'
-  slug?: string
   id: string // Required for posts
+  crosspost?: boolean
 }
 
 interface TimelineGap extends TimelinePointItem {
@@ -48,7 +49,7 @@ interface TimelineJob extends TimelineRangeItem {
 // Union of all direct timeline items
 export type TimelineItem = TimelinePost | TimelineGap | TimelineEra | TimelineLocation | TimelineJob | TimelineEvent
 
-// Context data for a specific timeline point
+// Context data for a specific timelin e point
 export interface TimelineContext {
   activeEras: TimelineEra[]
   activeLocations: TimelineLocation[]
