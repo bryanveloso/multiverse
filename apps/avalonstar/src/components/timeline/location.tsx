@@ -2,23 +2,17 @@ import type { FC } from 'react'
 import type { TimelineItemProps } from '@/types/timeline'
 import { EraLine, JobLine, LocationLine } from './lines'
 
-export const Location: FC<TimelineItemProps> = ({
-  item,
-  itemIndex,
-  context,
-  isActive,
-  onActivate
-}) => {
+export const Location: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive, onActivate }) => {
   return (
-    <div className="col-span-5 grid grid-cols-subgrid" onClick={onActivate}>
+    <div data-index={{ itemIndex }} className="col-span-5 grid grid-cols-subgrid" onClick={onActivate}>
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />
-      <div className="relative h-full border-b dark:border-timeline">
-        <div className="h-full w-[1px] border-l dark:border-timeline" />
+      <div className="dark:border-timeline relative h-full border-b">
+        <div className="dark:border-timeline h-full w-[1px] border-l" />
       </div>
-      <div className="border-b dark:border-timeline">
-        <div className="p-4 py-6 uppercase text-xs font-bold">{item.title}</div>
+      <div className="dark:border-timeline border-b">
+        <div className="p-4 py-6 text-xs font-bold uppercase">{item.title}</div>
       </div>
     </div>
   )

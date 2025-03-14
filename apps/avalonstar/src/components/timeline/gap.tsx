@@ -2,21 +2,18 @@ import type { FC } from 'react'
 import type { TimelineItemProps } from '@/types/timeline'
 import { EraLine, JobLine, LocationLine } from './lines'
 
-export const Gap: FC<TimelineItemProps> = ({ item, context, isActive, onActivate }) => {
+export const Gap: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive, onActivate }) => {
   return (
-    <div className="col-span-5 grid grid-cols-subgrid" onClick={onActivate}>
+    <div data-index={{ itemIndex }} className="col-span-5 grid grid-cols-subgrid" onClick={onActivate}>
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />
-      <div className="relative h-full flex flex-col justify-between">
-        <div className="h-[1px] w-3 bg-timeline relative -mt-[1px]" />
-        <div
-          className="text-[10px] uppercase font-bold text-timeline"
-          style={{ writingMode: 'vertical-lr' }}
-        >
+      <div className="relative flex h-full flex-col justify-between">
+        <div className="bg-timeline relative -mt-[1px] h-[1px] w-3" />
+        <div className="text-timeline text-[10px] font-bold uppercase" style={{ writingMode: 'vertical-lr' }}>
           GAP
         </div>
-        <div className="h-[1px] w-3 bg-timeline" />
+        <div className="bg-timeline h-[1px] w-3" />
       </div>
       <div className="p-4 py-6">
         <time className="font-caps font-xs text-graphite">

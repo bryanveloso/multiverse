@@ -4,20 +4,20 @@ import { cn } from '@/utils/style'
 
 import { EraLine, JobLine, LocationLine } from './lines'
 
-export const Post: FC<TimelineItemProps> = ({ item, context, isActive, onActivate }) => {
+export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive, onActivate }) => {
   const href = `/blog/${item.id.substring(0, 4)}/${item.id.split('-').slice(3).join('-')}`
 
   return (
-    <div className="col-span-5 grid grid-cols-subgrid" onClick={onActivate}>
+    <div data-index={{ itemIndex }} className="col-span-5 grid grid-cols-subgrid" onClick={onActivate}>
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />
       <div className="relative h-full">
         {/* <div className="size-[9px] bg-mist rounded-full absolute -left-[4px] top-2" /> */}
-        <div className="h-full w-[1px] border-l dark:border-timeline" />
+        <div className="dark:border-timeline h-full w-[1px] border-l" />
       </div>
       <div className="p-4">
-        <div className="flex font-caps">
+        <div className="font-caps flex">
           <time className="font-xs text-graphite">
             {'date' in item &&
               item.date.toLocaleDateString('en-US', {
@@ -27,13 +27,8 @@ export const Post: FC<TimelineItemProps> = ({ item, context, isActive, onActivat
               })}
           </time>
           {item.crosspost && (
-            <div className="uppercase bg-royal px-1 ml-3 rounded flex gap-1 items-center overflow-hidden h-[18px]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="size-3"
-              >
+            <div className="bg-royal ml-3 flex h-[18px] items-center gap-1 overflow-hidden rounded px-1 uppercase">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="size-3">
                 <path
                   fill="currentColor"
                   fillRule="evenodd"
@@ -53,11 +48,7 @@ export const Post: FC<TimelineItemProps> = ({ item, context, isActive, onActivat
         >
           <a href={href}>{item.title}</a>
         </h2>
-        {item.significance > 3 && (
-          <p className="dark:text-mist max-w-prose text-pretty">
-            {item.description}
-          </p>
-        )}
+        {item.significance > 3 && <p className="dark:text-mist max-w-prose text-pretty">{item.description}</p>}
       </div>
     </div>
   )

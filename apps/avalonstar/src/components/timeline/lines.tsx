@@ -7,10 +7,7 @@ export const EraLine: FC<TimelineContext> = (context) => {
   return (
     <div className="relative h-full">
       {activeEras[0] ? (
-        <div
-          className="h-full w-[1px] border-l"
-          style={{ borderColor: activeEras[0]?.color }}
-        ></div>
+        <div className="h-full w-[1px] border-l" style={{ borderColor: activeEras[0]?.color }}></div>
       ) : (
         <div className="h-full w-[1px] border-r border-white/10"></div>
       )}
@@ -34,10 +31,7 @@ export const JobLine: FC<TimelineContext> = (context) => {
   return (
     <div className="relative h-full">
       {activeJobs[0] ? (
-        <div
-          className="h-full w-[1px] border-r"
-          style={{ borderColor: activeJobs[0]?.color }}
-        ></div>
+        <div className="h-full w-[1px] border-r" style={{ borderColor: activeJobs[0]?.color }}></div>
       ) : (
         <div className="h-full w-[1px] border-r border-white/10"></div>
       )}
@@ -61,10 +55,7 @@ export const LocationLine: FC<TimelineContext> = (context) => {
   return (
     <div className="relative h-full">
       {activeLocations[0] ? (
-        <div
-          className="h-full w-[1px] border-l"
-          style={{ borderColor: activeLocations[0]?.color }}
-        ></div>
+        <div className="h-full w-[1px] border-l" style={{ borderColor: activeLocations[0]?.color }}></div>
       ) : (
         <div className="h-full w-[1px] border-r border-white/10"></div>
       )}
