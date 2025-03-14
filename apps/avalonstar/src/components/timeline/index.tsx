@@ -82,7 +82,7 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
 
   return (
     <>
-      <div className="col-span-5 grid grid-cols-subgrid items-start align-baseline">
+      <div className="col-span-6 grid grid-cols-subgrid items-start align-baseline">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="size-3.5 text-white/10">
             <path
@@ -119,6 +119,7 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
         <div className="self-stretch">
           <div className="dark:border-timeline h-full w-[1px] border-l" />
         </div>
+        <div></div>
         <div>
           <div className="font-xs font-caps px-4 pb-6 text-white/10 uppercase">The Mind of Bryan Veloso</div>
         </div>

@@ -4,7 +4,7 @@ import { EraLine, JobLine, LocationLine } from './lines'
 
 export const Gap: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive, onActivate }) => {
   return (
-    <div data-index={{ itemIndex }} className="col-span-5 grid grid-cols-subgrid" onClick={onActivate}>
+    <div data-index={{ itemIndex }} className="col-span-6 grid grid-cols-subgrid" onClick={onActivate}>
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />
@@ -15,7 +15,8 @@ export const Gap: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive,
         </div>
         <div className="bg-timeline h-[1px] w-3" />
       </div>
-      <div className="p-4 py-6">
+      <div></div>
+      <div className="py-6">
         <time className="font-caps font-xs text-graphite">
           {'date' in item &&
             item.date.toLocaleDateString('en-US', {
