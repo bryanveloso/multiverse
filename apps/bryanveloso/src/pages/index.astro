@@ -6,26 +6,20 @@ import Base from '@/layouts/base.astro'
 import '../styles/global.css'
 
 // Get content collections.
-const projects = (await getCollection('projects')).sort(
-  (a, b) => b.data.shipDate.valueOf() - a.data.shipDate.valueOf()
-)
+const projects = (await getCollection('projects')).sort((a, b) => b.data.shipDate.valueOf() - a.data.shipDate.valueOf())
 const quotes = await getCollection('quotes')
 ---
 
 <Base title="bryanvelo.so" description="The work of Bryan Veloso.">
   <div class="mx-auto max-w-4xl">
     <p
-      class="max-w-prose font-hero text-2xl sm:text-4xl bg-gradient-to-r from-cloud-grey/60 to-cloud-grey bg-clip-text text-transparent [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)]"
+      class="font-hero from-cloud-grey/60 to-cloud-grey max-w-prose bg-gradient-to-r bg-clip-text text-2xl text-transparent [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)] sm:text-4xl"
     >
-      <span
-        class="text-white before:border-t-2 before:border-t-amber-50 before:w-full"
-        >I am weird.</span
-      > I am a creative driven by my hobbies. I am unapologetic when I fight for
-      end users. I thrive on supporting the unsupported. I believe in the power of
-      tech, not tech bros. I am a child of the original web standards movement. I
-      am a designer who codes. I influence without being an &ldquo;influencer.&rdquo;
-      <span class="text-sky-blue">I am not your typical tech professional.</span
-      >
+      <span class="text-white before:w-full before:border-t-2 before:border-t-amber-50">I am weird.</span> I am a creative
+      driven by my hobbies. I am unapologetic when I fight for end users. I thrive on supporting the unsupported. I believe
+      in the power of tech, not tech bros. I am a child of the original web standards movement. I am a designer who codes.
+      I influence without being an &ldquo;influencer.&rdquo;
+      <span class="text-sky-blue">I am not your typical tech professional.</span>
     </p>
 
     <div>
@@ -33,12 +27,9 @@ const quotes = await getCollection('quotes')
         quotes.map((quote) => {
           return (
             <div class="mt-8">
-              <blockquote class="text-lg font-serif italic">
-                {quote.data.text}
-              </blockquote>
-              <cite class="block mt-2 text-sm font-medium">
-                {quote.data.author.name},{' '}
-                <a href={quote.data.author.url}>{quote.data.author.handle}</a>
+              <blockquote class="font-serif text-lg italic">{quote.data.text}</blockquote>
+              <cite class="mt-2 block text-sm font-medium">
+                {quote.data.author.name}, <a href={quote.data.author.url}>{quote.data.author.handle}</a>
               </cite>
             </div>
           )
@@ -47,21 +38,21 @@ const quotes = await getCollection('quotes')
     </div>
 
     <div>
-    {
-      projects.map(async (project) => {
-        const { Content } = await render(project)
+      {
+        projects.map(async (project) => {
+          const { Content } = await render(project)
 
-        return (
-          <div class="mt-8">
-            <h2 class="">{project.data.title}</h2>
-            <div class="">{project.data.shipDate}</div>
-            <div class="">
-              <Content />
+          return (
+            <div class="mt-8">
+              <h2 class="">{project.data.title}</h2>
+              <div class="">{project.data.shipDate}</div>
+              <div class="">
+                <Content />
+              </div>
             </div>
-          </div>
-        )
-      })
-    }
+          )
+        })
+      }
     </div>
   </div>
 </Base>

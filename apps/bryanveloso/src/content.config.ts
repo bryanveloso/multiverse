@@ -15,13 +15,16 @@ const projects = defineCollection({
         gallery: z.array(z.string()).optional()
       })
       .optional(),
-    links: z.array(
-      z.object({
-        href: z.string(),
-        label: z.string().optional()
-      })
-      .optional()
-    ).optional(),
+    links: z
+      .array(
+        z
+          .object({
+            href: z.string(),
+            label: z.string().optional()
+          })
+          .optional()
+      )
+      .optional(),
     significance: z.number().min(1).max(5).optional().default(3)
   })
 })
@@ -37,7 +40,6 @@ const quotes = defineCollection({
     })
   })
 })
-
 
 export const collections = {
   projects,
