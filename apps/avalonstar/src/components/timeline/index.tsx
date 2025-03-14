@@ -121,7 +121,7 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
         </div>
         <div></div>
         <div>
-          <div className="font-xs font-caps px-4 pb-6 text-white/10 uppercase">The Mind of Bryan Veloso</div>
+          <div className="font-xs font-caps pb-6 text-white/10 uppercase">The Mind of Bryan Veloso</div>
         </div>
       </div>
 
