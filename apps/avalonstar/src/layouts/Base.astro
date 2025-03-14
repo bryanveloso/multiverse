@@ -1,7 +1,10 @@
 ---
-import BaseHead from '@/components/BaseHead.astro'
-import Footer from '@/components/footer.astro'
-import Header from '@/components/header.astro'
+import '@fontsource-variable/andada-pro'
+import '@fontsource-variable/geologica/full.css'
+
+import { SiteTransition } from '@multiverse/ui'
+
+import BaseHead from '@/components/base-head.astro'
 
 import '../styles/global.css'
 
@@ -14,12 +17,7 @@ interface Props {
   activeSite?: SiteType
 }
 
-const {
-  title,
-  description = 'The mind of Bryan Veloso.',
-  image,
-  activeSite = 'mind'
-} = Astro.props
+const { title, description = 'The mind of Bryan Veloso.', image, activeSite = 'mind' } = Astro.props
 
 const defaultTitles = {
   mind: 'Avalonstar',
@@ -35,25 +33,22 @@ const pageTitle = title || defaultTitles[activeSite]
   <head>
     <BaseHead title={pageTitle} description={description} image={image} />
   </head>
-  <body class="bg-frost text-gray-900 dark:bg-onyx dark:text-frost w-screen h-dvh">
-    <div
-      class="grid grid-cols-1 md:grid-cols-[1fr_48px_48px] w-screen relative"
-    >
+  <body class="bg-ink">
+    <SiteTransition client:load />
+    <div class="relative isolate grid grid-cols-1 gap-2 pr-2 md:grid-cols-[1fr_48px_48px]">
       <!-- Mind (Avalonstar) -->
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <Header />
-        <div class="max-w-7xl mx-auto">
-          <slot />
-        </div>
-        <Footer />
+      <div
+        class="dark:from-ink dark:via-onyx dark:to-ink relative m-2 mr-0 min-h-dvh rounded bg-linear-to-br from-0% via-50% to-100% text-gray-900 outline outline-white/20 dark:text-gray-100"
+      >
+        <slot />
       </div>
 
       <!-- Work (Bryan Veloso) -->
       <div class="relative hidden md:block">
-        <div class="sticky top-0 p-2 pl-0">
+        <div class="sticky top-0 z-50 pt-2">
           <a href={import.meta.env.DEV ? `http://localhost:5322` : 'https://bryanvelo.so'}>
-            <div class="bg-amber-100 h-[calc(100dvh-1rem)] rounded flex justify-center">
-              <div class="pt-4 uppercase text-xs" style={{ writingMode: 'vertical-rl' }}>
+            <div class="flex h-[calc(100dvh-1rem)] justify-center rounded outline outline-amber-100/20">
+              <div class="pt-4 text-xs uppercase" style={{ writingMode: 'vertical-rl' }}>
                 <strong>work</strong> &mdash; bryanvelo.so
               </div>
             </div>
@@ -63,14 +58,10 @@ const pageTitle = title || defaultTitles[activeSite]
 
       <!-- Play (Omnyist) -->
       <div class="relative hidden md:block">
-        <div class="sticky top-0 p-2 pl-0">
-          <a
-            href={import.meta.env.DEV
-              ? `http://localhost:5323`
-              : 'https://omnyist.com'}
-          >
-            <div class="bg-blue-100 h-[calc(100dvh-1rem)] rounded flex justify-center">
-              <div class="pt-4 uppercase text-xs" style={{ writingMode: 'vertical-rl' }}>
+        <div class="sticky top-0 z-50 pt-2">
+          <a href={import.meta.env.DEV ? `http://localhost:5323` : 'https://omnyist.com'}>
+            <div class="flex h-[calc(100dvh-1rem)] justify-center rounded outline outline-blue-100/20">
+              <div class="pt-4 text-xs uppercase" style={{ writingMode: 'vertical-rl' }}>
                 <strong>play</strong> &mdash; omnyist
               </div>
             </div>

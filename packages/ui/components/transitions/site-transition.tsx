@@ -11,19 +11,14 @@ const defaultBackgroundColors: BackgroundColors = {
 }
 
 export const SiteTransition: FC<{
-  backgroundColors: BackgroundColors
-  transitionDuration: number
-}> = ({
-  backgroundColors = defaultBackgroundColors,
-  transitionDuration = 2000
-}) => {
+  backgroundColors?: BackgroundColors
+  transitionDuration?: number
+}> = ({ backgroundColors = defaultBackgroundColors, transitionDuration = 2000 }) => {
   useEffect(() => {
     const referrer = document.referrer
 
     // Find matching referrer.
-    const referrerDomain = Object.keys(backgroundColors).find((domain) =>
-      referrer.includes(domain)
-    )
+    const referrerDomain = Object.keys(backgroundColors).find((domain) => referrer.includes(domain))
 
     if (referrerDomain) {
       const sourceColor = backgroundColors[referrerDomain]
@@ -33,7 +28,7 @@ export const SiteTransition: FC<{
 
       setTimeout(() => {
         document.documentElement.removeAttribute('data-from-site')
-      }, transitionDuration);
+      }, transitionDuration)
     }
   }, [backgroundColors, transitionDuration])
 

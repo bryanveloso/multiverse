@@ -80,13 +80,12 @@ const timelineItems = [
     >
     </div>
     <div
-      class={cn('col-start-1 grid grid-cols-[repeat(3,var(--event-line-width))_48px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px]')}
+      class={cn(
+        'col-start-1 grid grid-cols-[repeat(3,var(--event-line-width))_48px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px]'
+      )}
     >
-      <div
-        aria-hidden="true"
-        class="absolute mt-6 flex items-center gap-2 mix-blend-soft-light"
-      >
-        <ChevronTL class="w-8 h-8 text-sage" />
+      <div aria-hidden="true" class="absolute mt-6 flex items-center gap-2 mix-blend-soft-light">
+        <ChevronTL class="text-sage h-8 w-8" />
         <Katakana class="h-4 text-white" />
       </div>
       <Header />
