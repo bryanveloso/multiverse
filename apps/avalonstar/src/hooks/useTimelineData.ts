@@ -1,14 +1,25 @@
 import { useMemo, useState } from 'react'
 import type {
-  TimelineItem,
-  TimelinePost,
+  TimelineContext,
   TimelineEra,
-  TimelineLocation,
-  TimelineJob,
   TimelineGap,
-  TimelineContext
+  TimelineItem,
+  TimelineJob,
+  TimelineLocation,
+  TimelinePost
 } from '@/types/timeline'
 import { getAuthorAge } from '@/utils/age'
+
+// Type for items that can have a date
+type DateItem = { date?: Date }
+type StartDateItem = { startDate?: Date }
+
+// Helper function to extract date from different item types
+const getItemDate = (item: DateItem | StartDateItem): Date => {
+  if ('date' in item && item.date instanceof Date) return item.date
+  if ('startDate' in item && item.startDate instanceof Date) return item.startDate
+  return new Date()
+}
 
 export function useTimelineData(items: TimelineItem[]) {
   const [activeItem, setActiveItem] = useState<string | null>(null)
@@ -42,35 +53,10 @@ export function useTimelineData(items: TimelineItem[]) {
       .filter((item): item is TimelineJob => item.type === 'job')
       .sort((a, b) => b.startDate.getTime() - a.startDate.getTime())
 
-    // Create events for each era, location, and job
-    const eraEvents = eras.map((era) => ({
-      type: 'era' as const,
-      title: `${era.title}`,
-      date: era.startDate,
-      color: era.color || '#6B7280',
-      data: era
-    }))
-
-    const locationEvents = locations.map((location) => ({
-      type: 'location' as const,
-      title: `Moved to ${location.name}`,
-      date: location.startDate,
-      color: location.color || '#3B82F6',
-      data: location
-    }))
-
-    const jobEvents = jobs.map((job) => ({
-      type: 'job' as const,
-      title: job.title,
-      company: job.company,
-      date: job.startDate,
-      color: job.color || '#10B981',
-      data: job
-    }))
-
-    // Combine and sort all items by date
-    const sortedItems = [...posts, ...gaps, ...eraEvents, ...locationEvents, ...jobEvents].sort(
-      (a, b) => b.date.getTime() - a.date.getTime()
+    // Combine all items and sort by date
+    // We'll use our getItemDate helper to handle different date fields
+    const sortedItems = [...posts, ...gaps, ...eras, ...locations, ...jobs].sort(
+      (a, b) => getItemDate(b).getTime() - getItemDate(a).getTime()
     )
 
     // Calculate end occurances for eras, locations, and jobs
@@ -80,48 +66,46 @@ export function useTimelineData(items: TimelineItem[]) {
       locations: {} as Record<string, number>
     }
 
-    eras.forEach((era) => {
-      if (!era.endDate) {
-        endOccurrences.eras[era.title] = 0
-      }
-    })
+    // Initialize endOccurrences for ongoing items (without end dates)
+    const initializeEndOccurrences = <T extends { endDate?: Date }>(
+      items: T[],
+      getKey: (item: T) => string,
+      targetMap: Record<string, number>
+    ) => {
+      items.forEach((item) => {
+        if (!item.endDate) {
+          targetMap[getKey(item)] = 0
+        }
+      })
+    }
 
-    locations.forEach((location) => {
-      if (!location.endDate) {
-        endOccurrences.locations[location.name] = 0
-      }
-    })
+    // Initialize endOccurrences for all item types
+    initializeEndOccurrences(eras, (era) => era.title, endOccurrences.eras)
+    initializeEndOccurrences(locations, (location) => location.name, endOccurrences.locations)
+    initializeEndOccurrences(jobs, (job) => job.company, endOccurrences.jobs)
 
-    jobs.forEach((job) => {
-      if (!job.endDate) {
-        endOccurrences.jobs[job.company] = 0
-      }
-    })
+    // Helper function to update endOccurrences based on active items
+    const updateEndOccurrences = <T extends TimelineEra | TimelineLocation | TimelineJob>(
+      items: T[],
+      getKey: (item: T) => string,
+      targetMap: Record<string, number>,
+      date: Date,
+      index: number
+    ) => {
+      items.forEach((item) => {
+        if (item.endDate && isActiveAtDate(item, date) && !(getKey(item) in targetMap)) {
+          targetMap[getKey(item)] = index
+        }
+      })
+    }
 
     sortedItems.forEach((item, index) => {
-      const date =
-        'date' in item ? item.date : 'startDate' in item ? (item as { startDate: Date }).startDate : new Date()
+      const date = getItemDate(item)
 
-      // For each active context item, record this as the first occurrence
-      // if we haven't seen it before
-      eras.forEach((era) => {
-        if (era.endDate && isActiveAtDate(era, date) && !endOccurrences.eras[era.title]) {
-          endOccurrences.eras[era.title] = index
-        }
-      })
-
-      // Similar for jobs and locations
-      jobs.forEach((job) => {
-        if (job.endDate && isActiveAtDate(job, date) && !endOccurrences.jobs[job.company]) {
-          endOccurrences.jobs[job.company] = index
-        }
-      })
-
-      locations.forEach((location) => {
-        if (location.endDate && isActiveAtDate(location, date) && !endOccurrences.locations[location.name]) {
-          endOccurrences.locations[location.name] = index
-        }
-      })
+      // Update endOccurrences for all item types
+      updateEndOccurrences(eras, (era) => era.title, endOccurrences.eras, date, index)
+      updateEndOccurrences(jobs, (job) => job.company, endOccurrences.jobs, date, index)
+      updateEndOccurrences(locations, (location) => location.name, endOccurrences.locations, date, index)
     })
 
     return {
@@ -135,7 +119,7 @@ export function useTimelineData(items: TimelineItem[]) {
 
   // Get context for a specific item
   const getContextForItem = (item: TimelineItem, itemIndex: number): TimelineContext => {
-    const date = 'date' in item ? item.date : 'startDate' in item ? item.startDate : new Date()
+    const date = getItemDate(item)
 
     // Filter active eras, locations, and jobs
     const activeEras = eras.filter((era) => isActiveAtDate(era, date))
