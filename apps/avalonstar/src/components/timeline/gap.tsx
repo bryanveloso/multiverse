@@ -15,7 +15,17 @@ export const Gap: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive,
         </div>
         <div className="bg-timeline h-[1px] w-3" />
       </div>
-      <div></div>
+      <div className="mx-3 flex h-full items-center justify-center rounded uppercase">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="text-timeline size-3">
+          <path
+            stroke="currentColor"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 23c6.0751 0 11 -4.9249 11 -11 0 -6.07513 -4.9249 -11 -11 -11C5.92487 1 1 5.92487 1 12c0 6.0751 4.92487 11 11 11Z"
+          />
+          <path stroke="currentColor" strokeLinejoin="round" strokeWidth={2} d="M17 7H7v10h10V7Z" />
+        </svg>
+      </div>
       <div className="py-6">
         <time className="font-caps font-xs text-graphite">
           {'date' in item &&

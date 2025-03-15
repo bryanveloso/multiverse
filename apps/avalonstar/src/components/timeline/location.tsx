@@ -13,7 +13,7 @@ export const Location: FC<TimelineItemProps> = ({ item, itemIndex, context, isAc
       </div>
       <div></div>
       <div className="dark:border-timeline border-b">
-        <div className="py-6 text-xs font-bold uppercase">{item.title}</div>
+        <div className="py-6 text-xs font-bold uppercase">{item.name}</div>
       </div>
     </div>
   )
