@@ -4,7 +4,7 @@ import { EraLine, JobLine, LocationLine } from './lines'
 
 export const Era: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive, onActivate }) => {
   return (
-    <div data-index={{ itemIndex }} className="col-span-6 grid grid-cols-subgrid" onClick={onActivate}>
+    <div data-index={itemIndex} className="col-span-6 grid grid-cols-subgrid" onClick={onActivate}>
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />

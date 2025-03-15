@@ -8,7 +8,7 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
   const href = `/blog/${item.id.substring(0, 4)}/${item.id.split('-').slice(3).join('-')}`
 
   return (
-    <div data-index={{ itemIndex }} className="col-span-6 grid grid-cols-subgrid" onClick={onActivate}>
+    <div data-index={itemIndex} className="col-span-6 grid grid-cols-subgrid" onClick={onActivate}>
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />
