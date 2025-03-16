@@ -1,74 +1,142 @@
 ---
-import type { CollectionEntry } from 'astro:content'
+import { getCollection, type CollectionEntry } from 'astro:content'
+import { Image } from 'astro:assets'
 
-import FormattedDate from '@/components/FormattedDate.astro'
-import LegacyDisclaimer from '@/components/blog/legacy-disclaimer.astro'
-import PostContext from '@/components/blog/post-context.astro'
+import FormattedDate from '@/components/formatted-date.astro'
+import LegacyDisclaimer from '@/components/blog/legacy.astro'
+import Footer from '@/components/footer.astro'
+import { getAuthorAge } from '@/utils/age'
 
 import Base from './base.astro'
 import { cn } from '@/utils/style'
-import { Image } from 'astro:assets'
+import { LocationIcon } from '@/components/location-icon'
+import { JobIcon } from '@/components/job-icon'
+import { EraIcon } from '@/components/era-icon'
+import { BackIcon } from '@/components/back-icon'
 
 type Props = CollectionEntry<'blog'>['data']
 
 const { title, description, date, updatedDate, heroImage } = Astro.props
 
+const authorAge = getAuthorAge(date)
 const isLegacyPost = date.getFullYear() < 2015
 
-// We have so many overrides for Tailwind's Typography system that we need to apply them here.
-const prose =
-  'prose prose-em:font-serif prose-lead:text-md prose-lead:font-light dark:prose-lead:text-mist dark:prose-invert'
+// Find the active era at the time of the post
+const eras = await getCollection('eras')
+const activeEra = eras.find((era) => date >= era.data.startDate && (era.data.endDate ? date <= era.data.endDate : true))
+
+// Find the job at the time of the post
+const jobs = await getCollection('jobs').catch(() => [])
+const activeJob = jobs.find((job) => {
+  const endDate = job.data.endDate || new Date()
+  return date >= job.data.startDate && date <= endDate
+})
+
+// Find the location at the time of the post
+const locations = await getCollection('locations').catch(() => [])
+const activeLocation = locations.find((location) => {
+  const endDate = location.data.endDate || new Date()
+  return date >= location.data.startDate && date <= endDate
+})
 ---
 
 <Base title={title} description={description}>
-  <div>
-    {
-      heroImage && (
-        <div class="mb-6">
-          <Image class="w-full shadow-md" width={1020} height={510} src={heroImage} alt="" />
-        </div>
-      )
-    }
-
-    <div class="mb-6">
-      <div class="mb-2 flex items-start justify-between">
-        <div>
-          <FormattedDate date={date} />
-          {
-            updatedDate && (
-              <span class="ml-2 italic">
-                (Updated: <FormattedDate date={updatedDate} />)
-              </span>
-            )
-          }
-        </div>
-      </div>
-      <h1 class="font-caps mb-4 text-4xl font-bold">{title}</h1>
+  <div class="grid min-h-dvh grid-cols-1 gap-8 md:grid-cols-[24px_1fr]">
+    <div
+      class="col-start-1 row-span-full bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat [--pattern-fg:var(--color-black)]/5 hidden md:block dark:[--pattern-fg:var(--color-white)]/10"
+    >
     </div>
-    <article
+    <div
       class={cn(
-        `prose ${prose}`,
-        `grid grid-cols-[1fr_auto_1fr] gap-x-4 lg:grid-cols-[1fr_65ch_1fr] lg:gap-x-8 [&>*]:col-2`
+        'col-start-1 grid grid-cols-[repeat(3,var(--event-line-width))_12px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px] items-start'
       )}
     >
-      <div
-        class="h-48 border-x border-x-current bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed text-gray-950/5 max-sm:hidden"
-      >
-      </div>
-      <PostContext date={date} />
+      <main class="col-span-5 grid grid-cols-subgrid text-sm">
+        <!-- Row 1 -->
+        <div class="col-span-3 pt-16">
+          <a href="/" class="font-caps flex items-baseline text-buttermilk"
+            ><BackIcon className="relative top-1 mr-2 size-3.5" /> <span class="relative top-[1px]">Back</span></a
+          >
+        </div>
+        <div class="col-start-4 self-stretch">
+          <div class="dark:border-timeline h-full w-[1px] border-l"></div>
+        </div>
+        <div class="col-span-1 col-start-5 py-16 pr-6 pl-4">
+          <FormattedDate date={date} /> {updatedDate && <>— Updated <FormattedDate date={updatedDate} /></>}
+          <h1 class="mb-4 text-4xl font-thin">{title}</h1>
+          {heroImage && <Image src={heroImage} alt={title} class="w-full h-[300px] object-cover rounded-lg" />}
+        </div>
 
-      {isLegacyPost && <LegacyDisclaimer />}
+        <!-- Row 2 -->
+        <div><EraIcon className="size-3.5 text-white/10" /></div>
+        <div><JobIcon className="size-3.5 text-white/10" /></div>
+        <div><LocationIcon className="size-3.5 text-white/10" /></div>
+        <div class="self-stretch">
+          <div class="dark:border-timeline h-full w-[1px] border-l"></div>
+        </div>
+        <div class="pr-6 pl-4">
+          <h2 class="font-xs font-caps text-graphite pb-6 uppercase">
+            The Mind of Bryan Veloso at <span class="text-sage">Age {authorAge}</span>
+          </h2>
+        </div>
 
-      <div class="">
-        <slot />
-      </div>
-
-      <div class="mt-8 border-t border-gray-200 pt-6">
-        <a href="/" class="text-green-600 hover:text-green-700">← Back to Timeline</a>
-      </div>
-    </article>
-
-    <!-- Post Context Sidebar -->
-    <aside class="hidden md:block"></aside>
+        <!-- Row 3 -->
+        <div class="relative h-full">
+          {
+            activeEra ? (
+              <div class="h-full w-[1px] border-r" style={{ borderColor: activeEra?.data.color }} />
+            ) : (
+              <div class="h-full w-[1px] border-r border-white/10" />
+            )
+          }
+          <div
+            class="absolute top-0 pl-1 text-[0.5rem] font-bold whitespace-nowrap uppercase"
+            style={{ color: activeEra?.data.color, writingMode: 'vertical-lr' }}
+          >
+            {activeEra?.data.title}
+          </div>
+        </div>
+        <div class="relative h-full">
+          {
+            activeJob ? (
+              <div class="h-full w-[1px] border-r" style={{ borderColor: activeJob?.data.color }} />
+            ) : (
+              <div class="h-full w-[1px] border-r border-white/10" />
+            )
+          }
+          <div
+            class="absolute top-0 pl-1 text-[0.5rem] font-bold whitespace-nowrap uppercase"
+            style={{ color: activeJob?.data.color, writingMode: 'vertical-lr' }}
+          >
+            {activeJob?.data.company}
+          </div>
+        </div>
+        <div class="relative h-full">
+          {
+            activeLocation ? (
+              <div class="h-full w-[1px] border-r" style={{ borderColor: activeLocation?.data.color }} />
+            ) : (
+              <div class="h-full w-[1px] border-r border-white/10" />
+            )
+          }
+          <div
+            class="absolute top-0 pl-1 text-[0.5rem] font-bold whitespace-nowrap uppercase"
+            style={{ color: activeLocation?.data.color, writingMode: 'vertical-lr' }}
+          >
+            {activeLocation?.data.name}
+          </div>
+        </div>
+        <div class="self-stretch">
+          <div class="dark:border-timeline h-full w-[1px] border-l"></div>
+        </div>
+        <div class="pr-6 pb-12 pl-4">
+          <article class="prose prose-p:font-light prose-a:underline-offset-4 prose-img:rounded prose-img:shadow prose-a:decoration-sky prose-em:font-serif prose-lead:text-md prose-lead:font-light dark:prose-lead:text-mist dark:prose-invert">
+            {isLegacyPost && <LegacyDisclaimer />}
+            <slot />
+          </article>
+        </div>
+      </main>
+      <Footer />
+    </div>
   </div>
 </Base>
