@@ -16,7 +16,7 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
         {/* <div className="size-[9px] bg-mist rounded-full absolute -left-[4px] top-2" /> */}
         <div className="dark:border-timeline h-full w-[1px] border-l" />
       </div>
-      <div className="py-6">
+      <div className="hidden py-6 sm:block">
         {item.crosspost && (
           <div className="outline-royal mx-3 flex h-full items-center justify-center rounded uppercase outline">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="size-3">
@@ -32,7 +32,7 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
           </div>
         )}
       </div>
-      <div className="py-6">
+      <div className="col-span-2 col-start-5 py-6 pr-8 pl-4 sm:col-span-1 sm:col-start-6 sm:pl-2">
         <div className="font-caps flex">
           <time className="font-xs text-graphite">
             {'date' in item &&
@@ -46,7 +46,7 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
         </div>
         <h2
           className={cn('dark:text-white', {
-            'text-2xl': item.significance >= 4
+            'text-xl sm:text-2xl': item.significance >= 4
           })}
         >
           <a href={href}>{item.title}</a>

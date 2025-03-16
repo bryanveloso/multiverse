@@ -6,10 +6,6 @@ import Timeline from '@/components/timeline'
 import Footer from '@/components/footer.astro'
 import Header from '@/components/header.astro'
 
-import ChevronTL from '@/assets/chevron-tl.svg'
-import Katakana from '@/assets/katakana.svg'
-import { cn } from '@/utils/style'
-
 // Get content collections
 const eras = await getCollection('eras')
 const gaps = await getCollection('gaps')
@@ -74,22 +70,30 @@ const timelineItems = [
 ---
 
 <Base title="Avalonstar">
-  <div class="grid grid-cols-1 gap-8 md:grid-cols-[1fr_3fr]">
+  <div class="grid grid-cols-1 gap-8 md:grid-cols-[24px_1fr]">
     <div
       class="col-start-1 row-span-full bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat [--pattern-fg:var(--color-black)]/5 md:block dark:[--pattern-fg:var(--color-white)]/10"
     >
     </div>
     <div
-      class={cn(
-        'col-start-1 grid grid-cols-[repeat(3,var(--event-line-width))_12px_48px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px]'
-      )}
+      class="col-start-1 grid grid-cols-[repeat(3,var(--event-line-width))_12px_48px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px]"
     >
-      <div aria-hidden="true" class="absolute mt-6 flex items-center gap-2 mix-blend-soft-light">
-        <ChevronTL class="text-sage h-8 w-8" />
-        <Katakana class="h-4 text-white" />
-      </div>
       <Header />
       <main class="col-span-6 grid grid-cols-subgrid text-sm">
+        <div class="col-start-4 self-stretch">
+          <div class="dark:border-timeline h-full w-[1px] border-l"></div>
+        </div>
+        <div class="col-span-2 col-start-5 sm:col-span-1 sm:col-start-6 px-4 sm:px-2 py-16">
+          <h2 class="font-caps text-sky pb-4">The Mind of Bryan Veloso</h2>
+          <p class="font-xs max-w-prose pr-8">
+            Since I bought this domain in 2000, Avalonstar has been one of the longest-running constants in my life. It
+            has managed to change in both form and function as much as I have, going from personal site, to blog, to
+            online moniker, to company namesake, and back again. Avalonstar is an extension of me: the designer, the
+            developer, the gamer, the content creator, the entrepreneur, and whatever else the next 25 or so years have
+            to offer.
+          </p>
+        </div>
+
         <Timeline items={timelineItems} />
       </main>
       <Footer />
