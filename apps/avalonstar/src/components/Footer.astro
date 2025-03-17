@@ -1,6 +1,12 @@
 ---
 import Colophon from '@/components/colophon.astro'
 
+interface Props {
+  page?: string
+}
+
+const { page = 'index' } = Astro.props
+
 const today = new Date()
 const established = new Date('2000-09-28')
 const currentMonth = today.getMonth()
@@ -13,13 +19,20 @@ const years =
   (currentMonth < establishedMonth || (currentMonth === establishedMonth && currentDay < establishedDay) ? 1 : 0)
 ---
 
-<footer class="col-span-6 grid grid-cols-subgrid self-end">
+<footer
+  data-page={page}
+  class:list={[
+    'grid grid-cols-subgrid self-end',
+    { 'col-span-6': page === 'index' },
+    { 'col-span-5': page === 'post' }
+  ]}
+>
   <div class="relative h-full"><div class="dark:border-timeline h-full w-[1px] border-l"></div></div>
   <div class="relative h-full"><div class="dark:border-timeline h-full w-[1px] border-l"></div></div>
   <div class="relative h-full"><div class="dark:border-timeline h-full w-[1px] border-l"></div></div>
   <div class="relative h-full"><div class="dark:border-timeline h-full w-[1px] border-l"></div></div>
   <div class="col-span-2 col-start-5 pt-12 pr-4 sm:col-span-1 sm:col-start-6">
-    <div class="flex max-w-prose flex-col gap-8 pl-4 sm:pl-2">
+    <div class:list={['flex max-w-prose flex-col gap-8 pl-4 sm:pl-2', { 'sm:pl-4': page === 'post' }]}>
       <p class="text-mist">
         <strong>Avalonstar</strong> is the {years}-year-old personal website of <strong
           ><a href="https://bryanvelo.so" target="_blank">Bryan Veloso</a></strong
