@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets'
+
+import Eggrolls from '@/assets/eggrolls.webp'
+---
+
+<div class="dark:text-pewter">
+  <div class="flex items-baseline justify-between gap-6">
+    <h3 class="font-caps">Colophon</h3>
+    <p class="text-xs">
+      The text of this website is set in <a href="">Geologica</a>, <a href="">Andada Pro</a>, and
+      <a href="">Optician Sans</a>. Built by hand with Astro and GitHub. Hosted on my Mac Mini.
+    </p>
+  </div>
+  <div class="col-span-6 hidden items-center text-sm">
+    <div><Image src={Eggrolls} alt="Eggrolls" class="max-w-56" /></div>
+    <div>
+      Thanks <a href="https://brad.site" target="_blank">Brad Colbow</a> for reviving a legend. If you know, you know.
+    </div>
+  </div>
+</div>
