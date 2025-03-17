@@ -2,57 +2,103 @@
 import { getCollection, render } from 'astro:content'
 
 import Base from '@/layouts/base.astro'
+import Timeline from '@/components/timeline'
+
+import Me from '@/assets/me.webp'
 
 import '../styles/global.css'
+import { Image } from 'astro:assets'
 
 // Get content collections.
-const projects = (await getCollection('projects')).sort((a, b) => b.data.shipDate.valueOf() - a.data.shipDate.valueOf())
+const projects = await getCollection('projects')
 const quotes = await getCollection('quotes')
+
+// Calculate years of experience.
+const designYears = new Date().getFullYear() - 2004
+const developmentYears = new Date().getFullYear() - 2009
+const contentYears = new Date().getFullYear() - 2014
 ---
 
 <Base title="bryanvelo.so" description="The work of Bryan Veloso.">
   <div class="mx-auto max-w-4xl">
-    <p
-      class="font-hero from-cloud-grey/60 to-cloud-grey max-w-prose bg-gradient-to-r bg-clip-text text-2xl text-transparent [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)] sm:text-4xl"
+    <div
+      class="font-hero from-cloud-grey/60 to-cloud-grey my-12 max-w-prose bg-gradient-to-r bg-clip-text text-xl text-transparent [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)] sm:text-4xl"
     >
-      <span class="text-white before:w-full before:border-t-2 before:border-t-amber-50">I am weird.</span> I am a creative
-      driven by my hobbies. I am unapologetic when I fight for end users. I thrive on supporting the unsupported. I believe
-      in the power of tech, not tech bros. I am a child of the original web standards movement. I am a designer who codes.
-      I influence without being an &ldquo;influencer.&rdquo;
-      <span class="text-sky-blue">I am not your typical tech professional.</span>
-    </p>
-
-    <div>
-      {
-        quotes.map((quote) => {
-          return (
-            <div class="mt-8">
-              <blockquote class="font-serif text-lg italic">{quote.data.text}</blockquote>
-              <cite class="mt-2 block text-sm font-medium">
-                {quote.data.author.name}, <a href={quote.data.author.url}>{quote.data.author.handle}</a>
-              </cite>
-            </div>
-          )
-        })
-      }
+      <span class="font-mono text-xs text-white mix-blend-overlay">font-family: 'Gloock', serif;</span>
+      <p>
+        <span class="text-white">I am weird.</span> I am a hybrid.
+        I am a loud and proud gamer. I am a creative driven by my hobbies. I am unapologetic when I fight for users. I support
+        the unsupported. I believe in the power of tech, not tech bros. I am a child of the original web standards movement.
+        I am a designer who codes. I influence without being an &ldquo;influencer.&rdquo; I am a generalist.
+      </p>
+      <p class="mt-8 text-pretty">
+        <span class="text-white">My name is Bryan Veloso.</span>
+        <span class="text-sky-blue decoration-aqua/10 underline decoration-1 underline-offset-5"
+          >I am not your typical tech professional.</span
+        >
+      </p>
     </div>
 
-    <div>
-      {
-        projects.map(async (project) => {
-          const { Content } = await render(project)
+    <!--
+    <div class="bg-cool-black mt-8 flex p-8 pb-0">
+      <p class="flex-1">
+        Hello, my name is Bryan Veloso and I've been around the web for a bit. Since I bought this domain in 2000,
+        Avalonstar has been one of the longest-running constants in my life. It has managed to change in both form and
+        function as much as I have, going from personal site, to blog, to online moniker, to company namesake, and back
+        again. Avalonstar is an extension of me: the designer, the developer, the gamer, the content creator, the
+        entrepreneur, and whatever else the next 20 or so years have to offer.
+      </p>
+      <Image src={Me} alt="Bryan Veloso (by Ebi)" class="-mt-16 w-48" />
+    </div> -->
 
-          return (
-            <div class="mt-8">
-              <h2 class="">{project.data.title}</h2>
-              <div class="">{project.data.shipDate}</div>
-              <div class="">
-                <Content />
+    <div>
+      <div class="py-12">
+        <span class="font-mono text-xs text-white mix-blend-overlay"
+          >font-family: 'Work Sans Variable', sans-serif;</span
+        >
+        <h2
+          class="text-2xl leading-tight font-light tabular-nums [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)] md:text-4xl"
+        >
+          <div><span class="text-apple-green font-extrabold">{designYears}</span> years of Design,</div>
+          <div>
+            <span class="text-apple-green font-extrabold">{developmentYears}</span> years of Development &amp;
+          </div>
+          <div>
+            <span class="text-yellow font-extrabold">{contentYears}</span> years of Content Creation Experience
+          </div>
+        </h2>
+
+      </div>
+
+        <Timeline client:load projects={projects} />
+
+
+      <hr class="border-pewter/25 my-36 border-0 border-t" />
+
+      <div class="hidden">
+        {
+          quotes.map((quote) => {
+            return (
+              <div class="mt-8">
+                <blockquote class="font-serif text-lg italic">{quote.data.text}</blockquote>
+                <cite class="mt-2 block text-sm font-medium">
+                  {quote.data.author.name}, <a href={quote.data.author.url}>{quote.data.author.handle}</a>
+                </cite>
               </div>
-            </div>
-          )
-        })
-      }
+            )
+          })
+        }
+      </div>
+
+      <div class="dark:text-pewter">
+  <div class="flex items-baseline justify-between gap-6">
+    <h3 class="font-caps">Colophon</h3>
+    <p class="text-xs">
+      The text of this website is set in <a href="">Geologica</a>, <a href="">Andada Pro</a>, and
+      <a href="">Optician Sans</a>. Built by hand with Astro and GitHub. Hosted on my Mac Mini.
+    </p>
+  </div>
+</div>
     </div>
   </div>
 </Base>

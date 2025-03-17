@@ -5,7 +5,6 @@ import '@fontsource-variable/work-sans'
 import BaseHead from '@/components/base-head.astro'
 import Header from '@/components/header.astro'
 
-import Contours from '@/assets/contours.svg'
 import ChevronTL from '@/assets/chevron-tl.svg'
 import Katakana from '@/assets/katakana.svg'
 
@@ -42,9 +41,9 @@ const pageTitle = title || defaultTitles[activeSite]
     <div aria-hidden="true" class="absolute mix-blend-soft-light"></div>
     <div
       aria-hidden="true"
-      class="absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 mix-blend-overlay"
+      class=`bg-[url(/images/contours.svg)] bg-[auto_15rem] lg:bg-auto bg-fixed bg-no-repeat bg-top absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 mix-blend-overlay`
     >
-      <Contours />
+      <!-- <Contours /> -->
     </div>
     <div class="relative grid w-screen grid-cols-1 gap-2 md:grid-cols-[48px_1fr_48px]">
       <!-- Mind (Avalonstar) -->
@@ -61,7 +60,7 @@ const pageTitle = title || defaultTitles[activeSite]
       </div>
 
       <!-- Work (Bryan Veloso) -->
-      <div class="relative container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="relative container mx-auto px-6 lg:px-8">
         <div aria-hidden="true" class="absolute mt-6 flex items-center gap-2 mix-blend-soft-light">
           <ChevronTL class="text-sky-blue h-8 w-8" />
           <Katakana class="h-4 text-white" />
