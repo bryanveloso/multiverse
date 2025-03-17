@@ -48,10 +48,10 @@ const activeLocation = locations.find((location) => {
     </div>
     <div
       class={cn(
-        'col-start-1 grid grid-cols-[repeat(3,var(--event-line-width))_12px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px] items-start'
+        'col-start-1 grid grid-rows-[1fr_auto] grid-cols-[repeat(3,var(--event-line-width))_12px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px] items-start'
       )}
     >
-      <main class="col-span-5 grid grid-cols-subgrid text-sm">
+      <main class="col-span-5 grid grid-rows-[auto_auto_1fr] grid-cols-subgrid text-sm self-stretch">
         <!-- Row 1 -->
         <div class="col-span-3 pt-16">
           <a href="/" class="font-caps text-buttermilk flex items-baseline"

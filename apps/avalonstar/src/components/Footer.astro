@@ -1,5 +1,8 @@
 ---
 import Colophon from '@/components/colophon.astro'
+import { LocationIcon } from '@/components/location-icon'
+import { JobIcon } from '@/components/job-icon'
+import { EraIcon } from '@/components/era-icon'
 
 interface Props {
   page?: string
@@ -22,15 +25,26 @@ const years =
 <footer
   data-page={page}
   class:list={[
-    'grid grid-cols-subgrid self-end',
+    'grid grid-cols-subgrid self-end items-baseline',
     { 'col-span-6': page === 'index' },
     { 'col-span-5': page === 'post' }
   ]}
 >
-  <div class="relative h-full"><div class="dark:border-timeline h-full w-[1px] border-l"></div></div>
-  <div class="relative h-full"><div class="dark:border-timeline h-full w-[1px] border-l"></div></div>
-  <div class="relative h-full"><div class="dark:border-timeline h-full w-[1px] border-l"></div></div>
-  <div class="relative h-full"><div class="dark:border-timeline h-full w-[1px] border-l"></div></div>
+  <div>
+    <div class="dark:border-timeline h-10 mb-2 w-[1px] border-l relative -top-2"></div>
+    <EraIcon className="size-3.5 text-white/10" />
+  </div>
+  <div>
+    <div class="dark:border-timeline h-10 mb-2 w-[1px] border-l relative -top-2"></div>
+    <JobIcon className="size-3.5 text-white/10" />
+  </div>
+  <div>
+    <div class="dark:border-timeline h-10 mb-2 w-[1px] border-l relative -top-2"></div>
+    <LocationIcon className="size-3.5 text-white/10" />
+  </div>
+  <div class="self-stretch">
+    <div class="dark:border-timeline h-full w-[1px] border-l"></div>
+  </div>
   <div class="col-span-2 col-start-5 pt-12 pr-4 sm:col-span-1 sm:col-start-6">
     <div class:list={['flex max-w-prose flex-col gap-8 pl-4 sm:pl-2', { 'sm:pl-4': page === 'post' }]}>
       <p class="text-mist">
