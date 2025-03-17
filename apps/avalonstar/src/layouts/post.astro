@@ -43,7 +43,7 @@ const activeLocation = locations.find((location) => {
 <Base title={title} description={description}>
   <div class="grid min-h-dvh grid-cols-1 gap-8 md:grid-cols-[24px_1fr]">
     <div
-      class="col-start-1 row-span-full bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat [--pattern-fg:var(--color-black)]/5 hidden md:block dark:[--pattern-fg:var(--color-white)]/10"
+      class="col-start-1 row-span-full hidden bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat [--pattern-fg:var(--color-black)]/5 md:block dark:[--pattern-fg:var(--color-white)]/10"
     >
     </div>
     <div
@@ -54,7 +54,7 @@ const activeLocation = locations.find((location) => {
       <main class="col-span-5 grid grid-cols-subgrid text-sm">
         <!-- Row 1 -->
         <div class="col-span-3 pt-16">
-          <a href="/" class="font-caps flex items-baseline text-buttermilk"
+          <a href="/" class="font-caps text-buttermilk flex items-baseline"
             ><BackIcon className="relative top-1 mr-2 size-3.5" /> <span class="relative top-[1px]">Back</span></a
           >
         </div>
@@ -62,9 +62,16 @@ const activeLocation = locations.find((location) => {
           <div class="dark:border-timeline h-full w-[1px] border-l"></div>
         </div>
         <div class="col-span-1 col-start-5 py-16 pr-6 pl-4">
-          <FormattedDate date={date} /> {updatedDate && <>— Updated <FormattedDate date={updatedDate} /></>}
+          <FormattedDate date={date} />
+          {
+            updatedDate && (
+              <>
+                — Updated <FormattedDate date={updatedDate} />
+              </>
+            )
+          }
           <h1 class="mb-4 text-4xl font-thin">{title}</h1>
-          {heroImage && <Image src={heroImage} alt={title} class="w-full h-[300px] object-cover rounded-lg" />}
+          {heroImage && <Image src={heroImage} alt={title} class="h-[300px] w-full rounded-lg object-cover" />}
         </div>
 
         <!-- Row 2 -->
@@ -130,7 +137,9 @@ const activeLocation = locations.find((location) => {
           <div class="dark:border-timeline h-full w-[1px] border-l"></div>
         </div>
         <div class="pr-6 pb-12 pl-4">
-          <article class="prose prose-p:font-light prose-a:underline-offset-4 prose-img:rounded prose-img:shadow prose-a:decoration-sky prose-em:font-serif prose-lead:text-md prose-lead:font-light dark:prose-lead:text-mist dark:prose-invert">
+          <article
+            class="prose prose-p:font-light prose-a:underline-offset-4 prose-img:rounded prose-img:shadow prose-a:decoration-sky prose-em:font-serif prose-lead:text-md prose-lead:font-light dark:prose-lead:text-mist dark:prose-invert"
+          >
             {isLegacyPost && <LegacyDisclaimer />}
             <slot />
           </article>

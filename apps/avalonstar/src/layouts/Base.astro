@@ -33,13 +33,13 @@ const pageTitle = title || defaultTitles[activeSite]
   <head>
     <BaseHead title={pageTitle} description={description} image={image} />
   </head>
-  <body class="bg-ink">
+  <body
+    class="bg-ink dark:from-ink dark:to-onyx relative mr-0 min-h-dvh bg-linear-to-b from-0% to-100% text-gray-900 dark:text-gray-100"
+  >
     <SiteTransition client:load />
-    <div class="relative isolate grid grid-cols-1 gap-2 pr-2 md:grid-cols-[1fr_48px_48px]">
+    <div class="relative isolate grid grid-cols-1 md:grid-cols-[1fr_48px_48px]">
       <!-- Mind (Avalonstar) -->
-      <div
-        class="dark:from-ink dark:to-onyx relative mr-0 min-h-dvh bg-linear-to-b from-0% to-100% text-gray-900 dark:text-gray-100 pl-4 md:pl-0"
-      >
+      <div class="pl-4 md:pl-0">
         <slot />
       </div>
 
@@ -47,7 +47,7 @@ const pageTitle = title || defaultTitles[activeSite]
       <div class="relative hidden md:block">
         <div class="sticky top-0 z-50 pt-2">
           <a href={import.meta.env.DEV ? `http://localhost:5322` : 'https://bryanvelo.so'}>
-            <div class="flex h-[calc(100dvh-1rem)] justify-center rounded outline outline-amber-100/20 theme-bryanveloso">
+            <div class="ring-sky/10 bg-ink mr-2 flex h-[calc(100dvh-1rem)] justify-center rounded ring ring-inset">
               <div class="pt-4 text-xs uppercase" style={{ writingMode: 'vertical-rl' }}>
                 <strong>work</strong> &mdash; bryanvelo.so
               </div>
@@ -60,7 +60,7 @@ const pageTitle = title || defaultTitles[activeSite]
       <div class="relative hidden md:block">
         <div class="sticky top-0 z-50 pt-2">
           <a href={import.meta.env.DEV ? `http://localhost:5323` : 'https://omnyist.com'}>
-            <div class="flex h-[calc(100dvh-1rem)] justify-center rounded outline outline-blue-100/20 theme-omnyist">
+            <div class="ring-sky/10 bg-ink mr-2 flex h-[calc(100dvh-1rem)] justify-center rounded ring ring-inset">
               <div class="pt-4 text-xs uppercase" style={{ writingMode: 'vertical-rl' }}>
                 <strong>play</strong> &mdash; omnyist
               </div>
