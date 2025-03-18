@@ -19,6 +19,7 @@
     "@multiverse/config": "workspace:*",
     "@multiverse/shared": "workspace:*",
     "@multiverse/ui": "workspace:*",
+    "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.0.12",
     "astro": "5.4.2",
     "marked": "^15.0.7",

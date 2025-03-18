@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
 /* Multiverse libraries. */
 @import '@multiverse/ui/styles/fonts.css';
