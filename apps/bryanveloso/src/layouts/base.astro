@@ -36,16 +36,14 @@ const pageTitle = title || defaultTitles[activeSite]
     <BaseHead title={pageTitle} description={description} image={image} />
   </head>
   <body
-    class="dark:bg-midnight-blue dark:from-cool-black to-midnight-blue dark:text-white-frost relative w-screen bg-gradient-to-b to-75%"
+    class="dark:bg-midnight-blue dark:from-cool-black to-midnight-blue dark:text-white-frost w-full relative bg-gradient-to-b to-75%"
   >
-    <div aria-hidden="true" class="absolute mix-blend-soft-light"></div>
     <div
       aria-hidden="true"
       class=`bg-[url(/images/contours.svg)] bg-[auto_15rem] lg:bg-auto bg-fixed bg-no-repeat bg-top absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 mix-blend-overlay`
     >
-      <!-- <Contours /> -->
     </div>
-    <div class="relative grid w-screen grid-cols-1 gap-2 md:grid-cols-[48px_1fr_48px]">
+    <div class="relative grid grid-cols-1 gap-2 md:grid-cols-[48px_1fr_48px]">
       <!-- Mind (Avalonstar) -->
       <div class="relative hidden md:block">
         <div class="sticky top-0 p-2 pr-0">

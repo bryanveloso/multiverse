@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content'
+import { marked } from 'marked'
 
 import Avalonstar from '@/components/logos/avalonstar'
 import Facebook from '@/components/logos/facebook'
@@ -92,10 +93,11 @@ const getLogoComponent = (company: string) => {
             </div>
             <div class="text-cool-black rounded-sm p-4 text-sm">
               <div class="leading-tight">
-                <h4 class="uppercase">{project.data.title}</h4>
                 <div class="flex items-baseline justify-between">
                   <span class="text-xs uppercase">{project.data.company}</span>
                 </div>
+                <div set:html={marked.parse(project.data.summary)}></div>
+                <div set:html={marked.parse(project.data.involvement)}></div>
               </div>
             </div>
           </div>
