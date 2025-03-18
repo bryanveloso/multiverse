@@ -1,13 +1,12 @@
 ---
-import { getCollection, render } from 'astro:content'
+import { getCollection } from 'astro:content'
 
 import Base from '@/layouts/base.astro'
-import Timeline from '@/components/timeline'
+import Timeline from '@/components/timeline.astro'
 
 import Me from '@/assets/me.webp'
 
 import '../styles/global.css'
-import { Image } from 'astro:assets'
 
 // Get content collections.
 const projects = await getCollection('projects')
@@ -26,10 +25,10 @@ const contentYears = new Date().getFullYear() - 2014
     >
       <span class="font-mono text-xs text-white mix-blend-overlay">font-family: 'Gloock', serif;</span>
       <p>
-        <span class="text-white">I am weird.</span> I am a hybrid.
-        I am a loud and proud gamer. I am a creative driven by my hobbies. I am unapologetic when I fight for users. I support
-        the unsupported. I believe in the power of tech, not tech bros. I am a child of the original web standards movement.
-        I am a designer who codes. I influence without being an &ldquo;influencer.&rdquo; I am a generalist.
+        <span class="text-white">I am weird.</span> I am a hybrid. I am a loud and proud gamer. I am a creative driven by
+        my hobbies. I am unapologetic when I fight for users. I support the unsupported. I believe in the power of tech,
+        not tech bros. I am a child of the original web standards movement. I am a designer who codes. I influence without
+        being an &ldquo;influencer.&rdquo; I am a generalist.
       </p>
       <p class="mt-8 text-pretty">
         <span class="text-white">My name is Bryan Veloso.</span>
@@ -60,20 +59,12 @@ const contentYears = new Date().getFullYear() - 2014
           class="text-2xl leading-tight font-light tabular-nums [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)] md:text-4xl"
         >
           <div><span class="text-apple-green font-extrabold">{designYears}</span> years of Design,</div>
-          <div>
-            <span class="text-apple-green font-extrabold">{developmentYears}</span> years of Development &amp;
-          </div>
-          <div>
-            <span class="text-yellow font-extrabold">{contentYears}</span> years of Content Creation Experience
-          </div>
+          <div><span class="text-apple-green font-extrabold">{developmentYears}</span> years of Development &amp;</div>
+          <div><span class="text-yellow font-extrabold">{contentYears}</span> years of Content Creation Experience</div>
         </h2>
-
       </div>
 
-        <Timeline client:load projects={projects} />
-
-
-      <hr class="border-pewter/25 my-36 border-0 border-t" />
+      <Timeline projects={projects} />
 
       <div class="hidden">
         {
@@ -90,15 +81,16 @@ const contentYears = new Date().getFullYear() - 2014
         }
       </div>
 
-      <div class="dark:text-pewter">
-  <div class="flex items-baseline justify-between gap-6">
-    <h3 class="font-caps">Colophon</h3>
-    <p class="text-xs">
-      The text of this website is set in <a href="">Geologica</a>, <a href="">Andada Pro</a>, and
-      <a href="">Optician Sans</a>. Built by hand with Astro and GitHub. Hosted on my Mac Mini.
-    </p>
-  </div>
-</div>
+      <div class="dark:text-pewter py-12">
+        <div class="flex items-baseline justify-between gap-6">
+          <h3 class="font-caps">Colophon</h3>
+          <p class="text-xs">
+            The text of this website is set in <a href="https://github.com/duartp/gloock">Gloock</a>, and
+            <a href="https://github.com/weiweihuanghuang/Work-Sans">Work Sans Variable</a>. Built by hand with Astro and
+            GitHub. Hosted on my Mac Mini.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </Base>

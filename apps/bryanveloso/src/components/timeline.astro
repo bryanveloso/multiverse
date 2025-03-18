@@ -1,0 +1,106 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+import Avalonstar from '@/components/logos/avalonstar'
+import Facebook from '@/components/logos/facebook'
+import GitHub from '@/components/logos/github'
+import Twitch from '@/components/logos/twitch'
+import Altair from './logos/altair'
+import { Image } from 'astro:assets'
+
+type Project = CollectionEntry<'projects'>
+
+interface Props {
+  projects: Project[]
+}
+
+const { projects } = Astro.props
+
+// Group projects by year
+const projectsByYear = (() => {
+  // Group by year
+  const byYear = projects.reduce<Record<number, Project[]>>((acc, project) => {
+    const year = project.data.date.getFullYear()
+    if (!acc[year]) {
+      acc[year] = []
+    }
+    acc[year].push(project)
+    return acc
+  }, {})
+
+  // Convert to array of year objects sorted by year (newest first)
+  return Object.entries(byYear)
+    .map(([year, yearProjects]) => ({
+      year: parseInt(year, 10),
+      projects: yearProjects.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+    }))
+    .sort((a, b) => b.year - a.year)
+})()
+
+// Component mapping
+const getLogoComponent = (company: string) => {
+  company = company.toLowerCase();
+  switch (company) {
+    case 'altair': return Altair;
+    case 'avalonstar': return Avalonstar;
+    case 'facebook': return Facebook;
+    case 'github': return GitHub;
+    case 'twitch': return Twitch;
+    default: return null;
+  }
+}
+---
+
+<div class="grid grid-cols-[24px_1fr] gap-x-2">
+  {projectsByYear.map(({ year, projects }) => (
+    <>
+      <div class="relative flex h-full">
+        <h3 class="text-slate-blue text-sm font-bold tabular-nums" style="writing-mode: vertical-rl;">
+          <time datetime={year.toString()}>{year}</time>
+        </h3>
+        <div class="l-[1px] dark:border-timeline border-slate-blue/50 absolute h-full w-[1px] border-l"></div>
+      </div>
+      <div class="col-start-2">
+        {projects.map((project) => (
+          <div class="mb-8">
+            <div>
+              <div class="mb-4 flex items-center gap-2">
+                {(() => {
+                  const company = project.data.company.toLowerCase();
+                  const LogoComponent = getLogoComponent(company);
+                  if (LogoComponent) {
+                    return company === 'github' || company === 'twitch' ? 
+                      <LogoComponent className="size-6 text-white" /> :
+                      <LogoComponent className="size-6" />;
+                  }
+                  return <div class="size-6 rounded-full bg-black"></div>;
+                })()}
+                <h3 class="text-lg font-light">{project.data.title}</h3>
+              </div>
+
+              {project.data.heroImage ? (
+                <Image
+                  src={project.data.heroImage}
+                  alt={project.data.title}
+                  class="aspect-[4/1] h-auto rounded object-cover shadow-xl"
+                />
+              ) : (
+                <div class="bg-slate-blue flex aspect-[4/1] items-center justify-center rounded text-gray-500">
+                  {project.data.title}
+                </div>
+              )}
+            </div>
+            <div class="text-cool-black rounded-sm p-4 text-sm">
+              <div class="leading-tight">
+                <h4 class="uppercase">{project.data.title}</h4>
+                <div class="flex items-baseline justify-between">
+                  <span class="text-xs uppercase">{project.data.company}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  ))}
+</div>

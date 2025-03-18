@@ -5,6 +5,7 @@ import Avalonstar from '@/components/logos/avalonstar'
 import Facebook from '@/components/logos/facebook'
 import GitHub from '@/components/logos/github'
 import Twitch from '@/components/logos/twitch'
+import Altair from './logos/altair'
 
 type Project = CollectionEntry<'projects'>
 
@@ -12,13 +13,14 @@ interface TimelineProps {
   projects: Project[]
 }
 
-const getLogo = (project: Project) => { 
+const getLogo = (project: Project) => {
   const logoMap = {
-    'avalonstar': () => <div><Avalonstar className="size-6" /></div>,
-    'facebook': () => <div><Facebook className="size-6" /></div>,
-    'github': () => <div><GitHub className="size-6 text-white" /></div>,
-    'twitch': () => <div><Twitch className="size-6 text-white" /></div>,
-    'default': () => <div className="size-6 bg-black rounded-full"></div>
+    altair: () => <Altair className="size-6" />,
+    avalonstar: () => <Avalonstar className="size-6" />,
+    facebook: () => <Facebook className="size-6" />,
+    github: () => <GitHub className="size-6 text-white" />,
+    twitch: () => <Twitch className="size-6 text-white" />,
+    default: () => <div className="size-6 rounded-full bg-black"></div>
   }
 
   const renderFunction = logoMap[project.data.company.toLowerCase() as keyof typeof logoMap] || logoMap.default
@@ -58,45 +60,45 @@ const Timeline = ({ projects }: TimelineProps) => {
             <div className="l-[1px] dark:border-timeline border-slate-blue/50 absolute h-full w-[1px] border-l" />
           </div>
           <div key={year} className="col-start-2">
-              {projects.map((project) => (
-                <div key={project.id} className='mb-8'>
-                  <div className="">
-                    <div className="mb-4 flex items-center gap-2">
-                      {getLogo(project)}
-                      <h3 className="text-lg font-light">{project.data.title}</h3>
-                    </div>
-
-                    {project.data.heroImage ? (
-                      <img
-                        src={
-                          typeof project.data.heroImage === 'string'
-                            ? project.data.heroImage
-                            : project.data.heroImage.src || project.data.heroImage.toString()
-                        }
-                        alt={project.data.title}
-                        className="aspect-[4/1] h-auto rounded object-cover shadow-xl"
-                      />
-                    ) : (
-                      <div className="flex aspect-[4/1] items-center justify-center bg-slate-blue text-gray-500 rounded">
-                        {project.data.title}
-                      </div>
-                    )}
+            {projects.map((project) => (
+              <div key={project.id} className="mb-8">
+                <div className="">
+                  <div className="mb-4 flex items-center gap-2">
+                    {getLogo(project)}
+                    <h3 className="text-lg font-light">{project.data.title}</h3>
                   </div>
-                  <div className="text-cool-black rounded-sm p-4 text-sm">
-                    <div className="leading-tight">
-                      <h4 className="uppercase">{project.data.title}</h4>
-                      <div className="flex items-baseline justify-between">
-                        <span className="text-xs uppercase">{project.data.company}</span>
-                      </div>
+
+                  {project.data.heroImage ? (
+                    <img
+                      src={
+                        typeof project.data.heroImage === 'string'
+                          ? project.data.heroImage
+                          : project.data.heroImage.src || project.data.heroImage.toString()
+                      }
+                      alt={project.data.title}
+                      className="aspect-[4/1] h-auto rounded object-cover shadow-xl"
+                    />
+                  ) : (
+                    <div className="bg-slate-blue flex aspect-[4/1] items-center justify-center rounded text-gray-500">
+                      {project.data.title}
+                    </div>
+                  )}
+                </div>
+                <div className="text-cool-black rounded-sm p-4 text-sm">
+                  <div className="leading-tight">
+                    <h4 className="uppercase">{project.data.title}</h4>
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-xs uppercase">{project.data.company}</span>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </div>
         </>
       ))}
     </div>
   )
- }
+}
 
- export default Timeline
+export default Timeline
