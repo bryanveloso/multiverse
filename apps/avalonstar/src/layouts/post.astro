@@ -77,7 +77,6 @@ const activeLocation = locations.find((location) => {
             )
           }
           <h1 class="mb-4 text-4xl font-thin">{title}</h1>
-          {heroImage && <Image src={heroImage} alt={title} class="h-[300px] w-full rounded-lg object-cover" />}
         </div>
 
         <!-- Row 2 -->
@@ -146,6 +145,7 @@ const activeLocation = locations.find((location) => {
           <article
             class="prose prose-p:font-light prose-a:underline-offset-4 prose-img:rounded prose-img:shadow prose-a:decoration-sky prose-em:font-serif prose-lead:text-md prose-lead:font-light dark:prose-lead:text-mist dark:prose-invert"
           >
+            {heroImage && <Image src={heroImage} alt={title} class="aspect-video w-full rounded-lg object-cover shadow" />}
             {isLegacyPost && <LegacyDisclaimer />}
             <slot />
           </article>

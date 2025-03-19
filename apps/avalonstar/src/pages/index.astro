@@ -23,7 +23,8 @@ const timelineItems = [
     description: post.data.description,
     id: post.id,
     significance: post.data.significance || 3,
-    crosspost: post.data.crosspost
+    crosspost: post.data.crosspost,
+    heroImage: post.data.heroImage
   })),
 
   // Major life eras
@@ -79,12 +80,19 @@ const timelineItems = [
       class="col-start-1 grid grid-cols-[repeat(3,var(--event-line-width))_12px_48px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px]"
     >
       <Header />
-      <main class="col-span-6 grid grid-cols-subgrid text-sm">
+      <main
+        id="main"
+        class="col-span-6 grid grid-cols-subgrid text-sm"
+        aria-label="Timeline of Bryan Veloso's life and career"
+      >
         <div class="col-start-4 self-stretch">
           <div class="dark:border-timeline h-full w-[1px] border-l"></div>
         </div>
         <div class="col-span-2 col-start-5 px-4 py-16 sm:col-span-1 sm:col-start-6 sm:px-2">
-          <h2 class="font-caps text-sky pb-4">The Mind of Bryan Veloso</h2>
+          <h2 class="font-caps text-sky pb-4">
+            <span class="text-white">Avalonstar</span>
+            <span class="text-pewter">&mdash;</span> The Mind of Bryan Veloso
+          </h2>
           <p class="font-xs max-w-prose pr-8">
             Since I bought this domain in 2000, Avalonstar has been one of the longest-running constants in my life. It
             has managed to change in both form and function as much as I have, going from personal site, to blog, to
