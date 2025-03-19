@@ -40,12 +40,13 @@ const activeLocation = locations.find((location) => {
 })
 ---
 
-<Base 
-  title={title} 
-  description={description} 
+<Base
+  title={title}
+  description={description}
   image={heroImage ? heroImage.src : undefined}
   type="article"
-  publishDate={date}>
+  publishDate={date}
+>
   <div class="grid min-h-dvh grid-cols-1 gap-8 md:grid-cols-[24px_1fr]">
     <div
       class="col-start-1 row-span-full hidden bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat [--pattern-fg:var(--color-black)]/5 md:block dark:[--pattern-fg:var(--color-white)]/10"
@@ -56,7 +57,7 @@ const activeLocation = locations.find((location) => {
         'col-start-1 grid grid-rows-[1fr_auto] grid-cols-[repeat(3,var(--event-line-width))_12px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px] items-start'
       )}
     >
-      <main id="main" class="col-span-5 grid grid-rows-[auto_auto_1fr] grid-cols-subgrid text-sm self-stretch">
+      <main id="main" class="col-span-5 grid grid-cols-subgrid grid-rows-[auto_auto_1fr] self-stretch text-sm">
         <!-- Row 1 -->
         <div class="col-span-3 pt-16">
           <a href="/" class="font-caps text-buttermilk flex items-baseline" aria-label="Return to homepage"

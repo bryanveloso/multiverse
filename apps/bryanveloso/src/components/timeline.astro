@@ -92,27 +92,27 @@ const getLogoComponent = (company: string) => {
                   <Image
                     src={project.data.heroImage}
                     alt={project.data.title}
-                    class="aspect-[4/1] h-auto rounded object-cover shadow-xl mb-4"
+                    class="mb-4 aspect-[4/1] h-auto rounded object-cover shadow-xl"
                   />
                 ) : (
-                  <div class="dark:bg-slate-blue flex aspect-[4/1] items-center justify-center rounded dark:text-gray-500 mb-4">
+                  <div class="dark:bg-slate-blue mb-4 flex aspect-[4/1] items-center justify-center rounded dark:text-gray-500">
                     {project.data.title}
                   </div>
                 )}
               </div>
               <div class="dark:text-cool-black rounded-sm text-sm">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 leading-tight w-full">
+                <div class="grid w-full grid-cols-1 gap-4 leading-tight lg:grid-cols-2">
                   {project.data.summary && (
-                  <div>
-                    <h4 class="text-xs uppercase text-apple-green pb-2">Summary</h4>
-                    <div class="dark:text-cool-grey max-w-prose" set:html={marked.parse(project.data.summary)} />
-                  </div>
+                    <div>
+                      <h4 class="text-apple-green pb-2 text-xs uppercase">Summary</h4>
+                      <div class="dark:text-cool-grey max-w-prose" set:html={marked.parse(project.data.summary)} />
+                    </div>
                   )}
                   {project.data.involvement && (
-                  <div>
-                    <h4 class="text-xs uppercase text-apple-green pb-2">Involvement</h4>
-                    <div class="dark:text-cool-grey max-w-prose" set:html={marked.parse(project.data.involvement)} />
-                  </div>
+                    <div>
+                      <h4 class="text-apple-green pb-2 text-xs uppercase">Involvement</h4>
+                      <div class="dark:text-cool-grey max-w-prose" set:html={marked.parse(project.data.involvement)} />
+                    </div>
                   )}
                 </div>
               </div>

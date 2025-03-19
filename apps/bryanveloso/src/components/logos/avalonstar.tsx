@@ -123,12 +123,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
       d="M59.66 13.06a27.87 27.87 0 0 1-.93-.93l.35-.1.98.9-.4.13z"
       clipRule="evenodd"
     />
-    <path
-      fill="url(#u)"
-      fillRule="evenodd"
-      d="m21.68 30.97.4-.69.95-.67c-.45.43-.9.88-1.35 1.36z"
-      clipRule="evenodd"
-    />
+    <path fill="url(#u)" fillRule="evenodd" d="m21.68 30.97.4-.69.95-.67c-.45.43-.9.88-1.35 1.36z" clipRule="evenodd" />
     <path
       fill="url(#v)"
       fillRule="evenodd"
@@ -1076,12 +1071,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
       d="m84.06 48.2.3.13a59.54 59.54 0 0 0-.4-1.2 9.53 9.53 0 0 1-.3-.12l.4 1.2z"
       clipRule="evenodd"
     />
-    <path
-      fill="#F37340"
-      fillRule="evenodd"
-      d="m83.66 47.01.3.11-.43-1.2-.3-.1c.15.4.3.8.43 1.19z"
-      clipRule="evenodd"
-    />
+    <path fill="#F37340" fillRule="evenodd" d="m83.66 47.01.3.11-.43-1.2-.3-.1c.15.4.3.8.43 1.19z" clipRule="evenodd" />
     <path
       fill="#F37241"
       fillRule="evenodd"
@@ -2434,12 +2424,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
       d="m39.77 1.9-.29-.7.28.7zm-.28-.7.14-.58-.14.58zm0 0 .14-.58a.56.56 0 0 0-.33 0l.18.58h.01zm0 0-.2-.57.2.57z"
       clipRule="evenodd"
     />
-    <path
-      fill="#F57E30"
-      fillRule="evenodd"
-      d="M39.48 1.2 39.3.63a.57.57 0 0 0-.31.25l.5.33V1.2z"
-      clipRule="evenodd"
-    />
+    <path fill="#F57E30" fillRule="evenodd" d="M39.48 1.2 39.3.63a.57.57 0 0 0-.31.25l.5.33V1.2z" clipRule="evenodd" />
     <path
       fill="#F57E30"
       fillRule="evenodd"
@@ -3341,12 +3326,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
       d="M16.92 36.72a4.2 4.2 0 0 0-.26-.16 37.87 37.87 0 0 0-1.5 2.69l.27.13c.46-.9.95-1.8 1.49-2.66z"
       clipRule="evenodd"
     />
-    <path
-      fill="#F4783B"
-      fillRule="evenodd"
-      d="m32.07 22.44-.57-.38.56.38zm-.01 0-.56-.38.56.38z"
-      clipRule="evenodd"
-    />
+    <path fill="#F4783B" fillRule="evenodd" d="m32.07 22.44-.57-.38.56.38zm-.01 0-.56-.38.56.38z" clipRule="evenodd" />
     <path fill="#F4783B" fillRule="evenodd" d="m32.06 22.44-.56-.38c.38.25.56.38.56.39z" clipRule="evenodd" />
     <path
       fill="#F4783B"

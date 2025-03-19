@@ -25,21 +25,21 @@ const years =
 <footer
   data-page={page}
   class:list={[
-    'grid grid-cols-subgrid self-end items-baseline',
+    'grid grid-cols-subgrid items-baseline self-end',
     { 'col-span-6': page === 'index' },
     { 'col-span-5': page === 'post' }
   ]}
 >
   <div>
-    <div class="dark:border-timeline h-10 mb-2 w-[1px] border-l relative -top-2"></div>
+    <div class="dark:border-timeline relative -top-2 mb-2 h-10 w-[1px] border-l"></div>
     <EraIcon className="size-3.5 text-white/10" />
   </div>
   <div>
-    <div class="dark:border-timeline h-10 mb-2 w-[1px] border-l relative -top-2"></div>
+    <div class="dark:border-timeline relative -top-2 mb-2 h-10 w-[1px] border-l"></div>
     <JobIcon className="size-3.5 text-white/10" />
   </div>
   <div>
-    <div class="dark:border-timeline h-10 mb-2 w-[1px] border-l relative -top-2"></div>
+    <div class="dark:border-timeline relative -top-2 mb-2 h-10 w-[1px] border-l"></div>
     <LocationIcon className="size-3.5 text-white/10" />
   </div>
   <div class="self-stretch">
@@ -49,7 +49,12 @@ const years =
     <div class:list={['flex max-w-prose flex-col gap-8 pl-4 sm:pl-2', { 'sm:pl-4': page === 'post' }]}>
       <p class="text-mist">
         <strong>Avalonstar</strong> is the {years}-year-old personal website of <strong
-          ><a href="https://bryanvelo.so" target="_blank" rel="noopener" aria-label="Bryan Veloso's portfolio (opens in new tab)">Bryan Veloso</a></strong
+          ><a
+            href="https://bryanvelo.so"
+            target="_blank"
+            rel="noopener"
+            aria-label="Bryan Veloso's portfolio (opens in new tab)">Bryan Veloso</a
+          ></strong
         >: <em class="font-serif"
           >streamer, professional user interface designer, hobbyist developer, lifelong gamer, and compass of purpose.</em
         >
