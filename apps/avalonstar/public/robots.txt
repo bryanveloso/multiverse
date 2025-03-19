@@ -1,0 +1,11 @@
+# robots.txt for avalonstar.com
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://avalonstar.com/sitemap-index.xml
+
+# Paths to exclude (if any)
+# Disallow: /private/

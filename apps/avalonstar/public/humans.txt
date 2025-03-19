@@ -1,0 +1,12 @@
+/* TEAM */
+	Developer/Designer: Bryan Veloso
+	Contact: bryan [at] avalonstar.com
+	Bluesky: @bryanvelo.so
+	From: Los Angeles, CA, USA
+
+/* SITE */
+	Last update: 2025-03-18
+	Language: English
+	Doctype: HTML5
+	IDE: VS Code
+	Built with: Astro, React, Tailwind CSS
