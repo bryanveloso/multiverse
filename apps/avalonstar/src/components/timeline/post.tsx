@@ -52,6 +52,9 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
           <a href={href}>{item.title}</a>
         </h2>
         {item.significance > 3 && <p className="dark:text-mist max-w-prose text-pretty">{item.description}</p>}
+        {item.significance == 3 && (
+          <p className="dark:text-mist/50 max-w-prose pt-1 text-xs text-pretty">{item.description}</p>
+        )}
       </div>
     </div>
   )
