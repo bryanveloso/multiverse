@@ -17,7 +17,7 @@ export const Gap: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive,
       </div>
       <div className="hidden sm:block"></div>
       <div className="col-span-2 col-start-5 py-6 pr-8 pl-4 sm:col-span-1 sm:col-start-6 sm:pl-2">
-        <time className="font-caps font-xs text-graphite">
+        <time dateTime={item.date.toISOString()} className="font-caps font-xs text-graphite">
           {'date' in item &&
             item.date.toLocaleDateString('en-US', {
               month: 'long',

@@ -39,7 +39,7 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
         )}
       >
         <div className="font-caps flex">
-          <time className="font-xs text-graphite">
+          <time dateTime={item.date.toISOString()} className="font-xs text-graphite">
             {'date' in item &&
               item.date.toLocaleDateString('en-US', {
                 month: 'long',
