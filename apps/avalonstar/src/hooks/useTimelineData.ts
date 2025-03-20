@@ -121,23 +121,23 @@ export function useTimelineData(items: TimelineItem[]) {
   const getContextForItem = (item: TimelineItem, itemIndex: number): TimelineContext => {
     const date = getItemDate(item)
 
-    // Filter active eras, locations, and jobs
-    const activeEras = eras.filter((era) => isActiveAtDate(era, date))
-    const activeLocations = locations.filter((loc) => isActiveAtDate(loc, date))
-    const activeJobs = jobs.filter((job) => isActiveAtDate(job, date))
+    // Find the active era, location, and job (taking the first active one if there are multiple)
+    const activeEra = eras.find((era) => isActiveAtDate(era, date))
+    const activeLocation = locations.find((loc) => isActiveAtDate(loc, date))
+    const activeJob = jobs.find((job) => isActiveAtDate(job, date))
 
     // Calculate significance from the item or use default value
     const significance = 'significance' in item ? item.significance || 3 : item.type === 'event' ? 5 : 3
 
     // Calculate the ends of eras, locations, and jobs
-    const isEndOfEra = activeEras.some((era) => endOccurrences.eras[era.title] === itemIndex)
-    const isEndOfJob = activeJobs.some((job) => endOccurrences.jobs[job.company] === itemIndex)
-    const isEndOfLocation = activeLocations.some((loc) => endOccurrences.locations[loc.name] === itemIndex)
+    const isEndOfEra = activeEra ? endOccurrences.eras[activeEra.title] === itemIndex : false
+    const isEndOfJob = activeJob ? endOccurrences.jobs[activeJob.company] === itemIndex : false
+    const isEndOfLocation = activeLocation ? endOccurrences.locations[activeLocation.name] === itemIndex : false
 
     return {
-      activeEras,
-      activeLocations,
-      activeJobs,
+      activeEra,
+      activeLocation,
+      activeJob,
       authorAge: getAuthorAge(date),
       significance,
       isEndOfEra,

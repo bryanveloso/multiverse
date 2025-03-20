@@ -49,11 +49,11 @@ interface TimelineJob extends TimelineRangeItem {
 // Union of all direct timeline items
 export type TimelineItem = TimelinePost | TimelineGap | TimelineEra | TimelineLocation | TimelineJob | TimelineEvent
 
-// Context data for a specific timelin e point
+// Context data for a specific timeline point
 export interface TimelineContext {
-  activeEras: TimelineEra[]
-  activeLocations: TimelineLocation[]
-  activeJobs: TimelineJob[]
+  activeEra?: TimelineEra
+  activeLocation?: TimelineLocation
+  activeJob?: TimelineJob
   authorAge: number
   significance: number
   isEndOfEra: boolean
