@@ -108,12 +108,22 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
       {sortedItems.map((item, itemIndex) => {
         const context = getContextForItem(item, itemIndex)
 
+        // Get next item for display context
+        const nextItem = itemIndex < sortedItems.length - 1 ? sortedItems[itemIndex + 1] : null
+        const nextItemContext = nextItem ? getContextForItem(nextItem, itemIndex + 1) : undefined
+
+        const enhancedContext = {
+          ...context,
+          nextItem,
+          nextItemContext
+        }
+
         return (
           <Fragment key={`${item.type}-${itemIndex}`}>
             {renderTimelineItem({
               item,
               itemIndex,
-              context,
+              context: enhancedContext,
               activeItem,
               setActiveItem
             })}

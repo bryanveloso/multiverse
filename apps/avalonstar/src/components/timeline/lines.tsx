@@ -2,15 +2,25 @@ import type { FC } from 'react'
 import type { TimelineContext } from '@/types/timeline'
 
 export const EraLine: FC<TimelineContext> = (context) => {
-  const { activeEras, isEndOfEra } = context
+  const { activeEras, isEndOfEra, nextItemContext } = context
+
+  const getBackgroundColor = () => {
+    const currentColor = activeEras[0]?.color
+    const nextColor = nextItemContext?.activeEras[0]?.color
+    const defaultColor = 'oklch(100% 0 0 / 10%)'
+
+    if (currentColor && currentColor !== nextColor) {
+      return {
+        backgroundImage: `linear-gradient(${currentColor}, ${nextColor || defaultColor})`
+      }
+    }
+
+    return { backgroundColor: currentColor || defaultColor }
+  }
 
   return (
     <div className="relative h-full">
-      {activeEras[0] ? (
-        <div className="h-full w-[1px] border-l" style={{ borderColor: activeEras[0]?.color }}></div>
-      ) : (
-        <div className="h-full w-[1px] border-r border-white/10"></div>
-      )}
+      <div className="h-full w-[1px]" style={getBackgroundColor()}></div>
       {isEndOfEra &&
         activeEras.map((era) => (
           <div
@@ -26,15 +36,25 @@ export const EraLine: FC<TimelineContext> = (context) => {
 }
 
 export const JobLine: FC<TimelineContext> = (context) => {
-  const { activeJobs, isEndOfJob } = context
+  const { activeJobs, isEndOfJob, nextItemContext } = context
+
+  const getBackgroundColor = () => {
+    const currentColor = activeJobs[0]?.color
+    const nextColor = nextItemContext?.activeJobs[0]?.color
+    const defaultColor = 'oklch(100% 0 0 / 10%)'
+
+    if (currentColor && currentColor !== nextColor) {
+      return {
+        backgroundImage: `linear-gradient(${currentColor}, ${nextColor || defaultColor})`
+      }
+    }
+
+    return { backgroundColor: currentColor || defaultColor }
+  }
 
   return (
     <div className="relative h-full">
-      {activeJobs[0] ? (
-        <div className="h-full w-[1px] border-r" style={{ borderColor: activeJobs[0]?.color }}></div>
-      ) : (
-        <div className="h-full w-[1px] border-r border-white/10"></div>
-      )}
+      <div className="h-full w-[1px]" style={getBackgroundColor()}></div>
       {isEndOfJob &&
         activeJobs.map((job) => (
           <div
@@ -50,15 +70,25 @@ export const JobLine: FC<TimelineContext> = (context) => {
 }
 
 export const LocationLine: FC<TimelineContext> = (context) => {
-  const { activeLocations, isEndOfLocation } = context
+  const { activeLocations, isEndOfLocation, nextItemContext } = context
+
+  const getBackgroundColor = () => {
+    const currentColor = activeLocations[0]?.color
+    const nextColor = nextItemContext?.activeLocations[0]?.color
+    const defaultColor = 'oklch(100% 0 0 / 10%)'
+
+    if (currentColor && currentColor !== nextColor) {
+      return {
+        backgroundImage: `linear-gradient(${currentColor}, ${nextColor || defaultColor})`
+      }
+    }
+
+    return { backgroundColor: currentColor || defaultColor }
+  }
 
   return (
     <div className="relative h-full">
-      {activeLocations[0] ? (
-        <div className="h-full w-[1px] border-l" style={{ borderColor: activeLocations[0]?.color }}></div>
-      ) : (
-        <div className="h-full w-[1px] border-r border-white/10"></div>
-      )}
+      <div className="h-full w-[1px]" style={getBackgroundColor()}></div>
       {isEndOfLocation &&
         activeLocations.map((location) => (
           <div

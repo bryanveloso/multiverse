@@ -59,6 +59,8 @@ export interface TimelineContext {
   isEndOfEra: boolean
   isEndOfJob: boolean
   isEndOfLocation: boolean
+  nextItem?: TimelineItem
+  nextItemContext?: TimelineContext
 }
 
 // Component props with proper generics
