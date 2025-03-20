@@ -13,7 +13,7 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
       <JobLine {...context} />
       <LocationLine {...context} />
       <div className="relative h-full">
-        <div className="dark:border-timeline h-full w-[1px] border-l" />
+        <div className="border-timeline h-full w-[1px] border-l" />
       </div>
       <div className="hidden py-6 sm:block">
         {item.crosspost && (
@@ -51,7 +51,7 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
           {item.crosspost && <span className="text-royal block pl-2 sm:hidden">[crosspost]</span>}
         </div>
         <h2
-          className={cn('dark:text-white', {
+          className={cn('text-white', {
             'text-xl sm:text-2xl': item.significance >= 4
           })}
         >
@@ -64,9 +64,9 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
             className="my-2 hidden aspect-[6/1] w-full rounded object-cover shadow"
           />
         )}
-        {item.significance > 3 && <p className="dark:text-mist max-w-prose text-pretty">{item.description}</p>}
+        {item.significance > 3 && <p className="text-mist max-w-prose text-pretty">{item.description}</p>}
         {item.significance == 3 && (
-          <p className="dark:text-mist/50 max-w-prose pt-1 text-xs text-pretty">{item.description}</p>
+          <p className="text-mist/50 max-w-prose pt-1 text-xs text-pretty">{item.description}</p>
         )}
       </div>
     </div>

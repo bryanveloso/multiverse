@@ -97,7 +97,7 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
           <LocationIcon className="size-3.5" />
         </div>
         <div className="self-stretch">
-          <div className="dark:border-timeline h-full w-[1px] border-l" />
+          <div className="border-timeline h-full w-[1px] border-l" />
         </div>
         <div className="hidden sm:block"></div>
         <div className="col-span-2 col-start-5 pb-6 pl-4 sm:col-span-1 sm:col-start-6 sm:pl-2">

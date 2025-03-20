@@ -57,7 +57,7 @@ const Timeline = ({ projects }: TimelineProps) => {
             <h3 className="text-slate-blue text-sm font-bold tabular-nums" style={{ writingMode: 'vertical-rl' }}>
               <time dateTime={year.toString()}>{year}</time>
             </h3>
-            <div className="l-[1px] dark:border-timeline border-slate-blue/50 absolute h-full w-[1px] border-l" />
+            <div className="l-[1px] border-timeline border-slate-blue/50 absolute h-full w-[1px] border-l" />
           </div>
           <div key={year} className="col-start-2">
             {projects.map((project) => (

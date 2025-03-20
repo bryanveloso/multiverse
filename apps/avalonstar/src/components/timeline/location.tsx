@@ -8,11 +8,11 @@ export const Location: FC<TimelineItemProps> = ({ item, itemIndex, context, isAc
       <EraLine {...context} />
       <JobLine {...context} />
       <LocationLine {...context} />
-      <div className="dark:border-timeline relative h-full border-b">
-        <div className="dark:border-timeline h-full w-[1px] border-l" />
+      <div className="border-timeline relative h-full border-b">
+        <div className="border-timeline h-full w-[1px] border-l" />
       </div>
-      <div className="dark:border-timeline hidden border-b sm:block"></div>
-      <div className="dark:border-timeline col-span-2 col-start-5 border-b pl-4 sm:col-span-1 sm:col-start-6 sm:pl-2">
+      <div className="border-timeline hidden border-b sm:block"></div>
+      <div className="border-timeline col-span-2 col-start-5 border-b pl-4 sm:col-span-1 sm:col-start-6 sm:pl-2">
         <div className="py-6 text-xs font-bold uppercase">{item.name}</div>
       </div>
     </div>

@@ -26,7 +26,7 @@ export const Gap: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive,
             })}
         </time>
         <h2 className="font-bold">{item.title}</h2>
-        <p className="dark:text-mist max-w-prose pr-4">{item.description}</p>
+        <p className="text-mist max-w-prose pr-4">{item.description}</p>
       </div>
     </div>
   )
