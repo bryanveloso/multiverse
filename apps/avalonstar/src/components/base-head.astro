@@ -1,5 +1,6 @@
 ---
 import Geologica from '@fontsource-variable/geologica/files/geologica-latin-full-normal.woff2?url'
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string
@@ -70,3 +71,5 @@ const absoluteImageUrl = image.startsWith('http') ? image : new URL(image, Astro
 
 <!-- Plausible -->
 <script defer is:inline data-domain="avalonstar.com" src="https://plausible.io/js/script.js"></script>
+
+<ClientRouter />
