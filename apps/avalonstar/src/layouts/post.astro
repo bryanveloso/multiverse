@@ -6,6 +6,7 @@ import FormattedDate from '@/components/formatted-date.astro'
 import LegacyDisclaimer from '@/components/blog/legacy.astro'
 import Footer from '@/components/footer.astro'
 import { getAuthorAge } from '@/utils/age'
+import { formatPostUrl } from '@/utils/posts'
 
 import Base from './base.astro'
 import { cn } from '@/utils/style'
@@ -17,6 +18,7 @@ import { BackIcon } from '@/components/back-icon'
 type Props = CollectionEntry<'blog'>['data']
 
 const { title, description, date, updatedDate, heroImage } = Astro.props
+const currentPost = Astro.props as Props
 
 const authorAge = getAuthorAge(date)
 const isLegacyPost = date.getFullYear() < 2015
@@ -40,6 +42,14 @@ const findActiveItem = async <
 const activeEra = await findActiveItem<CollectionEntry<'eras'>>('eras', date)
 const activeJob = await findActiveItem<CollectionEntry<'jobs'>>('jobs', date)
 const activeLocation = await findActiveItem<CollectionEntry<'locations'>>('locations', date)
+
+// Helper function to format post ID to URL path
+
+// Get the previous and next posts for navigation
+const posts = await getCollection('blog')
+const currentIndex = posts.findIndex((post) => post.data.title === currentPost.title)
+const previousPost = posts[currentIndex - 1]
+const nextPost = posts[currentIndex + 1]
 ---
 
 <Base {title} {description} image={heroImage ? heroImage.src : undefined} type="article" publishDate={date}>
@@ -116,7 +126,7 @@ const activeLocation = await findActiveItem<CollectionEntry<'locations'>>('locat
         <div class="self-stretch">
           <div class="dark:border-timeline h-full w-[1px] border-l"></div>
         </div>
-        <div class="pr-6 pb-12 pl-4">
+        <div class="pr-6 pl-4">
           <article
             class="prose prose-p:font-light prose-a:underline-offset-4 prose-img:rounded prose-img:shadow prose-a:decoration-sky prose-em:font-serif prose-lead:text-md prose-lead:font-light dark:prose-lead:text-mist dark:prose-invert"
           >
@@ -128,6 +138,28 @@ const activeLocation = await findActiveItem<CollectionEntry<'locations'>>('locat
             {isLegacyPost && <LegacyDisclaimer />}
             <slot />
           </article>
+          {
+            (previousPost || nextPost) && (
+              <nav class="grid w-full grid-cols-1 gap-8 pt-24 sm:grid-cols-3">
+                {previousPost && (
+                  <div class="sm:col-start-1">
+                    <div class="font-caps text-pewter">Previously</div>
+                    <a class="text-xl leading-tight font-light" href={`/blog/${formatPostUrl(previousPost.id)}`}>
+                      {previousPost.data.title}
+                    </a>
+                  </div>
+                )}
+                {nextPost && (
+                  <div class="sm:col-start-3">
+                    <div class="font-caps text-pewter">Up Next</div>
+                    <a class="text-xl leading-tight font-light" href={`/blog/${formatPostUrl(nextPost.id)}`}>
+                      {nextPost.data.title}
+                    </a>
+                  </div>
+                )}
+              </nav>
+            )
+          }
         </div>
       </main>
       <Footer page="post" />

@@ -2,18 +2,14 @@
 import type { GetStaticPaths } from 'astro'
 import { getCollection, render } from 'astro:content'
 import Post from '@/layouts/post.astro'
+import { formatPostUrl } from '@/utils/posts'
 
 export const getStaticPaths = (async () => {
   const blogEntries = await getCollection('blog')
 
   return blogEntries.map((post) => {
-    const [date, ...idParts] = post.id.split('-')
-    const year = date.substring(0, 4)
-    const cleanId = idParts.slice(2).join('-')
-    const formattedId = `${year}/${cleanId}`
-
     return {
-      params: { id: formattedId },
+      params: { id: formatPostUrl(post.id) },
       props: { post }
     }
   })
