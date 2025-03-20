@@ -31,7 +31,7 @@ export const onRequest = defineMiddleware(async ({ request }, next) => {
   }
 
   // Redirect section root pages to the homepage
-  const rootSections = ['/blog', '/blog/', '/journal', '/journal/', '/legacy/blog', '/legacy/blog/'];
+  const rootSections = ['/blog', '/blog/', '/journal', '/journal/', '/legacy/blog', '/legacy/blog/']
   if (rootSections.includes(path)) {
     return new Response(null, {
       status: 301, // Permanent redirect
