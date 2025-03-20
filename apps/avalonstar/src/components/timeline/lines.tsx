@@ -6,7 +6,7 @@ const getBackgroundStyle = (currentColor?: string, nextColor?: string) => {
 
   if (currentColor && currentColor !== nextColor) {
     return {
-      backgroundImage: `linear-gradient(${currentColor}, ${nextColor || defaultColor})`
+      backgroundImage: `linear-gradient(180deg in oklab, ${currentColor}, ${nextColor || defaultColor})`
     }
   }
 
