@@ -2,8 +2,6 @@
 import '@fontsource-variable/andada-pro'
 import '@fontsource-variable/geologica/full.css'
 
-import { SiteTransition } from '@multiverse/ui'
-
 import BaseHead from '@/components/base-head.astro'
 
 import '../styles/global.css'
@@ -55,7 +53,6 @@ const pageTitle = title || defaultTitles[activeSite]
     class="bg-ink dark:from-ink dark:to-onyx relative mr-0 min-h-dvh bg-linear-to-b from-0% to-100% text-gray-900 dark:text-gray-100"
   >
     <a href="#main" class="skip-to-content">Skip to content</a>
-    <SiteTransition client:load />
     <div class="relative isolate grid grid-cols-1 md:grid-cols-[1fr_48px_48px]">
       <!-- Mind (Avalonstar) -->
       <div class="pl-4 md:pl-0">

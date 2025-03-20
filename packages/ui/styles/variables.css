@@ -16,21 +16,21 @@
   --color-graphite: #939393;
   --color-shadow: #23292f;
   --color-onyx: #1a1f23;
-  
+
   /* bryanvelo.so Color Scale */
   /* Primary Colors */
   --color-cool-black: oklch(25.33% 0.0082 240.19);
-  --color-midnight-blue: oklch(0.32 0.025 250);
-  --color-slate-blue: oklch(0.43 0.035 245);
+  --color-midnight-blue: oklch(32.39% 0.032 252.38);
+  --color-slate-blue: oklch(48.55% 0.0384 234.94);
   --color-aqua: oklch(85.94% 0.1187 186.48);
-  --color-cloud-grey: oklch(0.84 0.03 235);
+  --color-cloud-grey: oklch(87.25% 0.023 233.4);
 
   /* Secondary Colors */
   --color-mint: oklch(94.58% 0.0297 186.29);
-  --color-yellow: oklch(0.91 0.15 93);
-  --color-watermelon: oklch(0.75 0.16 7);
-  --color-sky-blue: oklch(0.75 0.12 215);
-  --color-apple-green: oklch(0.8 0.12 142);
+  --color-yellow: oklch(94.99% 0.1599 104.84);
+  --color-watermelon: oklch(64.6% 0.202 4.73);
+  --color-sky-blue: oklch(72.77% 0.1231 217.86);
+  --color-apple-green: oklch(77.29% 0.1378 144.62);
 
   /* Neutral Colors */
   --color-white-frost: oklch(0.94 0.012 240);
@@ -129,27 +129,5 @@
   --color-black-500: #353642;
   --color-black-600: #35363f;
   --color-black-700: #404249;
-  --color-black-800: #484c54;  
-}
-
-.theme-avalonstar {
-  @apply text-gray-900
-
-  @variant dark {
-    @apply from-ink via-onyx to-ink bg-linear-to-br from-0% via-50% to-100% text-gray-100    
-  }
-}
-
-.theme-bryanveloso {
-  @variant dark {
-    @apply bg-midnight-blue from-cool-black to-midnight-blue text-white-frost bg-gradient-to-b to-75%    
-  }
-}
-
-.theme-omnyist {
-  @apply bg-black;
-
-  @variant dark {
-    @apply bg-white;
-  }
+  --color-black-800: #484c54;
 }
