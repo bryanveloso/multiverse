@@ -2,9 +2,36 @@ import { defineMiddleware } from 'astro:middleware'
 
 export const onRequest = defineMiddleware(async ({ request }, next) => {
   const url = new URL(request.url)
+  const path = url.pathname
+
+  // Legacy URL patterns that need redirection
+  // Handle patterns like:
+  // /journal/YEAR/MONTH/DAY/slug/ -> /blog/YEAR/slug
+  // /legacy/blog/YEAR/MONTH/DAY/slug/ -> /blog/YEAR/slug
+  // /blog/YEAR/MONTH/DAY/slug/ -> /blog/YEAR/slug
+
+  // First, check if it's a legacy format URL
+  const legacyPatterns = [
+    /^\/journal\/(\d{4})\/(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\/\d{1,2}\/([^\/]+)\/?$/i,
+    /^\/legacy\/blog\/(\d{4})\/(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\/\d{1,2}\/([^\/]+)\/?$/i,
+    /^\/blog\/(\d{4})\/(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\/\d{1,2}\/([^\/]+)\/?$/i
+  ]
+
+  for (const pattern of legacyPatterns) {
+    const match = path.match(pattern)
+    if (match) {
+      const [_, year, slug] = match
+      return new Response(null, {
+        status: 301, // Permanent redirect
+        headers: {
+          Location: `/blog/${year}/${slug}`
+        }
+      })
+    }
+  }
 
   // Redirect just the /blog/ index page to /, but not blog posts
-  if (url.pathname === '/blog' || url.pathname === '/blog/') {
+  if (path === '/blog' || path === '/blog/') {
     return new Response(null, {
       status: 301, // Permanent redirect
       headers: {
