@@ -5,9 +5,18 @@ significance: 3
 description: After 6 years of dormancy, Avalonstar reboots once again—albeit
   unfinished. Join me as I reminisce about the past and give you a glimpse into
   the latest evolution of my little corner of the web.
+heroImage: '@/assets/blog/2020-05-01/hero.webp'
+caption: The May 1st Reboot's branding.
 ---
 
+import Image from '@/components/blog/image.astro'
+import Lead from '@/components/blog/lead.astro'
+
+<Lead>
+
 Lots of people will see the phrase "May 1st Reboot" and not know what it means. To paraphrase, the reboot [was a yearly event](https://youtube.com/watch?v=giG48VZlMdk) (that skipped a few years here and there) that gave designers a chance to participate in a global renewal of the creative web by simultaneously shutting down and relaunching their sites over the course of a month. My first "reboot" was in 2004, and it became a great source of motivation to give Avalonstar a facelift.
+
+</Lead>
 
 I figure, "reboot" is the best way to title this post, given the date. That said, it's funny that I'm writing this on May 1st. Equally humorous is the fact that I've rebooted with a site that isn't 100% complete. I guess some things never change! **Technically**, Avalonstar changed on March 1st, albeit also in an unfinished state.
 
@@ -17,16 +26,36 @@ But let's back up a bit.
 
 If you've known me for any length of time, you know that I am a big fan of **nostalgia**. In a life in which I hold myself to unreasonable expectations, seeing how far I've come from a given point in time always manages to put a smile on my face. That was no different for 2020, or what would be this domain's _20th_ year. I had contracted an amazing designer to help me reimagine Avalonstar's brand in 2019, but avalonstar.com stayed _stubbornly_ dormant. The last entry I had written here was three weeks into my tenure at Twitch in 2014, along with a couple of entries thrown on Medium.
 
-...
+I've recently hit 6 years broadcasting on Twitch, where I've been telling my stories about the times of the Web Standards movement, my employment at Facebook and GitHub, and the [friends I made along the way](https://twitter.com/sidebarcreative). As amazing a medium as Twitch is, I felt the void of not having a place I could point viewers to, let alone a place I was proud of. Avalonstar on Twitch (a.k.a. [avalonstar.tv](https://avalonstar.tv)) and avalonstar.com felt separate. In Avalonstar's 20th year, I wanted Avalonstar to feel like a single entity again, where a consistent narrative permeated through each medium that wore the brand.
+
+Then there's content creation itself. For almost the past decade I've been jumping around from medium to medium: from Twitter, to Instagram, to Twitch, to YouTube. Each was a test of my self-worth. Each was a trial that challenged me to decide what I wanted out of the medium. Each was, in their own ways, more challenging than this.
+
+The way to "make it" on Twitter didn't jive with how I originally used the service in the first place. Instagram? I wasn't consistent enough. Twitch, well that's been a battle with being content given that I'm not a natural hype-machine. YouTube? I tried. But my requirements for a video to be worthy of YouTube served as an effective deterrent.
+
+So we're back to where I began in 2004, **blogging for myself**.
 
 ## Avalonstar in 2020
 
-The last version of this site was built in [Middleman](https://middlemanapp.com/), a Ruby-based static site generator. Over the years, I’ve transitioned from Python to Node, experimented with frameworks like [Ember](https://emberjs.com/), and currently create [Twitch overlays](https://github.com/avalonstar/synthavln) in [React](https://reactjs.org/). Returning to Avalonstar, I wanted to use tools I was comfortable with and settled on [Gatsby](https://www.gatsbyjs.org/).
+The last version of this site was built in [Middleman](https://middlemanapp.com/), a Ruby-based static site generator that I became interested in 2013 during my time at GitHub. If you fast-forward seven years, I've changed a lot.
 
-I explored headless CMS solutions and initially used [Netlify CMS](https://www.netlifycms.org/), but later switched to [Sanity.io](https://www.sanity.io/). Sanity’s model-based schema felt familiar and offered a great full-screen writing experience.
+I went primarily working around Python to working with Node (although [Django](https://www.djangoproject.com/) will still always have my heart, and my ponies), falling in and out of love with [Ember](https://emberjs.com/), to the present-day where I create my [Twitch channel's overlays](https://github.com/avalonstar/synthavln) in React. So in coming back to Avalonstar, I wanted to use what I had become comfortable with. I eventually settled with [Gatsby](https://www.gatsbyjs.org/).
 
-...
+I was able to port the entirety of the blog over, since it was all in Markdown. But even though I had been using Markdown since its creation, I felt like I wanted something else. I didn't want to write in a code editor and commit each post, the novelty was lost on me. Something that had evolved since I last actively blogged was the writing experience as a whole. Sure, I could copy and paste, but we're trying to optimize for comfort here. I'm trying to **start blogging again**, and it's way too easy to overcomplicate the wrong things.
+
+I had a couple of tabs open about "headless content management systems," which after some thought was a concept I was acutely aware of given my history with Django's admin system. By picking a [headless CMS](https://headlesscms.org/), you'd get all the backend and APIs you need to create the frontend in your language or platform of choice. They all had one thing in common though, they all shared a relatively nice user interface for writing. I started out by implementing Netlify CMS, which made sense since I used Netlify as a host. Trying to get it to do _exactly_ what I wanted to was decently frustrating, since I had to stretch a lot of Markdown to do what it wasn't meant to. But it was good enough. March 1st came along, and I released Avalonstar in that state. It wasn't complete by any means, but I had already started to rework it.
+
+A couple of colleagues recommended [Sanity.io](https://www.sanity.io/), and that's what I eventually settled with. Working with schemas in Sanity felt much like working with models in Django. Best of all, the admin just feels snappy and comfortable. It comes complete with a [full-screen writing experience](https://www.sanity.io/docs/sanity-studio), which is what I'm using to write this. (I do eventually want to talk more about some of the things I learned while exploring all of this. But it's safe to say I'm entrenched enough with Gatsby and Sanity that I either really like it, or I'm happy enough with it, but too lazy to switch.)
 
 ## Rebooted
 
 If you've gotten this far, welcome (back) to Avalonstar. It's good to meet you!
+
+<Image src="2020-05-01/ava.webp" alt="Ava, our mascot" caption="“Twenty years of Avalonstar” featuring Ava" />
+
+I came into 2020 wanting to consolidate everything that has made Avalonstar what it is since I bought the domain back in September of 2000. Funny enough, I've been seeing many of my old friends from the web design industry start to dive back in to their own personal sites. It feels like 2004 all over again and I'm here for it.
+
+Things've changed. I've changed. I've hung onto things I'm confident in, and have let go of the pride of taking exclusive ownership of others. In the biggest examples: Avalonstar the logomark was entirely based on a meme, Avalonstar the _logotype_ got a professional makeover last year from the wonderful [Claire Coullon](http://www.coullon.com/), and the design you see I collaborated on with my long-time friend [Dave McNally](http://davemc.me). Avalonstar was incorporated last year. I introduced Ava in 2018, who is in the wonderful image above.
+
+No matter when we've met in the past 20 years, there's a lot of catching up we have to do. I look forward to being back around here, after coming full-circle from where I started.
+
+Oh! And happy #May1Reboot.

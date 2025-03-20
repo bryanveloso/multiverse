@@ -1,0 +1,116 @@
+---
+import type { ImageMetadata } from 'astro'
+import { Image as AstroImage } from 'astro:assets'
+
+// Import all images in the blog assets directory
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/blog/**/*.{jpeg,jpg,png,gif,webp}')
+
+interface Props {
+  /**
+   * The image filename or path relative to the blog asset directory for the post date
+   */
+  src: string
+  
+  /**
+   * Alt text for the image (required for accessibility)
+   */
+  alt: string
+  
+  /**
+   * The post date in YYYY-MM-DD format (defaults to directory name from src)
+   */
+  date?: string
+  
+  /**
+   * Optional CSS class names
+   */
+  class?: string
+  
+  /**
+   * Option to enable lightbox on click (future feature)
+   */
+  lightbox?: boolean
+  
+  /**
+   * Optional caption to display below the image
+   */
+  caption?: string
+  
+  /**
+   * Width constraint for the image (optional)
+   */
+  width?: number | string
+}
+
+const { 
+  src, 
+  alt, 
+  date, 
+  class: className = '', 
+  // lightbox = false,
+  caption,
+  width
+} = Astro.props
+
+// Determine the full image path
+let fullPath: string
+
+// If src already contains a date directory format (YYYY-MM-DD/), use it directly
+if (src.match(/^\d{4}-\d{2}-\d{2}\//)) {
+  fullPath = `/src/assets/blog/${src}`
+} 
+// If src already has the full path, use it
+else if (src.startsWith('/src/assets/')) {
+  fullPath = src
+}
+// If date is provided, use it to construct the path
+else if (date) {
+  fullPath = `/src/assets/blog/${date}/${src}`
+} 
+// Otherwise, try to extract date from the src path or use a fallback directory
+else {
+  // Check if src has a directory part
+  const parts = src.split('/')
+  if (parts.length > 1) {
+    // Use the first directory part if it looks like a date
+    const possibleDate = parts[0]
+    if (possibleDate.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      fullPath = `/src/assets/blog/${src}`
+    } else {
+      // Can't determine date, use the src as is but warn in console
+      console.warn(`[BlogImage] Could not determine date for image: ${src}. Provide a date prop.`)
+      fullPath = `/src/assets/blog/${src}`
+    }
+  } else {
+    // No directory part, can't determine date
+    console.warn(`[BlogImage] No date provided for image: ${src}. Path will be invalid.`)
+    fullPath = `/src/assets/blog/${src}`
+  }
+}
+
+// Find the actual image based on the calculated path
+const imagePath = Object.keys(images).find(path => 
+  path.endsWith(fullPath) || path === fullPath
+)
+
+// Styling classes
+const imgClasses = `rounded-lg shadow-md ${className}`
+const containerStyle = width ? `width: ${typeof width === 'number' ? `${width}px` : width}; margin: 0 auto;` : ''
+---
+
+{imagePath ? (
+  <figure class={`my-6 ${width ? 'mx-auto' : ''}`} style={containerStyle}>
+    <AstroImage src={images[imagePath]()} alt={alt} class={imgClasses} />
+    {caption && (
+      <figcaption class="mt-2 text-center text-sm text-gray-500">{caption}</figcaption>
+    )}
+  </figure>
+) : (
+  <div class="relative rounded bg-gray-100 p-4 text-center text-red-500" style={containerStyle}>
+    <p class="mb-2 font-bold">Image not found</p>
+    <p class="text-sm">Path: {fullPath}</p>
+    <p class="mt-4 text-xs text-gray-500">
+      Make sure the image exists in the correct directory or fix the path.
+    </p>
+  </div>
+)}
