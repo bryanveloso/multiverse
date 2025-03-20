@@ -33,7 +33,8 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
       </div>
       <div
         className={cn(
-          'col-span-2 col-start-5 py-6 pr-8 pl-4 sm:col-span-1 sm:col-start-6 sm:pl-2',
+          'col-span-2 col-start-5 pr-8 pl-4 sm:col-span-1 sm:col-start-6 sm:pl-2',
+          itemIndex === 0 ? 'pb-6' : 'py-6',
           item.significance === 1 && 'opacity-20'
           // 'transition-opacity hover:opacity-100'
         )}

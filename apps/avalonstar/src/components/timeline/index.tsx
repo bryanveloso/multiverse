@@ -86,22 +86,22 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
 
   return (
     <>
-      <div className="col-span-6 grid grid-cols-subgrid items-start align-baseline">
+      <div className="col-span-6 grid grid-cols-subgrid items-start align-baseline text-white/10">
         <div>
-          <EraIcon className="size-3.5 text-white/10" />
+          <EraIcon className="size-3.5" />
         </div>
         <div>
-          <JobIcon className="size-3.5 text-white/10" />
+          <JobIcon className="size-3.5" />
         </div>
         <div>
-          <LocationIcon className="size-3.5 text-white/10" />
+          <LocationIcon className="size-3.5" />
         </div>
         <div className="self-stretch">
           <div className="dark:border-timeline h-full w-[1px] border-l" />
         </div>
         <div className="hidden sm:block"></div>
         <div className="col-span-2 col-start-5 pb-6 pl-4 sm:col-span-1 sm:col-start-6 sm:pl-2">
-          <h2 className="font-xs font-caps text-white/10 uppercase">The Timeline Begins</h2>
+          <h2 className="font-xs font-caps uppercase">The Timeline Begins</h2>
         </div>
       </div>
 
