@@ -10,6 +10,7 @@ export default {
     }
   ],
   astroAllowShorthand: true,
+  bracketSameLine: true,
   printWidth: 120,
   singleQuote: true,
   semi: false,
