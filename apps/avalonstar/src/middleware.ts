@@ -30,8 +30,9 @@ export const onRequest = defineMiddleware(async ({ request }, next) => {
     }
   }
 
-  // Redirect just the /blog/ index page to /, but not blog posts
-  if (path === '/blog' || path === '/blog/') {
+  // Redirect section root pages to the homepage
+  const rootSections = ['/blog', '/blog/', '/journal', '/journal/', '/legacy/blog', '/legacy/blog/'];
+  if (rootSections.includes(path)) {
     return new Response(null, {
       status: 301, // Permanent redirect
       headers: {
