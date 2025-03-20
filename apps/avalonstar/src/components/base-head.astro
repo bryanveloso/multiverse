@@ -11,7 +11,7 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
-const defaultImage = '/blog-placeholder-1.jpg'
+const defaultImage = '/placeholder.png'
 
 const { title, description, image = defaultImage, type = 'website', publishDate, author = 'Bryan Veloso' } = Astro.props
 
