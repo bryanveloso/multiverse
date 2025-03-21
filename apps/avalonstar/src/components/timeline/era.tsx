@@ -16,7 +16,7 @@ export const Era: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive,
       <div className="hidden py-6 sm:block">
         <div
           className="mx-3 flex h-full items-center justify-center rounded outline"
-          style={{ outlineColor: item.color }}>
+          style={{ backgroundColor: item.color, outlineColor: item.color }}>
           <EraChangeIcon className="size-4" />
         </div>
       </div>
