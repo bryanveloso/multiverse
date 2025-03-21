@@ -21,25 +21,25 @@ ARG APP_NAME
 RUN cd apps/${APP_NAME} && bun run astro build
 
 # Runner stage 
-FROM node:slim AS runner
+FROM base AS runner
 WORKDIR /app
 
-# Install serve before switching to non-root user
-RUN npm install -g serve
+# Note: Bun image already has a non-root user named 'bun'
 
-# Create a non-root user
-RUN groupadd -r nodejs && useradd -r -g nodejs nodejs
-
-# Copy built assets
+# Copy built assets and server script
 ARG APP_NAME
 COPY --from=builder /app/apps/${APP_NAME}/dist ./dist
+COPY --from=builder /app/docker/server.ts ./server.ts
 
 # Set permissions
-RUN chown -R nodejs:nodejs /app
+RUN chown -R bun:bun /app
 
 # Switch to non-root user
-USER nodejs
+USER bun
+
+# Set the environment variable for the dist path
+ENV DIST_PATH="./dist"
 
 # Expose port
 EXPOSE 3000
-CMD ["serve", "dist", "-p", "3000"]
+CMD ["bun", "run", "server.ts"]
