@@ -21,7 +21,7 @@ const { title, description, date, updatedDate, heroImage } = Astro.props
 const currentPost = Astro.props as Props
 
 const authorAge = getAuthorAge(date)
-const isLegacyPost = date.getFullYear() < 2015
+const isLegacyPost = date.getFullYear() < 2013
 const defaultColor = 'oklch(100% 0 0 / 10%)'
 
 // Helper function to find active item at the time of the post
