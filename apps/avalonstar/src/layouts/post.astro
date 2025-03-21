@@ -46,7 +46,7 @@ const activeLocation = await findActiveItem<CollectionEntry<'locations'>>('locat
 // Helper function to format post ID to URL path
 
 // Get the previous and next posts for navigation
-const posts = await getCollection('blog')
+const posts = (await getCollection('blog')).sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
 const currentIndex = posts.findIndex((post) => post.data.title === currentPost.title)
 const previousPost = posts[currentIndex - 1]
 const nextPost = posts[currentIndex + 1]
