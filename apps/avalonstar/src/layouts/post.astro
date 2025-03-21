@@ -140,7 +140,7 @@ const nextPost = posts[currentIndex + 1]
           </article>
           {
             (previousPost || nextPost) && (
-              <nav class="grid w-full grid-cols-1 gap-8 pt-24 sm:grid-cols-3">
+              <nav class="grid w-full grid-cols-1 gap-8 pt-24 sm:grid-cols-3 max-w-prose">
                 {previousPost && (
                   <div class="sm:col-start-1">
                     <div class="font-caps text-pewter">Previously</div>
