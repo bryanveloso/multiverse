@@ -1,0 +1,10 @@
+{
+  "checkpoints": [
+    { "id": 0, "title": "" },
+    { "id": 1, "title": "out of the lab" },
+    { "id": 2, "title": "first trainer" },
+    { "id": 3, "title": "rival fight 1" },
+    { "id": 4, "title": "brock" }
+  ],
+  "runs": []
+}

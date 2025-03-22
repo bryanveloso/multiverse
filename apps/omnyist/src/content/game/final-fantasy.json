@@ -1,0 +1,98 @@
+{
+  "top": [
+    {
+      "name": "Final Fantasy IV",
+      "released": "1991",
+      "platforms": [
+        "Super Nintendo",
+        "PlayStation",
+        "PlayStation Portable",
+        "Nintendo 3DS"
+      ],
+      "is_complicated": true
+    },
+    {
+      "name": "Final Fantasy XIV",
+      "released": "2010",
+      "platforms": ["PlayStation 4", "PlayStation 5", "PC"],
+      "expansions": [
+        "Shadowbringers",
+        "Heavensward",
+        "Endwalker",
+        "Stormblood",
+        "A Realm Reborn"
+      ]
+    },
+    {
+      "name": "Final Fantasy XVI",
+      "released": "2023",
+      "platforms": ["PlayStation 5"]
+    },
+    {
+      "name": "Final Fantasy VII: Remake",
+      "released": "2020",
+      "platforms": ["PlayStation 4", "PlayStation 5"]
+    },
+    {
+      "name": "Final Fantasy XV",
+      "released": "2016",
+      "platforms": ["PlayStation 4"]
+    },
+    { "name": "Final Fantasy XIII-2" },
+    { "name": "Lightning Returns: Final Fantasy XIII" },
+    {
+      "name": "Final Fantasy XII",
+      "released": "2006",
+      "platforms": ["PlayStation 2"]
+    },
+    {
+      "name": "Final Fantasy XIII",
+      "released": "2009",
+      "is_complicated": true
+    },
+    {
+      "name": "Final Fantasy VIII",
+      "released": "1999"
+    },
+    {
+      "name": "Final Fantasy IX",
+      "released": "2000"
+    },
+    {
+      "name": "Final Fantasy VII",
+      "released": "1997"
+    },
+    {
+      "name": "Final Fantasy V",
+      "released": "1992"
+    },
+    {
+      "name": "Final Fantasy X-2",
+      "released": "2003"
+    },
+    {
+      "name": "Final Fantasy VI",
+      "released": "1994"
+    },
+    {
+      "name": "Final Fantasy X",
+      "released": "2001"
+    },
+    {
+      "name": "Final Fantasy II",
+      "released": "1988",
+      "is_complicated": true,
+      "replay_needed": true
+    },
+    {
+      "name": "Final Fantasy III",
+      "released": "1990"
+    },
+    {
+      "name": "Final Fantasy I",
+      "released": "1987",
+      "is_complicated": true,
+      "replay_needed": true
+    }
+  ]
+}
