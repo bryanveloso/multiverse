@@ -1,0 +1,12 @@
+---
+import { Stream } from "@cloudflare/stream-react"
+
+interface Props {
+  videoId: string
+}
+
+const { videoId } = Astro.props
+
+---
+
+<Stream src={videoId} customerCode="82f59c96d74807a4f02b358892036225" />
