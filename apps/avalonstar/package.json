@@ -16,6 +16,7 @@
     "@astrojs/react": "4.2.1",
     "@astrojs/rss": "4.0.11",
     "@astrojs/sitemap": "3.3.0",
+    "@cloudflare/stream-react": "^1.9.3",
     "@fontsource-variable/andada-pro": "^5.2.5",
     "@fontsource-variable/geologica": "^5.2.5",
     "@multiverse/config": "workspace:*",
