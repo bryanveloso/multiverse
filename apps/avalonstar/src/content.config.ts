@@ -1,6 +1,7 @@
 import { defineCollection, z } from 'astro:content'
 import { glob } from 'astro/loaders'
 
+// Structural content.
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: 'src/content/blog' }),
   schema: ({ image }) =>
@@ -15,6 +16,22 @@ const blog = defineCollection({
     })
 })
 
+const videos = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: 'src/content/videos' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      date: z.coerce.date(),
+      description: z.string().optional(),
+      thumbnail: image().optional(),
+      cloudflareId: z.string(), // Cloudflare Stream video ID
+      originalUrl: z.string().optional(), // Original URL if applicable
+      duration: z.number().optional(),
+      significance: z.number().min(1).max(5).optional().default(3)
+    })
+})
+
+// Contextual content.
 const eras = defineCollection({
   loader: glob({ pattern: '**/*.md', base: 'src/content/eras' }),
   schema: z.object({
@@ -65,5 +82,6 @@ export const collections = {
   eras,
   gaps,
   locations,
-  jobs
+  jobs,
+  videos
 }
