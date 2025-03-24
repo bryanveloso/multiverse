@@ -28,7 +28,7 @@ const pageTitle = title || defaultTitles[activeSite]
   <head>
     <BaseHead title={pageTitle} {description} {image} />
   </head>
-  <body class="h-dvh w-screen text-gray-900">
+  <body class="h-dvh w-screen text-gray-200 bg-black-200">
     <div class="relative grid w-screen grid-cols-1 gap-2 md:grid-cols-[48px_48px_1fr]">
       <!-- Mind (Avalonstar) -->
       <div class="relative hidden md:block">
@@ -57,7 +57,7 @@ const pageTitle = title || defaultTitles[activeSite]
       </div>
 
       <!-- Play (Omnyist) -->
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div>
         <slot />
       </div>
     </div>

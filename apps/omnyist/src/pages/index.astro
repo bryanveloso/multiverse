@@ -1,13 +1,19 @@
 ---
 import Base from '@/layouts/base.astro'
 
+import Hero from '@/assets/hero.svg?url'
+
 import '../styles/global.css'
 ---
 
-<Base
-  title="omnyist"
-  description="Welcome to Omnyist! This is where I share my gaming adventures and creative projects."
->
-  <h1 class="mb-6 text-3xl font-bold">Omnyist</h1>
-  <p class="mb-4 text-lg text-gray-700">Coming eventually.</p>
+<Base title="omnyist" description="">
+  <!-- <h1 class="mb-6 text-3xl font-bold">Omnyist</h1>
+  <p class="mb-4 text-lg text-gray-700">Coming eventually.</p> -->
+
+  <div class="grid">
+    <div>
+      <img src={Hero} alt="Hero" class="w-full" />
+    </div>
+    <div></div>
+  </div>
 </Base>

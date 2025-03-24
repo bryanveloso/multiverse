@@ -7,9 +7,12 @@ export default defineConfig({
   server: {
     port: 5323
   },
+  output: 'static',
   site: 'https://omnyist.com',
   vite: {
     plugins: [tailwindcss()]
   },
-  output: 'static'
+  experimental: {
+    svg: true
+  }
 })
