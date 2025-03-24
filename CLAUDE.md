@@ -8,7 +8,8 @@
 - `bun run start`: Start all apps
 - `bun run clean`: Clean build artifacts
 - Build specific app: `bun run build:avalonstar` (also available for bryanveloso, omnyist)
-- Docker/production: `docker compose -f docker-compose.dev.yml up -d` (ports 43XX)
+- Docker (Production): `docker compose -f docker-compose.dev.yml up -d` (ports 43XX)
+- Docker (Single App Test): `docker build -t app-test -f docker/Dockerfile --build-arg APP_NAME=<app-name> . && docker run -p <port>:3000 -e DIST_PATH=./dist app-test`
 
 ## Code Style Guidelines
 
@@ -28,6 +29,10 @@
 - Imports use @multiverse/\* namespace for shared packages
 - Turbo for monorepo management
 - Development ports: 5321-5323, Docker ports: 4321-4323
+- **URL Handling**: Astro middleware only works for SSR routes. For static sites, custom Bun server (docker/server.ts) handles:
+  - Legacy URL redirects (e.g., `/blog/YEAR/MONTH/DAY/slug/` → `/blog/YEAR/slug`)
+  - Section root redirects (e.g., `/blog/` → `/`)
+  - Static file serving with proper MIME types
 
 ## Dependency Management
 
