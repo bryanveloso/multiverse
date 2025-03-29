@@ -55,14 +55,12 @@ const nextPost = posts[currentIndex + 1]
 <Base {title} {description} image={heroImage ? heroImage.src : undefined} type="article" publishDate={date}>
   <div class="grid min-h-dvh grid-cols-1 gap-8 md:grid-cols-[24px_1fr]">
     <div
-      class="col-start-1 row-span-full hidden bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat md:block [--pattern-fg:var(--color-white)]/10"
-    >
+      class="col-start-1 row-span-full hidden bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat [--pattern-fg:var(--color-white)]/10 md:block">
     </div>
     <div
       class={cn(
         'col-start-1 grid grid-rows-[1fr_auto] grid-cols-[repeat(3,var(--event-line-width))_12px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px] items-start'
-      )}
-    >
+      )}>
       <main id="main" class="col-span-5 grid grid-cols-subgrid grid-rows-[auto_auto_1fr] self-stretch text-sm">
         <!-- Row 1 -->
         <div class="col-span-3 pt-16">
@@ -116,8 +114,7 @@ const nextPost = posts[currentIndex + 1]
               )}
               <div
                 class="absolute top-0 pl-1 text-[0.5rem] font-bold whitespace-nowrap uppercase"
-                style={{ color: item?.data.color, writingMode: 'vertical-lr' }}
-              >
+                style={{ color: item?.data.color, writingMode: 'vertical-lr' }}>
                 {label}
               </div>
             </div>
@@ -128,8 +125,7 @@ const nextPost = posts[currentIndex + 1]
         </div>
         <div class="pr-6 pl-4">
           <article
-            class="prose prose-p:font-light prose-a:underline-offset-4 prose-img:rounded prose-img:shadow prose-a:decoration-sky prose-em:font-serif prose-lead:text-md prose-lead:font-light prose-lead:text-mist prose-invert"
-          >
+            class="prose prose-p:font-light prose-a:underline-offset-4 prose-img:rounded prose-img:shadow prose-a:decoration-sky prose-em:font-serif prose-lead:text-md prose-lead:font-light prose-lead:text-mist prose-invert">
             {
               heroImage && (
                 <Image src={heroImage} alt={title} class="aspect-video w-full rounded-lg object-cover shadow" />
@@ -140,7 +136,7 @@ const nextPost = posts[currentIndex + 1]
           </article>
           {
             (previousPost || nextPost) && (
-              <nav class="grid w-full grid-cols-1 gap-8 pt-24 sm:grid-cols-3 max-w-prose">
+              <nav class="grid w-full max-w-prose grid-cols-1 gap-8 pt-24 sm:grid-cols-3">
                 {previousPost && (
                   <div class="sm:col-start-1">
                     <div class="font-caps text-pewter">Previously</div>
@@ -168,19 +164,39 @@ const nextPost = posts[currentIndex + 1]
 </Base>
 
 <!-- SEO -->
-<script is:inline type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": {title},
-    "description": {description},
-    "datePublished": {date.toISOString()},
-    "dateModified": {updatedDate ? updatedDate.toISOString() : date.toISOString()},
-    "image": {heroImage ? heroImage.src : undefined},
-    "author": {
-      "@type": "Person",
-      "name": "Bryan Veloso",
-      "url": "https://bryanvelo.sos"
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description: description,
+    datePublished: date.toISOString(),
+    dateModified: updatedDate ? updatedDate.toISOString() : date.toISOString(),
+    image: heroImage ? heroImage.src : undefined,
+    author: {
+      '@type': 'Person',
+      name: 'Bryan Veloso',
+      url: 'https://bryanvelo.so'
     }
+  })}
+/>
+
+<!-- Local style overrides. -->
+<style>
+  /* For some reason Tailwind isn't noticing the .sr-only class injected into 
+   MDX content. This is a workaround. 
+*/
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
-</script>
+</style>
