@@ -39,7 +39,7 @@ body {
   @apply antialiased;
 }
 
-/* Accessibility improvements */
+/* Accessibility improvements. */
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -51,13 +51,13 @@ body {
   }
 }
 
-/* Focus styles */
+/* Focus styles. */
 :focus-visible {
   outline: 2px solid var(--color-sky);
   outline-offset: 2px;
 }
 
-/* Skip to content link - hidden until focused */
+/* Skip to content link - hidden until focused. */
 .skip-to-content {
   position: absolute;
   top: -100px;
@@ -72,4 +72,20 @@ body {
 
 .skip-to-content:focus {
   top: 0;
+}
+
+/* MDX overrides that I can't hit using Tailwind. */
+.footnotes {
+  @apply border-t border-t-white/10;
+  @apply mt-12;
+  @apply text-sm;
+  @apply opacity-50;
+}
+
+[data-footnote-ref]::before {
+  content: '[';
+}
+
+[data-footnote-ref]::after {
+  content: ']';
 }

@@ -182,21 +182,3 @@ const nextPost = posts[currentIndex + 1]
     }
   })}
 />
-
-<!-- Local style overrides. -->
-<style>
-  /* For some reason Tailwind isn't noticing the .sr-only class injected into 
-   MDX content. This is a workaround. 
-*/
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-</style>
