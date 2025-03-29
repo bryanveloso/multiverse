@@ -4,8 +4,6 @@ import { getCollection } from 'astro:content'
 import Base from '@/layouts/base.astro'
 import Timeline from '@/components/timeline.astro'
 
-import Me from '@/assets/me.webp'
-
 import '../styles/global.css'
 
 // Get content collections.
@@ -21,8 +19,7 @@ const contentYears = new Date().getFullYear() - 2014
 <Base title="bryanvelo.so" description="The work of Bryan Veloso.">
   <div class="mx-auto max-w-4xl">
     <div
-      class="font-hero from-cloud-grey/60 to-cloud-grey my-12 max-w-prose bg-gradient-to-r bg-clip-text text-xl text-transparent [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)] sm:text-4xl"
-    >
+      class="font-hero from-cloud-grey/60 to-cloud-grey my-12 max-w-prose bg-gradient-to-r bg-clip-text text-xl text-transparent [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)] sm:text-4xl">
       <span class="font-mono text-xs text-white mix-blend-overlay">font-family: 'Gloock', serif;</span>
       <p>
         <span class="text-white">I am weird.</span> I am a hybrid. I am a loud and proud gamer. I am a creative driven by
@@ -51,8 +48,7 @@ const contentYears = new Date().getFullYear() - 2014
           >font-family: 'Work Sans Variable', sans-serif;</span
         >
         <h2
-          class="text-2xl leading-tight font-light tabular-nums [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)] md:text-4xl"
-        >
+          class="text-2xl leading-tight font-light tabular-nums [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)] md:text-4xl">
           <div><span class="text-apple-green font-extrabold">{designYears}</span> years of Design,</div>
           <div><span class="text-apple-green font-extrabold">{developmentYears}</span> years of Development &amp;</div>
           <div><span class="text-yellow font-extrabold">{contentYears}</span> years of Content Creation Experience</div>
@@ -89,3 +85,27 @@ const contentYears = new Date().getFullYear() - 2014
     </div>
   </div>
 </Base>
+
+<!-- SEO -->
+<script is:inline type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Bryan Veloso",
+      "jobTitle": "Designer, Developer, Content Creator",
+      "url": "https://bryanvelo.so",
+      "sameAs": [
+        "https://bsky.app/profile/bryanvelo.so",
+        "https://github.com/bryanveloso",
+        "https://twitter.com/avalonstar",
+        "https://www.linkedin.com/in/bryanveloso",
+        "https://www.instagram.com/bryanveloso",
+        "https://www.tiktok.com/@avalonstar",
+        "https://www.youtube.com/@avalonstar",
+        "https://www.twitch.tv/avalonstar"
+      ]
+    }
+  }
+</script>

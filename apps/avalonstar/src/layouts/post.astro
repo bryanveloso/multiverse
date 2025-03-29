@@ -166,3 +166,21 @@ const nextPost = posts[currentIndex + 1]
     </div>
   </div>
 </Base>
+
+<!-- SEO -->
+<script is:inline type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": {title},
+    "description": {description},
+    "datePublished": {date.toISOString()},
+    "dateModified": {updatedDate ? updatedDate.toISOString() : date.toISOString()},
+    "image": {heroImage ? heroImage.src : undefined},
+    "author": {
+      "@type": "Person",
+      "name": "Bryan Veloso",
+      "url": "https://bryanvelo.sos"
+    }
+  }
+</script>
