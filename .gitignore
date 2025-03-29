@@ -79,3 +79,5 @@ pip-delete-this-directory.txt
 
 # Turbo
 .turbo/
+
+**/CLAUDE.local.md
