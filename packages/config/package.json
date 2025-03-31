@@ -7,9 +7,9 @@
     "typescript"
   ],
   "dependencies": {
-    "@tailwindcss/postcss": "^4.0.15",
-    "@tailwindcss/vite": "^4.0.15",
-    "tailwindcss": "^4.0.15",
+    "@tailwindcss/postcss": "^4.0.17",
+    "@tailwindcss/vite": "^4.0.17",
+    "tailwindcss": "^4.0.17",
     "typescript": "^5.8.2"
   }
 }
