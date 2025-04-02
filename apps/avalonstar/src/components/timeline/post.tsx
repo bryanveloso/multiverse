@@ -37,8 +37,7 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
           itemIndex === 0 ? 'pb-6' : 'py-6',
           item.significance === 1 && 'opacity-20'
           // 'transition-opacity hover:opacity-100'
-        )}
-      >
+        )}>
         <div className="font-caps flex">
           <time dateTime={item.date.toISOString()} className="font-xs text-graphite">
             {'date' in item &&
@@ -53,8 +52,7 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
         <h2
           className={cn('text-white', {
             'text-xl sm:text-2xl': item.significance >= 4
-          })}
-        >
+          })}>
           <a href={href}>{item.title}</a>
         </h2>
         {item.heroImage && item.significance == 5 && (

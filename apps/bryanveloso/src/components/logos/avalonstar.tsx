@@ -4413,8 +4413,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(29 19 -17 27 39.62 43.38)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#F2ED74" />
         <stop offset=".7" stop-color="#D2E178" />
         <stop offset="1" stop-color="#96CC78" />
@@ -4425,8 +4424,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#F7F188" />
         <stop offset=".4" stop-color="#FBF180" />
         <stop offset=".5" stop-color="#FCE276" />
@@ -4440,8 +4438,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(29 19 -17 27 39.62 43.38)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FEBF34" />
         <stop offset=".6" stop-color="#E9B833" />
         <stop offset="1" stop-color="#999B35" />
@@ -4452,8 +4449,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FDB73B" />
         <stop offset=".4" stop-color="#FCB339" />
         <stop offset=".6" stop-color="#F89A34" />
@@ -4466,8 +4462,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FDB73B" />
         <stop offset=".4" stop-color="#FCB339" />
         <stop offset=".6" stop-color="#F89A34" />
@@ -4480,8 +4475,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(29 19 -17 27 39.62 43.38)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#B9C534" />
         <stop offset=".7" stop-color="#A4BB39" />
         <stop offset="1" stop-color="#76A540" />
@@ -4492,8 +4486,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#BABD33" />
         <stop offset=".4" stop-color="#BBB832" />
         <stop offset=".6" stop-color="#BB9B29" />
@@ -4506,8 +4499,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(29 19 -17 27 39.62 43.38)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#BB9327" />
         <stop offset=".6" stop-color="#AC8D28" />
         <stop offset="1" stop-color="#71792F" />
@@ -4518,8 +4510,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#BC8E27" />
         <stop offset=".5" stop-color="#BC8327" />
         <stop offset=".8" stop-color="#C24E27" />
@@ -4531,8 +4522,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(29 19 -17 27 39.62 43.38)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#B9C534" />
         <stop offset=".7" stop-color="#A4BB39" />
         <stop offset="1" stop-color="#76A540" />
@@ -4543,8 +4533,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#BABD33" />
         <stop offset=".4" stop-color="#BBB832" />
         <stop offset=".6" stop-color="#BB9B29" />
@@ -4557,8 +4546,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#BC8E27" />
         <stop offset=".5" stop-color="#BC8327" />
         <stop offset=".8" stop-color="#C24E27" />
@@ -4570,8 +4558,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(29 19 -17 27 39.62 43.38)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#B9C534" />
         <stop offset=".7" stop-color="#A4BB39" />
         <stop offset="1" stop-color="#76A540" />
@@ -4582,8 +4569,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(46 0 0 46 51.63 37.9)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#BABD33" />
         <stop offset=".4" stop-color="#BBB832" />
         <stop offset=".6" stop-color="#BB9B29" />
@@ -4596,8 +4582,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(29 19 -17 27 39.62 43.38)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#BB9327" />
         <stop offset=".6" stop-color="#AC8D28" />
         <stop offset="1" stop-color="#71792F" />
@@ -4608,8 +4593,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#BC8E27" />
         <stop offset=".5" stop-color="#BC8327" />
         <stop offset=".8" stop-color="#C24E27" />
@@ -4621,8 +4605,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FDFCEA" />
         <stop offset="1" stop-color="#FBFAD7" />
       </radialGradient>
@@ -4632,8 +4615,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FBFADD" />
         <stop offset="1" stop-color="#FBFAD8" />
       </radialGradient>
@@ -4643,8 +4625,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FDFCEA" />
         <stop offset="1" stop-color="#FBFAD7" />
       </radialGradient>
@@ -4654,8 +4635,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FFFFFD" />
         <stop offset="1" stop-color="#FFFEF8" />
       </radialGradient>
@@ -4665,8 +4645,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(29 19 -17 27 39.62 43.38)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FDFCE7" />
         <stop offset="1" stop-color="#FDFCE7" />
       </radialGradient>
@@ -4676,8 +4655,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FDFCEA" />
         <stop offset="1" stop-color="#FBFAD7" />
       </radialGradient>
@@ -4687,8 +4665,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FBFADD" />
         <stop offset="1" stop-color="#FBFAD8" />
       </radialGradient>
@@ -4698,8 +4675,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FBFADD" />
         <stop offset="1" stop-color="#FBFAD8" />
       </radialGradient>
@@ -4709,8 +4685,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(29 19 -17 27 39.62 43.38)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FBFADA" />
         <stop offset="1" stop-color="#FBFADA" />
       </radialGradient>
@@ -4720,8 +4695,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FBFADA" />
         <stop offset="1" stop-color="#FBFAD8" />
       </radialGradient>
@@ -4731,8 +4705,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FBFAD9" />
         <stop offset="1" stop-color="#FBFAD8" />
       </radialGradient>
@@ -4742,8 +4715,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(55 0 0 56 51.24 32.42)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FDFCEA" />
         <stop offset="1" stop-color="#FBFAD7" />
       </radialGradient>
@@ -4753,8 +4725,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(4 -2 1 2 39.6 42.35)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FF5B88" />
         <stop offset=".11" stop-color="#FF5E88" stop-opacity=".98" />
         <stop offset=".23" stop-color="#F68" stop-opacity=".93" />
@@ -4771,8 +4742,7 @@ const Avalonstar = ({ className }: { className?: string }) => (
         cy="0"
         r="1"
         gradientTransform="matrix(4 -1 1 2 69.48 30.18)"
-        gradientUnits="userSpaceOnUse"
-      >
+        gradientUnits="userSpaceOnUse">
         <stop stop-color="#FF5B88" />
         <stop offset=".11" stop-color="#FF5E88" stop-opacity=".98" />
         <stop offset=".23" stop-color="#F68" stop-opacity=".93" />

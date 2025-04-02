@@ -1,8 +1,8 @@
-import { statSync, readFileSync } from 'fs';
-import { join } from 'path';
+import { statSync, readFileSync } from 'fs'
+import { join } from 'path'
 
-const DIST_PATH = process.env.DIST_PATH || './dist';
-const PORT = parseInt(process.env.PORT || '3000');
+const DIST_PATH = process.env.DIST_PATH || './dist'
+const PORT = parseInt(process.env.PORT || '3000')
 
 // Define redirect patterns
 const redirectRules = [
@@ -23,7 +23,7 @@ const redirectRules = [
     pattern: /^\/(blog|journal|legacy\/blog)\/?$/i,
     getRedirect: () => '/'
   }
-];
+]
 
 // Content types for common file extensions
 const contentTypes: Record<string, string> = {
@@ -43,75 +43,75 @@ const contentTypes: Record<string, string> = {
   '.woff2': 'font/woff2',
   '.ttf': 'font/ttf',
   '.otf': 'font/otf'
-};
+}
 
 // Helper function to determine content type
 function getContentType(filePath: string): string {
-  const ext = filePath.substring(filePath.lastIndexOf('.'));
-  return contentTypes[ext] || 'application/octet-stream';
+  const ext = filePath.substring(filePath.lastIndexOf('.'))
+  return contentTypes[ext] || 'application/octet-stream'
 }
 
 // Start Bun server
 const server = Bun.serve({
   port: PORT,
   fetch(req) {
-    const url = new URL(req.url);
-    const path = url.pathname;
-    
-    console.log(`Received request: ${path}`);
-    
+    const url = new URL(req.url)
+    const path = url.pathname
+
+    console.log(`Received request: ${path}`)
+
     // Check for redirects
     for (const rule of redirectRules) {
-      const matches = path.match(rule.pattern);
+      const matches = path.match(rule.pattern)
       if (matches) {
-        const redirectPath = rule.getRedirect(matches);
-        console.log(`Redirecting ${path} to ${redirectPath}`);
+        const redirectPath = rule.getRedirect(matches)
+        console.log(`Redirecting ${path} to ${redirectPath}`)
         return new Response(null, {
           status: 301,
           headers: {
-            'Location': redirectPath
+            Location: redirectPath
           }
-        });
+        })
       }
     }
-    
+
     // Handle static file serving
-    let filePath = join(DIST_PATH, path === '/' ? 'index.html' : path);
-    
+    let filePath = join(DIST_PATH, path === '/' ? 'index.html' : path)
+
     try {
       // Check if file exists
-      const fileStat = statSync(filePath);
-      
+      const fileStat = statSync(filePath)
+
       // If a directory is requested, try to serve index.html
       if (fileStat.isDirectory()) {
-        filePath = join(filePath, 'index.html');
+        filePath = join(filePath, 'index.html')
       }
-      
+
       // Read file content
-      const fileContent = readFileSync(filePath);
-      
+      const fileContent = readFileSync(filePath)
+
       // Get content type
-      const contentType = getContentType(filePath);
-      
+      const contentType = getContentType(filePath)
+
       return new Response(fileContent, {
         headers: {
           'Content-Type': contentType,
           // Add cache control for static assets
           'Cache-Control': filePath.endsWith('.html') ? 'no-cache' : 'public, max-age=31536000'
         }
-      });
+      })
     } catch (error) {
       // If file not found, try to serve 404.html
       try {
-        const notFoundPath = join(DIST_PATH, '404.html');
-        const notFoundContent = readFileSync(notFoundPath);
-        
+        const notFoundPath = join(DIST_PATH, '404.html')
+        const notFoundContent = readFileSync(notFoundPath)
+
         return new Response(notFoundContent, {
           status: 404,
           headers: {
             'Content-Type': 'text/html; charset=utf-8'
           }
-        });
+        })
       } catch {
         // If no 404.html, return a plain 404 response
         return new Response('Not Found', {
@@ -119,16 +119,16 @@ const server = Bun.serve({
           headers: {
             'Content-Type': 'text/plain'
           }
-        });
+        })
       }
     }
   },
   error(error) {
-    console.error('Server error:', error);
+    console.error('Server error:', error)
     return new Response('Server Error', {
       status: 500
-    });
-  },
-});
+    })
+  }
+})
 
-console.log(`Server running at http://localhost:${server.port}`);
+console.log(`Server running at http://localhost:${server.port}`)

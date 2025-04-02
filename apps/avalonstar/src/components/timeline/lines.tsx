@@ -29,8 +29,7 @@ const TimelineLine: FC<TimelineLineProps> = ({ currentItem, nextItem, isEnd, lab
       {isEnd && currentItem && (
         <div
           className="absolute top-0 pl-1 text-[0.5rem] font-bold whitespace-nowrap uppercase sm:pl-0.5 sm:text-[0.6rem]"
-          style={{ color: currentItem.color, writingMode: 'vertical-lr' }}
-        >
+          style={{ color: currentItem.color, writingMode: 'vertical-lr' }}>
           {label}
         </div>
       )}

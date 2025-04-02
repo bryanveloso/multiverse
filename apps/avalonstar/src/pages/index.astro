@@ -73,18 +73,15 @@ const timelineItems = [
 <Base title="Avalonstar">
   <div class="grid grid-cols-1 gap-8 md:grid-cols-[24px_1fr]">
     <div
-      class="col-start-1 row-span-full bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat [--pattern-fg:var(--color-black)]/5 md:block [--pattern-fg:var(--color-white)]/10"
-    >
+      class="col-start-1 row-span-full bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat [--pattern-fg:var(--color-black)]/5 [--pattern-fg:var(--color-white)]/10 md:block">
     </div>
     <div
-      class="col-start-1 grid grid-cols-[repeat(3,var(--event-line-width))_12px_48px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px]"
-    >
+      class="col-start-1 grid grid-cols-[repeat(3,var(--event-line-width))_12px_48px_1fr] [--event-line-width:24px] md:col-start-2 md:[--event-line-width:36px]">
       <Header />
       <main
         id="main"
         class="col-span-6 grid grid-cols-subgrid text-sm"
-        aria-label="Timeline of Bryan Veloso's life and career"
-      >
+        aria-label="Timeline of Bryan Veloso's life and career">
         <div class="col-start-4 self-stretch">
           <div class="border-timeline h-full w-[1px] border-l"></div>
         </div>

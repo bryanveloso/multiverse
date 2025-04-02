@@ -5,8 +5,7 @@ export const BackIcon = ({ className }: { className?: string }) => (
     viewBox="0 0 24 24"
     className={className}
     aria-hidden="true"
-    role="img"
-  >
+    role="img">
     <path
       fill="currentColor"
       fillRule="evenodd"
