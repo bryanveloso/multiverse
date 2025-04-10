@@ -17,13 +17,13 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "turbo": "^2.5.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
-  "packageManager": "bun@1.2.8",
+  "packageManager": "bun@1.2.9",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.782.0",
     "dotenv": "^16.4.7"
