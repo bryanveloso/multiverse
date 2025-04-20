@@ -3,25 +3,14 @@
     {
       "name": "Final Fantasy IV",
       "released": "1991",
-      "platforms": [
-        "Super Nintendo",
-        "PlayStation",
-        "PlayStation Portable",
-        "Nintendo 3DS"
-      ],
+      "platforms": ["Super Nintendo", "PlayStation", "PlayStation Portable", "Nintendo 3DS"],
       "is_complicated": true
     },
     {
       "name": "Final Fantasy XIV",
       "released": "2010",
       "platforms": ["PlayStation 4", "PlayStation 5", "PC"],
-      "expansions": [
-        "Shadowbringers",
-        "Heavensward",
-        "Endwalker",
-        "Stormblood",
-        "A Realm Reborn"
-      ]
+      "expansions": ["Shadowbringers", "Heavensward", "Endwalker", "Stormblood", "A Realm Reborn"]
     },
     {
       "name": "Final Fantasy XVI",
