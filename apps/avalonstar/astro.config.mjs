@@ -12,9 +12,6 @@ export default defineConfig({
   },
   site: 'https://avalonstar.com',
   integrations: [mdx(), react(), sitemap()],
-  experimental: {
-    svg: true
-  },
   vite: {
     plugins: [tailwindcss()]
   }
