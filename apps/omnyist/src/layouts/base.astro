@@ -28,13 +28,13 @@ const pageTitle = title || defaultTitles[activeSite]
   <head>
     <BaseHead title={pageTitle} {description} {image} />
   </head>
-  <body class="h-dvh w-screen text-gray-900">
+  <body class="h-dvh w-screen bg-black-200 text-gray-900">
     <div class="relative grid w-screen grid-cols-1 gap-2 md:grid-cols-[48px_48px_1fr]">
       <!-- Mind (Avalonstar) -->
       <div class="relative hidden md:block">
         <div class="sticky top-0 p-2 pr-0">
           <a href={import.meta.env.DEV ? `http://localhost:5321` : 'https://avalonstar.com'}>
-            <div class="flex h-[calc(100dvh-1rem)] justify-center rounded bg-amber-100">
+            <div class="flex h-[calc(100dvh-1rem)] justify-center rounded ring-blue-400/20 text-blue-400 ring ring-inset">
               <div class="pt-4 text-xs uppercase" style={{ writingMode: 'vertical-rl' }}>
                 <strong>mind</strong> &mdash; avalonstar
               </div>
@@ -47,7 +47,7 @@ const pageTitle = title || defaultTitles[activeSite]
       <div class="relative hidden md:block">
         <div class="sticky top-0 p-2 pl-0">
           <a href={import.meta.env.DEV ? `http://localhost:5322` : 'https://bryanvelo.so'}>
-            <div class="flex h-[calc(100dvh-1rem)] justify-center rounded bg-amber-100">
+            <div class="flex h-[calc(100dvh-1rem)] justify-center rounded ring-blue-400/20 text-blue-400 ring ring-inset">
               <div class="pt-4 text-xs uppercase" style={{ writingMode: 'vertical-rl' }}>
                 <strong>work</strong> &mdash; bryanvelo.so
               </div>
