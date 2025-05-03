@@ -1,41 +1,7 @@
 @theme {
-  /* avalonstar.com Color Scale */
-  --color-sage: #bbf4b0;
-  --color-periwinkle: #928add;
-  --color-pewter: #6d8591;
-  --color-buttermilk: #fff683;
-  --color-lime: #5be058;
-  --color-royal: #6644e8;
-  --color-sky: #1cdaf4;
-  --color-marigold: #ffdd33;
-  --color-frost: #e7f7e7;
-  --color-midnight: #241f33;
-  --color-mist: #b4cbd6;
-  --color-ink: #0d0a11;
-  --color-chalk: #efefef;
-  --color-graphite: #939393;
-  --color-shadow: #23292f;
-  --color-onyx: #1a1f23;
-
-  /* bryanvelo.so Color Scale */
-  /* Primary Colors */
-  --color-cool-black: oklch(25.33% 0.0082 240.19);
-  --color-midnight-blue: oklch(32.39% 0.032 252.38);
-  --color-slate-blue: oklch(48.55% 0.0384 234.94);
-  --color-aqua: oklch(85.94% 0.1187 186.48);
-  --color-cloud-grey: oklch(87.25% 0.023 233.4);
-
-  /* Secondary Colors */
-  --color-mint: oklch(94.58% 0.0297 186.29);
-  --color-yellow: oklch(94.99% 0.1599 104.84);
-  --color-watermelon: oklch(64.6% 0.202 4.73);
-  --color-sky-blue: oklch(72.77% 0.1231 217.86);
-  --color-apple-green: oklch(77.29% 0.1378 144.62);
-
-  /* Neutral Colors */
-  --color-white-frost: oklch(0.94 0.012 240);
-  --color-light-grey: oklch(0.87 0.012 250);
-  --color-cool-grey: oklch(0.79 0.012 255);
-  --color-mid-grey: oklch(0.71 0.012 260);
-  --color-dark-grey: oklch(0.4 0.012 265);
+  /* Shared variables across all sites */
+  /* Note: For now this file is intentionally empty since each site maintains 
+   * its own color system. Only add variables here that should be truly shared
+   * across all sites.
+   */
 }
