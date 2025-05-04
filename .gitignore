@@ -80,4 +80,6 @@ pip-delete-this-directory.txt
 # Turbo
 .turbo/
 
+# Claude
 **/CLAUDE.md
+**/.claude/settings.local.json
