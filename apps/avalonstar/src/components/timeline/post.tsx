@@ -51,7 +51,7 @@ export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive
         </div>
         <h2
           className={cn('text-white', {
-            'text-xl sm:text-2xl': item.significance >= 4
+            'font-heading text-xl sm:text-2xl': item.significance >= 4
           })}>
           <a href={href}>{item.title}</a>
         </h2>
