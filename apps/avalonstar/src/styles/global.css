@@ -26,7 +26,8 @@
   --color-timeline: #323639;
 
   --font-caps: 'OpticianSans', sans-serif;
-  --font-sans: 'Geologica Variable', sans-serif;
+  --font-heading: 'ReallySansLarge', sans-serif;
+  --font-sans: 'ReallySansSmall', sans-serif;
   --font-serif: 'Andada Pro Variable', serif;
 }
 
@@ -79,7 +80,12 @@ body {
   @apply border-t border-t-white/10;
   @apply mt-12;
   @apply text-sm;
-  @apply opacity-50;
+  @apply opacity-75;
+}
+
+#footnote-label {
+  @apply font-caps;
+  @apply text-sm;
 }
 
 [data-footnote-ref]::before {
