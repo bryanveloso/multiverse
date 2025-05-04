@@ -22,7 +22,7 @@ export const Era: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive,
       </div>
       <div className="col-span-2 col-start-5 py-6 pl-4 sm:col-span-1 sm:col-start-6 sm:pl-2">
         <div className="pr-8">
-          <span className="relative inline-block text-sm font-bold uppercase" style={{ color: item.color }}>
+          <span className="font-caps text-md relative inline-block uppercase" style={{ color: item.color }}>
             {item.title} Begins
           </span>
           <p className="max-w-prose">{item.description}</p>
