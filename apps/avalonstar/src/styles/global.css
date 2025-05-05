@@ -95,3 +95,8 @@ body {
 [data-footnote-ref]::after {
   content: ']';
 }
+
+/* Tailwind shortcomings (font-feature-settings). */
+.prose {
+  font-feature-settings: 'ss04' on;
+}
