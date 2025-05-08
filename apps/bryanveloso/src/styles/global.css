@@ -27,10 +27,144 @@
   --color-mid-grey: oklch(0.71 0.012 260);
   --color-dark-grey: oklch(0.4 0.012 265);
 
-  --font-hero: 'Gloock', serif;
-  --font-sans: 'Work Sans Variable', sans-serif;
+  --font-hero: 'DM Serif Display', serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-sans: 'DM Sans Variable', sans-serif;
+
+  /* Animation Utilities */
+  --easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --easing-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+  --easing-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+
+  /* Animation configuration */
+  --animate-fade-duration: 0.3s;
+  --animate-fade-timing: var(--easing-standard);
+  
+  --animate-scale-duration: 0.3s;
+  --animate-scale-timing: var(--easing-decelerate);
+  
+  --animate-slide-duration: 0.3s;
+  --animate-slide-timing: var(--easing-standard);
+  
+  --animate-bounce-duration: 0.5s;
+  --animate-bounce-timing: cubic-bezier(0.36, 0.07, 0.19, 0.97);
 }
 
 body {
   @apply antialiased;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scaleOut {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.95); opacity: 0; }
+}
+
+@keyframes slideUpIn {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDownOut {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(10px); opacity: 0; }
+}
+
+/* Animation Utility Classes */
+.animate-fade-in {
+  animation: fadeIn var(--animate-fade-duration) var(--animate-fade-timing);
+}
+
+.animate-fade-out {
+  animation: fadeOut var(--animate-fade-duration) var(--animate-fade-timing);
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--animate-scale-duration) var(--animate-scale-timing);
+}
+
+.animate-scale-out {
+  animation: scaleOut var(--animate-scale-duration) var(--animate-scale-timing);
+}
+
+.animate-slide-up {
+  animation: slideUpIn var(--animate-slide-duration) var(--animate-slide-timing);
+}
+
+.animate-slide-down {
+  animation: slideDownOut var(--animate-slide-duration) var(--animate-slide-timing);
+}
+
+/* Lazily loaded content animation */
+.lazy-load {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s var(--easing-standard), transform 0.5s var(--easing-standard);
+}
+
+.lazy-load.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Significance indicators animation */
+.significance-indicator {
+  transition: transform 0.3s var(--easing-decelerate), background-color 0.3s var(--easing-standard);
+}
+
+.significance-indicator:hover {
+  transform: scale(1.2);
+}
+
+/* Progressive disclosure transitions */
+.disclosure-container {
+  transition: max-height 0.5s var(--easing-standard), opacity 0.5s var(--easing-standard);
+}
+
+/* Thumbnail hover effects */
+.thumbnail-hover {
+  transition: transform 0.3s var(--easing-standard);
+}
+
+.thumbnail-hover:hover {
+  transform: scale(1.05);
+}
+
+/* Matrix connection line styles */
+.connection-line {
+  stroke: oklch(0.79 0.012 255, 0.5);
+  stroke-width: 1;
+  stroke-dasharray: 4 2;
+  transition: stroke 0.3s var(--easing-standard), stroke-width 0.3s var(--easing-standard);
+}
+
+.connection-line.active {
+  stroke: var(--color-apple-green);
+  stroke-width: 2;
+  stroke-dasharray: none;
+}
+
+/* Focus styles for better accessibility */
+.focus-ring {
+  @apply outline-none;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-apple-green);
+  outline-offset: 2px;
 }
