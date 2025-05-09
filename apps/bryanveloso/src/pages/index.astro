@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content'
 
 import Base from '@/layouts/base.astro'
-import Timeline from '@/components/timeline.astro'
+import EnhancedPortfolio from './enhanced-portfolio.tsx'
 
 import '../styles/global.css'
 
@@ -20,7 +20,7 @@ const contentYears = new Date().getFullYear() - 2014
   <div class="mx-auto max-w-4xl">
     <div
       class="font-hero from-cloud-grey/60 to-cloud-grey my-12 max-w-prose bg-gradient-to-r bg-clip-text text-xl text-transparent [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)] sm:text-4xl">
-      <span class="font-mono text-xs text-white mix-blend-overlay">font-family: 'Gloock', serif;</span>
+      <span class="font-mono text-xs text-white mix-blend-overlay">font-family: 'DM Serif', serif;</span>
       <p>
         <span class="text-white">I am weird.</span> I am a hybrid. I am a loud and proud gamer. I am a creative driven by
         my hobbies. I am unapologetic when I fight for users. I support the unsupported. I believe in the power of tech,
@@ -32,18 +32,16 @@ const contentYears = new Date().getFullYear() - 2014
 
     <div>
       <div class="py-12">
-        <span class="font-mono text-xs text-white mix-blend-overlay"
-          >font-family: 'Work Sans Variable', sans-serif;</span
-        >
+        <span class="font-mono text-xs text-white mix-blend-overlay">font-family: 'DM Sans Variable', sans-serif;</span>
         <h2
           class="text-2xl leading-tight font-light tabular-nums [text-shadow:_0_1px_2px_rgba(0,0,0,0.25)] md:text-4xl">
-          <div><span class="text-apple-green font-extrabold">{designYears}</span> years of Design,</div>
-          <div><span class="text-apple-green font-extrabold">{developmentYears}</span> years of Development &amp;</div>
-          <div><span class="text-yellow font-extrabold">{contentYears}</span> years of Content Creation Experience</div>
+          <div><span class="text-apple-green font-mono font-medium">{designYears}</span> years of Design,</div>
+          <div><span class="text-apple-green font-mono font-medium">{developmentYears}</span> years of Development &amp;</div>
+          <div><span class="text-yellow font-mono font-medium">{contentYears}</span> years of Content Creation Experience</div>
         </h2>
       </div>
 
-      <Timeline {projects} />
+      <EnhancedPortfolio {projects} client:load />
 
       <div class="hidden">
         {
@@ -71,18 +69,6 @@ const contentYears = new Date().getFullYear() - 2014
         </div>
       </div>
     </div>
-
-    <!--
-    <div class="bg-cool-black mt-8 flex p-8 pb-0">
-      <p class="flex-1">
-        Hello, my name is Bryan Veloso and I've been around the web for a bit. Since I bought this domain in 2000,
-        Avalonstar has been one of the longest-running constants in my life. It has managed to change in both form and
-        function as much as I have, going from personal site, to blog, to online moniker, to company namesake, and back
-        again. Avalonstar is an extension of me: the designer, the developer, the gamer, the content creator, the
-        entrepreneur, and whatever else the next 20 or so years have to offer.
-      </p>
-      <Image src={Me} alt="Bryan Veloso (by Ebi)" class="-mt-16 w-48" />
-    </div> -->
   </div>
 </Base>
 

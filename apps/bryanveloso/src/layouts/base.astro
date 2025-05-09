@@ -1,6 +1,8 @@
 ---
-import '@fontsource/gloock'
-import '@fontsource-variable/work-sans'
+import '@fontsource/dm-mono/400.css'
+import '@fontsource/dm-mono/500.css'
+import '@fontsource/dm-serif-display'
+import '@fontsource-variable/dm-sans'
 
 import BaseHead from '@/components/base-head.astro'
 import Header from '@/components/header.astro'
@@ -35,8 +37,7 @@ const pageTitle = title || defaultTitles[activeSite]
   <head>
     <BaseHead title={pageTitle} {description} {image} />
   </head>
-  <body
-    class="bg-midnight-blue from-cool-black to-midnight-blue text-white-frost relative w-full bg-gradient-to-b to-75%">
+  <body class="bg-cool-black text-white-frost relative w-full">
     <div
       aria-hidden="true"
       class=`bg-[url(/images/contours.svg)] bg-[auto_15rem] lg:bg-auto bg-fixed bg-no-repeat bg-top absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 mix-blend-overlay`>
