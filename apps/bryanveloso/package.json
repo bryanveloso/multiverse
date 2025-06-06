@@ -12,7 +12,7 @@
   "dependencies": {
     "@astrojs/check": "0.9.4",
     "@astrojs/mdx": "^4.3.0",
-    "@astrojs/node": "9.2.0",
+    "@astrojs/node": "9.2.2",
     "@astrojs/react": "^4.3.0",
     "@fontsource-variable/dm-sans": "^5.2.5",
     "@fontsource/dm-mono": "^5.2.5",
@@ -22,7 +22,7 @@
     "@multiverse/ui": "workspace:*",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.7",
-    "astro": "5.7.4",
+    "astro": "5.9.0",
     "marked": "^15.0.12",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
