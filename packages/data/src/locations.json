@@ -1,0 +1,29 @@
+{
+  "los-angeles": {
+    "name": "Los Angeles, CA",
+    "startDate": "2009-07-22",
+    "description": "Living in Los Angeles.",
+    "color": "#00923f"
+  },
+  "providence": {
+    "name": "Providence, RI",
+    "startDate": "2001-08-27",
+    "endDate": "2005-07-15",
+    "description": "",
+    "color": "#3399ff"
+  },
+  "san-jose": {
+    "name": "San Jose, CA",
+    "startDate": "2005-08-15",
+    "endDate": "2007-08-31",
+    "description": "",
+    "color": "#f8b500"
+  },
+  "seattle": {
+    "name": "Seattle, WA",
+    "startDate": "2007-09-01",
+    "endDate": "2009-07-21",
+    "description": "",
+    "color": "#00839a"
+  }
+}

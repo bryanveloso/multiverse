@@ -28,6 +28,7 @@
         "@fontsource-variable/andada-pro": "^5.2.6",
         "@fontsource-variable/geologica": "^5.2.6",
         "@multiverse/config": "workspace:*",
+        "@multiverse/data": "workspace:*",
         "@multiverse/shared": "workspace:*",
         "@multiverse/ui": "workspace:*",
         "@tailwindcss/typography": "^0.5.16",
@@ -39,6 +40,7 @@
         "tailwindcss": "^4.1.8",
       },
       "devDependencies": {
+        "@types/bun": "^1.2.8",
         "@types/react": "^19.1.6",
         "@types/react-dom": "^19.1.6",
         "typescript": "^5.8.3",
@@ -104,6 +106,10 @@
         "tailwindcss": "^4.1.8",
         "typescript": "^5.8.3",
       },
+    },
+    "packages/data": {
+      "name": "@multiverse/data",
+      "version": "1.0.0",
     },
     "packages/shared": {
       "name": "@multiverse/shared",
@@ -411,6 +417,8 @@
 
     "@multiverse/config": ["@multiverse/config@workspace:packages/config"],
 
+    "@multiverse/data": ["@multiverse/data@workspace:packages/data"],
+
     "@multiverse/shared": ["@multiverse/shared@workspace:packages/shared"],
 
     "@multiverse/ui": ["@multiverse/ui@workspace:packages/ui"],
@@ -651,6 +659,8 @@
 
     "@types/babel__traverse": ["@types/babel__traverse@7.20.6", "", { "dependencies": { "@babel/types": "^7.20.7" } }, "sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg=="],
 
+    "@types/bun": ["@types/bun@1.2.15", "", { "dependencies": { "bun-types": "1.2.15" } }, "sha512-U1ljPdBEphF0nw1MIk0hI7kPg7dFdPyM7EenHsp6W5loNHl7zqy6JQf/RKCgnUn2KDzUpkBwHPnEJEjII594bA=="],
+
     "@types/debug": ["@types/debug@4.1.12", "", { "dependencies": { "@types/ms": "*" } }, "sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ=="],
 
     "@types/estree": ["@types/estree@1.0.6", "", {}, "sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw=="],
@@ -748,6 +758,8 @@
     "browserslist": ["browserslist@4.24.4", "", { "dependencies": { "caniuse-lite": "^1.0.30001688", "electron-to-chromium": "^1.5.73", "node-releases": "^2.0.19", "update-browserslist-db": "^1.1.1" }, "bin": { "browserslist": "cli.js" } }, "sha512-KDi1Ny1gSePi1vm0q4oxSF8b4DR44GF4BbmS2YdhPLOEqd8pDviZOGH/GsmRwoWJ2+5Lr085X7naowMwKHDG1A=="],
 
     "bryanveloso": ["bryanveloso@workspace:apps/bryanveloso"],
+
+    "bun-types": ["bun-types@1.2.15", "", { "dependencies": { "@types/node": "*" } }, "sha512-NarRIaS+iOaQU1JPfyKhZm4AsUOrwUOqRNHY0XxI8GI8jYxiLXLcdjYMG9UKS+fwWasc1uw1htV9AX24dD+p4w=="],
 
     "camelcase": ["camelcase@8.0.0", "", {}, "sha512-8WB3Jcas3swSvjIeA2yvCJ+Miyz5l1ZmB6HFb9R1317dt9LCQoswg/BGrmAmkWVEszSrrg4RwmO46qIm2OEnSA=="],
 

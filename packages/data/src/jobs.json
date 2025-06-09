@@ -1,0 +1,57 @@
+{
+  "altair": {
+    "company": "Altair Interactive",
+    "title": "Founder & CEO",
+    "startDate": "2020-07-01",
+    "endDate": "2022-03-21",
+    "description": "",
+    "color": "#fcda0d"
+  },
+  "automattic": {
+    "company": "Automattic",
+    "title": "De-Uglyfier",
+    "startDate": "2006-07-15",
+    "endDate": "2006-12-15",
+    "description": "",
+    "color": "#029cd7"
+  },
+  "facebook": {
+    "company": "Facebook",
+    "title": "Interaction Designer",
+    "startDate": "2005-08-15",
+    "endDate": "2006-05-15",
+    "description": "One of Facebook's first designers, working directly with Mark Zuckerberg on early versions of the platform.",
+    "color": "#1877f2"
+  },
+  "github": {
+    "company": "GitHub",
+    "title": "Super Hybrid Robot",
+    "startDate": "2011-01-03",
+    "endDate": "2013-08-15",
+    "description": "",
+    "color": "#ffffff"
+  },
+  "respro": {
+    "company": "Resolution Processing",
+    "title": "Senior Technical Program Manager",
+    "startDate": "2025-05-21",
+    "description": "",
+    "color": "#00fa9c"
+  },
+  "twitch": {
+    "company": "Twitch",
+    "title": "UI/UX Designer",
+    "startDate": "2014-04-14",
+    "endDate": "2016-02-05",
+    "description": "",
+    "color": "#8956fb"
+  },
+  "vshojo": {
+    "company": "VShojo",
+    "title": "VP of Design and Product",
+    "startDate": "2022-10-05",
+    "endDate": "2023-05-18",
+    "description": "",
+    "color": "#f50f75"
+  }
+}

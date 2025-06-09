@@ -1,17 +1,20 @@
 ---
 import { getCollection } from 'astro:content'
+import { getJobsArray, getLocationsArray, getErasArray } from '@multiverse/data'
 
 import Base from '@/layouts/base.astro'
 import Timeline from '@/components/timeline'
 import Footer from '@/components/footer.astro'
 import Header from '@/components/header.astro'
 
-// Get content collections
-const eras = await getCollection('eras')
+// Get content collections (only the ones that are actually markdown/MDX)
 const gaps = await getCollection('gaps')
-const jobs = await getCollection('jobs')
-const locations = await getCollection('locations')
 const posts = await getCollection('blog')
+
+// Get shared data
+const jobs = getJobsArray()
+const locations = getLocationsArray()
+const eras = getErasArray()
 
 // Combine all into timeline items
 const timelineItems = [
@@ -30,11 +33,11 @@ const timelineItems = [
   // Major life eras
   ...eras.map((era) => ({
     type: 'era',
-    title: era.data.title,
-    startDate: era.data.startDate,
-    endDate: era.data.endDate || new Date(),
-    description: era.data.description,
-    color: era.data.color
+    title: era.title,
+    startDate: new Date(era.startDate),
+    endDate: 'endDate' in era ? new Date(era.endDate) : new Date(),
+    description: era.description,
+    color: era.color
   })),
 
   // Life events/gaps
@@ -50,22 +53,22 @@ const timelineItems = [
   // Locations lived
   ...locations.map((location) => ({
     type: 'location',
-    name: location.data.name,
-    startDate: location.data.startDate,
-    endDate: location.data.endDate,
-    description: location.data.description,
-    color: location.data.color
+    name: location.name,
+    startDate: new Date(location.startDate),
+    endDate: 'endDate' in location ? new Date(location.endDate) : undefined,
+    description: location.description,
+    color: location.color
   })),
 
   // Jobs held
   ...jobs.map((job) => ({
     type: 'job',
-    company: job.data.company,
-    title: job.data.title,
-    startDate: job.data.startDate,
-    endDate: job.data.endDate,
-    description: job.data.description,
-    color: job.data.color
+    company: job.company,
+    title: job.title,
+    startDate: new Date(job.startDate),
+    endDate: 'endDate' in job ? new Date(job.endDate) : undefined,
+    description: job.description,
+    color: job.color
   }))
 ]
 ---
@@ -93,7 +96,7 @@ const timelineItems = [
           <p class="font-xs max-w-prose pr-8">
             Since I bought this domain in 2000, Avalonstar has been one of the longest-running constants in my life. It
             has managed to change in both form and function as much as I have, going from personal site, to blog, to
-            online moniker, to company namesake, and back again. Avalonstar is an extension of me: the designer, the
+            online moniker, to company namesake, and back again. Avalonstar is an extension of me; the designer, the
             developer, the gamer, the content creator, the entrepreneur, and whatever else the next 25 or so years have
             to offer.
           </p>
@@ -101,7 +104,7 @@ const timelineItems = [
 
         <Timeline items={timelineItems} />
       </main>
-      <Footer page="index" />
+      <Footer />
     </div>
   </div>
 </Base>

@@ -15,17 +15,6 @@ const blog = defineCollection({
     })
 })
 
-const eras = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: 'src/content/eras' }),
-  schema: z.object({
-    title: z.string(),
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date().optional(), // Optional for ongoing eras
-    description: z.string(),
-    color: z.string().optional() // Allow custom colors for different eras
-  })
-})
-
 const gaps = defineCollection({
   loader: glob({ pattern: '**/*.md', base: 'src/content/gaps' }),
   schema: z.object({
@@ -37,33 +26,7 @@ const gaps = defineCollection({
   })
 })
 
-const locations = defineCollection({
-  loader: glob({ pattern: '**/*.json', base: 'src/content/locations' }),
-  schema: z.object({
-    name: z.string(),
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date().optional(),
-    description: z.string().optional(),
-    color: z.string().optional()
-  })
-})
-
-const jobs = defineCollection({
-  loader: glob({ pattern: '**/*.json', base: 'src/content/jobs' }),
-  schema: z.object({
-    company: z.string(),
-    title: z.string(),
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date().optional(),
-    description: z.string().optional(),
-    color: z.string().optional()
-  })
-})
-
 export const collections = {
   blog,
-  eras,
-  gaps,
-  locations,
-  jobs
+  gaps
 }

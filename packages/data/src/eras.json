@@ -1,0 +1,29 @@
+{
+  "college": {
+    "title": "The College Era",
+    "startDate": "2001-08-27",
+    "endDate": "2005-05-19",
+    "description": "I attended college at Johnson & Wales University in Providence, Rhode Island on a student business organization (FBLA-PBL) scholarship. I studied Entrepreneurship with a minor in Sociology.",
+    "color": "#034484"
+  },
+  "omnyist": {
+    "title": "The Omnyist Era",
+    "startDate": "2023-07-03",
+    "description": "\"Omnyist\" is a term I coined to represent the lump sum of all of my hobbies. It encompasses my growing interest in the makerspace: including 3D printing, and micro-electronics.",
+    "color": "#21acf9"
+  },
+  "streaming": {
+    "title": "The Streaming Era",
+    "startDate": "2016-02-06",
+    "endDate": "2020-07-01",
+    "description": "Twitch introduced me to the world of live streaming and after my time at Twitch had come to an end, I decided to take the plunge and stream full-time.",
+    "color": "#ff0000"
+  },
+  "web-design": {
+    "title": "The Web Design Era",
+    "startDate": "2005-05-20",
+    "endDate": "2016-02-05",
+    "description": "From freelancer to agency founder, these were the years of pixel-perfect PSDs, CSS Zen Garden submissions, and designing for the new social web.",
+    "color": "#BE4BDB"
+  }
+}
