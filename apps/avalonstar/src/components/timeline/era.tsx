@@ -1,10 +1,10 @@
 import type { FC } from 'react'
-import type { TimelineItemProps } from '@/types/timeline'
+import type { TimelineItemProps, TimelineEra } from '@/types/timeline'
 
 import { EraChangeIcon } from '../era-change-icon'
 import { EraLine, JobLine, LocationLine } from './lines'
 
-export const Era: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive, onActivate }) => {
+export const Era: FC<TimelineItemProps<TimelineEra>> = ({ item, itemIndex, context, onActivate }) => {
   return (
     <div data-index={itemIndex} className="col-span-6 grid grid-cols-subgrid" onClick={onActivate}>
       <EraLine {...context} />

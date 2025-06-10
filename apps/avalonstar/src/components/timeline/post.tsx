@@ -1,10 +1,10 @@
 import type { FC } from 'react'
-import type { TimelineItemProps } from '@/types/timeline'
+import type { TimelineItemProps, TimelinePost } from '@/types/timeline'
 import { cn } from '@/utils/style'
 
 import { EraLine, JobLine, LocationLine } from './lines'
 
-export const Post: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive, onActivate }) => {
+export const Post: FC<TimelineItemProps<TimelinePost>> = ({ item, itemIndex, context, onActivate }) => {
   const href = `/blog/${item.id.substring(0, 4)}/${item.id.split('-').slice(3).join('-')}`
 
   return (

@@ -2,11 +2,9 @@ import { useMemo, useState } from 'react'
 import type {
   TimelineContext,
   TimelineEra,
-  TimelineGap,
   TimelineItem,
   TimelineJob,
-  TimelineLocation,
-  TimelinePost
+  TimelineLocation
 } from '@/types/timeline'
 import { getAuthorAge } from '@/utils/age'
 
@@ -32,32 +30,14 @@ export function useTimelineData(items: TimelineItem[]) {
 
   // Memoize processed data to avoid recalculation on re-renders
   const { sortedItems, eras, locations, jobs, endOccurrences } = useMemo(() => {
-    // Filter and sort items by type
-    const posts = items
-      .filter((item): item is TimelinePost => item.type === 'post')
-      .sort((a, b) => b.date.getTime() - a.date.getTime())
+    // Items are pre-sorted and pre-processed at build time by Astro
+    // This hook only needs to filter by type and calculate UI-specific data
+    const eras = items.filter((item): item is TimelineEra => item.type === 'era')
+    const locations = items.filter((item): item is TimelineLocation => item.type === 'location')
+    const jobs = items.filter((item): item is TimelineJob => item.type === 'job')
 
-    const gaps = items
-      .filter((item): item is TimelineGap => item.type === 'gap')
-      .sort((a, b) => b.date.getTime() - a.date.getTime())
-
-    const eras = items
-      .filter((item): item is TimelineEra => item.type === 'era')
-      .sort((a, b) => b.startDate.getTime() - a.startDate.getTime())
-
-    const locations = items
-      .filter((item): item is TimelineLocation => item.type === 'location')
-      .sort((a, b) => b.startDate.getTime() - a.startDate.getTime())
-
-    const jobs = items
-      .filter((item): item is TimelineJob => item.type === 'job')
-      .sort((a, b) => b.startDate.getTime() - a.startDate.getTime())
-
-    // Combine all items and sort by date
-    // We'll use our getItemDate helper to handle different date fields
-    const sortedItems = [...posts, ...gaps, ...eras, ...locations, ...jobs].sort(
-      (a, b) => getItemDate(b).getTime() - getItemDate(a).getTime()
-    )
+    // Items are already sorted from the Astro component
+    const sortedItems = items
 
     // Calculate end occurances for eras, locations, and jobs
     const endOccurrences = {
@@ -127,7 +107,7 @@ export function useTimelineData(items: TimelineItem[]) {
     const activeJob = jobs.find((job) => isActiveAtDate(job, date))
 
     // Calculate significance from the item or use default value
-    const significance = 'significance' in item ? item.significance || 3 : item.type === 'event' ? 5 : 3
+    const significance = 'significance' in item ? item.significance || 3 : 3
 
     // Calculate the ends of eras, locations, and jobs
     const isEndOfEra = activeEra ? endOccurrences.eras[activeEra.title] === itemIndex : false

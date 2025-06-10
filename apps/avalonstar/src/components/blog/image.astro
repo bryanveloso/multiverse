@@ -99,7 +99,13 @@ const containerStyle = width ? `width: ${typeof width === 'number' ? `${width}px
 {
   imagePath ? (
     <figure class={`my-6 ${width ? 'mx-auto' : ''}`} style={containerStyle}>
-      <AstroImage src={images[imagePath]()} alt={alt} class={imgClasses} />
+      <AstroImage 
+        src={images[imagePath]()} 
+        alt={alt} 
+        class={imgClasses}
+        loading="lazy"
+        decoding="async"
+      />
       {caption && <figcaption class="mt-2 text-center text-sm text-gray-500">{caption}</figcaption>}
     </figure>
   ) : (

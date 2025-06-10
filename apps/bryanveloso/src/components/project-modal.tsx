@@ -15,9 +15,9 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
   
   // Demo gallery images (in a real implementation, you would use project.data.images.gallery)
   const galleryImages = [
-    { src: project?.data.heroImage || '', alt: project?.data.title || '' },
-    { src: project?.data.heroImage || '', alt: project?.data.title || '' },
-    { src: project?.data.heroImage || '', alt: project?.data.title || '' },
+    { src: project?.data.heroImage?.src || '', alt: project?.data.title || '' },
+    { src: project?.data.heroImage?.src || '', alt: project?.data.title || '' },
+    { src: project?.data.heroImage?.src || '', alt: project?.data.title || '' },
   ];
 
   // Lock body scroll when modal is open
@@ -80,11 +80,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
         <div className="aspect-video bg-midnight-blue/20">
           {galleryImages[currentImageIndex]?.src && (
             <img
-              src={
-                typeof galleryImages[currentImageIndex].src === 'string'
-                  ? galleryImages[currentImageIndex].src
-                  : galleryImages[currentImageIndex].src.src || galleryImages[currentImageIndex].src.toString()
-              }
+              src={galleryImages[currentImageIndex].src}
               alt={galleryImages[currentImageIndex].alt}
               className="h-full w-full object-cover"
             />
@@ -217,20 +213,22 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
           <div className="mt-8">
             <h3 className="text-apple-green pb-2 text-sm font-medium uppercase">Links</h3>
             <div className="flex flex-wrap gap-3">
-              {project.data.links.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-midnight-blue hover:bg-midnight-blue/80 flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white transition-colors"
-                >
-                  {link.label || 'View Project'}
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-4 w-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                  </svg>
-                </a>
-              ))}
+              {project.data.links.map((link, index) => 
+                link ? (
+                  <a
+                    key={index}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-midnight-blue hover:bg-midnight-blue/80 flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white transition-colors"
+                  >
+                    {link.label || 'View Project'}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-4 w-4">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                    </svg>
+                  </a>
+                ) : null
+              )}
             </div>
           </div>
         )}

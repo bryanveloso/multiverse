@@ -1,6 +1,14 @@
-import { Fragment, type FC } from 'react'
+import { Fragment } from 'react'
 import { useTimelineData } from '@/hooks/useTimelineData'
-import type { TimelineItem, TimelineContext } from '@/types/timeline'
+import type { 
+  TimelineItem, 
+  TimelineContext, 
+  TimelineEra, 
+  TimelineGap, 
+  TimelineJob, 
+  TimelineLocation, 
+  TimelinePost 
+} from '@/types/timeline'
 
 import { Era } from './era'
 import { Gap } from './gap'
@@ -16,57 +24,50 @@ interface RenderTimelineItemProps {
   item: TimelineItem
   itemIndex: number
   context: TimelineContext
-  activeItem: string | null
   setActiveItem: (id: string | null) => void
 }
 
-const renderTimelineItem: FC<RenderTimelineItemProps> = ({ item, itemIndex, context, activeItem, setActiveItem }) => {
-  const isActive = activeItem === `${item.type}-${itemIndex}`
+const renderTimelineItem = ({ item, itemIndex, context, setActiveItem }: RenderTimelineItemProps) => {
   const itemId = `${item.type}-${itemIndex}`
 
   const componentMap = {
     era: () => (
       <Era
-        item={item}
+        item={item as TimelineEra}
         itemIndex={itemIndex}
         context={context}
-        isActive={isActive}
         onActivate={() => setActiveItem(itemId)}
       />
     ),
     gap: () => (
       <Gap
-        item={item}
+        item={item as TimelineGap}
         itemIndex={itemIndex}
         context={context}
-        isActive={isActive}
         onActivate={() => setActiveItem(itemId)}
       />
     ),
     job: () => (
       <Job
-        item={item}
+        item={item as TimelineJob}
         itemIndex={itemIndex}
         context={context}
-        isActive={isActive}
         onActivate={() => setActiveItem(itemId)}
       />
     ),
     location: () => (
       <Location
-        item={item}
+        item={item as TimelineLocation}
         itemIndex={itemIndex}
         context={context}
-        isActive={isActive}
         onActivate={() => setActiveItem(itemId)}
       />
     ),
     post: () => (
       <Post
-        item={item}
+        item={item as TimelinePost}
         itemIndex={itemIndex}
         context={context}
-        isActive={isActive}
         onActivate={() => setActiveItem(itemId)}
       />
     ),
@@ -82,7 +83,7 @@ const renderTimelineItem: FC<RenderTimelineItemProps> = ({ item, itemIndex, cont
 }
 
 export default function Timeline({ items }: { items: TimelineItem[] }) {
-  const { sortedItems, activeItem, setActiveItem, getContextForItem } = useTimelineData(items)
+  const { sortedItems, setActiveItem, getContextForItem } = useTimelineData(items)
 
   return (
     <>
@@ -112,9 +113,9 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
         const nextItem = itemIndex < sortedItems.length - 1 ? sortedItems[itemIndex + 1] : null
         const nextItemContext = nextItem ? getContextForItem(nextItem, itemIndex + 1) : undefined
 
-        const enhancedContext = {
+        const enhancedContext: TimelineContext = {
           ...context,
-          nextItem,
+          nextItem: nextItem || undefined,
           nextItemContext
         }
 
@@ -124,7 +125,6 @@ export default function Timeline({ items }: { items: TimelineItem[] }) {
               item,
               itemIndex,
               context: enhancedContext,
-              activeItem,
               setActiveItem
             })}
           </Fragment>

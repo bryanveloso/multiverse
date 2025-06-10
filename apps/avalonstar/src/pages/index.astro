@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import { getJobsArray, getLocationsArray, getErasArray } from '@multiverse/data'
+import type { TimelineItem } from '@/types/timeline'
 
 import Base from '@/layouts/base.astro'
 import Timeline from '@/components/timeline'
@@ -8,6 +9,7 @@ import Footer from '@/components/footer.astro'
 import Header from '@/components/header.astro'
 
 // Get content collections (only the ones that are actually markdown/MDX)
+// Consider filtering out drafts in production
 const gaps = await getCollection('gaps')
 const posts = await getCollection('blog')
 
@@ -17,10 +19,10 @@ const locations = getLocationsArray()
 const eras = getErasArray()
 
 // Combine all into timeline items
-const timelineItems = [
+const timelineItems: TimelineItem[] = [
   // Blog posts
   ...posts.map((post) => ({
-    type: 'post',
+    type: 'post' as const,
     title: post.data.title,
     date: post.data.date,
     description: post.data.description,
@@ -32,17 +34,17 @@ const timelineItems = [
 
   // Major life eras
   ...eras.map((era) => ({
-    type: 'era',
+    type: 'era' as const,
     title: era.title,
     startDate: new Date(era.startDate),
-    endDate: 'endDate' in era ? new Date(era.endDate) : new Date(),
+    endDate: 'endDate' in era && era.endDate ? new Date(era.endDate) : new Date(),
     description: era.description,
     color: era.color
   })),
 
   // Life events/gaps
   ...gaps.map((gap) => ({
-    type: 'gap',
+    type: 'gap' as const,
     title: gap.data.title,
     date: gap.data.date,
     description: gap.data.description,
@@ -52,25 +54,38 @@ const timelineItems = [
 
   // Locations lived
   ...locations.map((location) => ({
-    type: 'location',
+    type: 'location' as const,
     name: location.name,
+    title: location.name,
     startDate: new Date(location.startDate),
-    endDate: 'endDate' in location ? new Date(location.endDate) : undefined,
+    endDate: 'endDate' in location && location.endDate ? new Date(location.endDate) : undefined,
     description: location.description,
     color: location.color
   })),
 
   // Jobs held
   ...jobs.map((job) => ({
-    type: 'job',
+    type: 'job' as const,
     company: job.company,
     title: job.title,
     startDate: new Date(job.startDate),
-    endDate: 'endDate' in job ? new Date(job.endDate) : undefined,
+    endDate: 'endDate' in job && job.endDate ? new Date(job.endDate) : undefined,
     description: job.description,
     color: job.color
   }))
 ]
+
+// Sort all items by date at build time
+// Since this is a static blog, all data processing happens during the build
+// The client receives pre-sorted, pre-processed data for optimal performance
+const sortedTimelineItems = timelineItems.sort((a, b) => {
+  // Extract dates based on item type
+  const dateA = 'date' in a ? a.date : a.startDate
+  const dateB = 'date' in b ? b.date : b.startDate
+  
+  // Sort in descending order (newest first)
+  return dateB.getTime() - dateA.getTime()
+})
 ---
 
 <Base title="Avalonstar">
@@ -102,7 +117,7 @@ const timelineItems = [
           </p>
         </div>
 
-        <Timeline items={timelineItems} />
+        <Timeline items={sortedTimelineItems} />
       </main>
       <Footer />
     </div>

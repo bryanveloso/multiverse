@@ -1,6 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content'
 import { Image } from 'astro:assets'
+import { getJobsArray, getLocationsArray, getErasArray } from '@multiverse/data'
 
 import FormattedDate from '@/components/formatted-date.astro'
 import LegacyDisclaimer from '@/components/blog/legacy.astro'
@@ -24,24 +25,29 @@ const authorAge = getAuthorAge(date)
 const isLegacyPost = date.getFullYear() < 2013
 const defaultColor = 'oklch(100% 0 0 / 10%)'
 
-// Helper function to find active item at the time of the post
-const findActiveItem = async <
-  T extends CollectionEntry<'eras'> | CollectionEntry<'jobs'> | CollectionEntry<'locations'>
->(
-  collectionName: 'eras' | 'jobs' | 'locations',
-  date: Date
-): Promise<T | undefined> => {
-  const items = (await getCollection(collectionName).catch(() => [])) as T[]
-  return items.find((item) => {
-    const endDate = item.data.endDate || new Date()
-    return date >= item.data.startDate && date <= endDate
-  })
-}
+// Get shared data
+const eras = getErasArray()
+const jobs = getJobsArray()
+const locations = getLocationsArray()
 
 // Find the active items at the time of the post
-const activeEra = await findActiveItem<CollectionEntry<'eras'>>('eras', date)
-const activeJob = await findActiveItem<CollectionEntry<'jobs'>>('jobs', date)
-const activeLocation = await findActiveItem<CollectionEntry<'locations'>>('locations', date)
+const activeEra = eras.find((era) => {
+  const startDate = new Date(era.startDate)
+  const endDate = 'endDate' in era && era.endDate ? new Date(era.endDate) : new Date()
+  return date >= startDate && date <= endDate
+})
+
+const activeJob = jobs.find((job) => {
+  const startDate = new Date(job.startDate)
+  const endDate = 'endDate' in job && job.endDate ? new Date(job.endDate) : new Date()
+  return date >= startDate && date <= endDate
+})
+
+const activeLocation = locations.find((location) => {
+  const startDate = new Date(location.startDate)
+  const endDate = 'endDate' in location && location.endDate ? new Date(location.endDate) : new Date()
+  return date >= startDate && date <= endDate
+})
 
 // Helper function to format post ID to URL path
 
@@ -99,22 +105,22 @@ const nextPost = posts[currentIndex + 1]
         <!-- Row 3 - Timeline Lines -->
         {
           [
-            { item: activeEra, label: activeEra?.data.title },
-            { item: activeJob, label: activeJob?.data.company },
-            { item: activeLocation, label: activeLocation?.data.name }
+            { item: activeEra, label: activeEra?.title },
+            { item: activeJob, label: activeJob?.company },
+            { item: activeLocation, label: activeLocation?.name }
           ].map(({ item, label }) => (
             <div class="relative h-full">
               {item ? (
                 <div
                   class="h-full w-[1px]"
-                  style={{ backgroundImage: `linear-gradient(${item?.data.color} 90%, ${defaultColor}` }}
+                  style={{ backgroundImage: `linear-gradient(${item?.color} 90%, ${defaultColor}` }}
                 />
               ) : (
                 <div class="h-full w-[1px] bg-white/10" />
               )}
               <div
                 class="absolute top-0 pl-1 text-[0.5rem] font-bold whitespace-nowrap uppercase"
-                style={{ color: item?.data.color, writingMode: 'vertical-lr' }}>
+                style={{ color: item?.color, writingMode: 'vertical-lr' }}>
                 {label}
               </div>
             </div>

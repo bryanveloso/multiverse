@@ -25,6 +25,13 @@ interface TimelinePost extends TimelinePointItem {
   type: 'post'
   id: string // Required for posts
   crosspost?: boolean
+  heroImage?: {
+    src: string
+    width: number
+    height: number
+    format: string
+  }
+  significance: number // Required for posts (defaults to 3)
 }
 
 interface TimelineGap extends TimelinePointItem {
@@ -47,7 +54,7 @@ interface TimelineJob extends TimelineRangeItem {
 }
 
 // Union of all direct timeline items
-export type TimelineItem = TimelinePost | TimelineGap | TimelineEra | TimelineLocation | TimelineJob | TimelineEvent
+export type TimelineItem = TimelinePost | TimelineGap | TimelineEra | TimelineLocation | TimelineJob
 
 // Context data for a specific timeline point
 export interface TimelineContext {
@@ -68,6 +75,5 @@ export interface TimelineItemProps<T extends TimelineItem = TimelineItem> {
   item: T
   itemIndex: number // Using itemIndex instead of index
   context: TimelineContext // Added context
-  isActive: boolean
   onActivate: () => void
 }

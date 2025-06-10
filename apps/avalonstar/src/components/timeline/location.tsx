@@ -1,8 +1,8 @@
 import type { FC } from 'react'
-import type { TimelineItemProps } from '@/types/timeline'
+import type { TimelineItemProps, TimelineLocation } from '@/types/timeline'
 import { EraLine, JobLine, LocationLine } from './lines'
 
-export const Location: FC<TimelineItemProps> = ({ item, itemIndex, context, isActive, onActivate }) => {
+export const Location: FC<TimelineItemProps<TimelineLocation>> = ({ item, itemIndex, context, onActivate }) => {
   return (
     <div data-index={itemIndex} className="col-span-6 grid grid-cols-subgrid" onClick={onActivate}>
       <EraLine {...context} />
