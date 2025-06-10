@@ -14,14 +14,18 @@ RUN apt-get update && apt-get install -y \
 # Copy package files first for better caching
 COPY package.json bun.lock ./
 COPY turbo.json ./
+
+# Create all necessary directories
+RUN mkdir -p packages/config packages/data packages/shared packages/ui apps/avalonstar apps/bryanveloso apps/omnyist
+
+# Copy all package.json files (needed for lockfile integrity)
 COPY packages/config/package.json ./packages/config/
 COPY packages/data/package.json ./packages/data/
 COPY packages/shared/package.json ./packages/shared/
 COPY packages/ui/package.json ./packages/ui/
-
-# Copy app-specific package.json
-ARG APP_NAME
-COPY apps/${APP_NAME}/package.json ./apps/${APP_NAME}/
+COPY apps/avalonstar/package.json ./apps/avalonstar/
+COPY apps/bryanveloso/package.json ./apps/bryanveloso/
+COPY apps/omnyist/package.json ./apps/omnyist/
 
 # Install all dependencies (this layer will be cached if dependencies don't change)
 RUN bun install --frozen-lockfile
@@ -30,6 +34,7 @@ RUN bun install --frozen-lockfile
 COPY . .
 
 # Build with proper type checking
+ARG APP_NAME
 RUN cd apps/${APP_NAME} && bun run astro build
 
 # Runner stage 
