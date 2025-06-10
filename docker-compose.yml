@@ -11,7 +11,7 @@ services:
       - NODE_ENV=production
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]
+      test: ["CMD", "bun", "-e", "fetch('http://localhost:3000').then(() => process.exit(0)).catch(() => process.exit(1))"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -42,7 +42,7 @@ services:
       - NODE_ENV=production
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000"]
+      test: ["CMD", "bun", "-e", "fetch('http://localhost:3000').then(() => process.exit(0)).catch(() => process.exit(1))"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -60,7 +60,7 @@ services:
       - NODE_ENV=production
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000"]
+      test: ["CMD", "bun", "-e", "fetch('http://localhost:3000').then(() => process.exit(0)).catch(() => process.exit(1))"]
       interval: 30s
       timeout: 10s
       retries: 3
