@@ -1,0 +1,67 @@
+services:
+  bryanveloso:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        APP_NAME: bryanveloso
+    ports:
+      - '4321:3000'
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
+
+  avalonstar:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        APP_NAME: avalonstar
+    ports:
+      - '4322:3000'
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  omnyist:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        APP_NAME: omnyist
+    ports:
+      - '4323:3000'
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

@@ -4,20 +4,32 @@ FROM oven/bun:latest AS base
 FROM base AS builder
 WORKDIR /app
 
-# Copy all files
-COPY . .
-# Install build dependencies
+# Install build dependencies first (better caching)
 RUN apt-get update && apt-get install -y \
     python3 \
     make \
     g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Install all dependencies
+# Copy package files first for better caching
+COPY package.json bun.lock ./
+COPY turbo.json ./
+COPY packages/config/package.json ./packages/config/
+COPY packages/data/package.json ./packages/data/
+COPY packages/shared/package.json ./packages/shared/
+COPY packages/ui/package.json ./packages/ui/
+
+# Copy app-specific package.json
+ARG APP_NAME
+COPY apps/${APP_NAME}/package.json ./apps/${APP_NAME}/
+
+# Install all dependencies (this layer will be cached if dependencies don't change)
 RUN bun install --frozen-lockfile
 
+# Now copy all source files
+COPY . .
+
 # Build with proper type checking
-ARG APP_NAME
 RUN cd apps/${APP_NAME} && bun run astro build
 
 # Runner stage 

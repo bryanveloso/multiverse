@@ -69,7 +69,12 @@ const server = Bun.serve({
         return new Response(null, {
           status: 301,
           headers: {
-            Location: redirectPath
+            Location: redirectPath,
+            // Security headers even for redirects
+            'X-Content-Type-Options': 'nosniff',
+            'X-Frame-Options': 'DENY',
+            'X-XSS-Protection': '1; mode=block',
+            'Referrer-Policy': 'strict-origin-when-cross-origin'
           }
         })
       }
@@ -97,7 +102,13 @@ const server = Bun.serve({
         headers: {
           'Content-Type': contentType,
           // Add cache control for static assets
-          'Cache-Control': filePath.endsWith('.html') ? 'no-cache' : 'public, max-age=31536000'
+          'Cache-Control': filePath.endsWith('.html') ? 'no-cache' : 'public, max-age=31536000',
+          // Security headers
+          'X-Content-Type-Options': 'nosniff',
+          'X-Frame-Options': 'DENY',
+          'X-XSS-Protection': '1; mode=block',
+          'Referrer-Policy': 'strict-origin-when-cross-origin',
+          'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
         }
       })
     } catch (error) {
@@ -109,7 +120,13 @@ const server = Bun.serve({
         return new Response(notFoundContent, {
           status: 404,
           headers: {
-            'Content-Type': 'text/html; charset=utf-8'
+            'Content-Type': 'text/html; charset=utf-8',
+            // Security headers
+            'X-Content-Type-Options': 'nosniff',
+            'X-Frame-Options': 'DENY',
+            'X-XSS-Protection': '1; mode=block',
+            'Referrer-Policy': 'strict-origin-when-cross-origin',
+            'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
           }
         })
       } catch {
@@ -132,3 +149,16 @@ const server = Bun.serve({
 })
 
 console.log(`Server running at http://localhost:${server.port}`)
+
+// Graceful shutdown handling
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received, shutting down gracefully...')
+  server.stop()
+  process.exit(0)
+})
+
+process.on('SIGINT', () => {
+  console.log('SIGINT received, shutting down gracefully...')
+  server.stop()
+  process.exit(0)
+})
