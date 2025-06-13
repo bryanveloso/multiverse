@@ -4,7 +4,12 @@ import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
-import path from 'path'
+import { resolve } from 'path'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,7 +22,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
     resolve: {
       alias: {
-        '@': path.resolve('./src')
+        '@': resolve(__dirname, './src')
       }
     }
   }
