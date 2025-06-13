@@ -1,0 +1,25 @@
+name: Deploy
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy with OrbStack
+        run: |
+          # Navigate to deployment directory
+          cd ${{ github.workspace }}
+
+          # Stop existing containers
+          orb run docker compose down
+
+          # Pull and rebuild
+          orb run docker compose up -d --build
+
+          # Optional: Clean up old images
+          orb run docker image prune -f
