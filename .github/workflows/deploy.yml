@@ -12,14 +12,7 @@ jobs:
 
       - name: Deploy with OrbStack
         run: |
-          # Navigate to deployment directory
           cd ${{ github.workspace }}
-
-          # Stop existing containers
-          orb run docker compose down
-
-          # Pull and rebuild
-          orb run docker compose up -d --build
-
-          # Optional: Clean up old images
-          orb run docker image prune -f
+          docker compose down
+          docker compose up -d --build
+          docker image prune -f
