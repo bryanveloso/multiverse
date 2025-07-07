@@ -65,3 +65,21 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+
+  avalonstar.tv:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        APP_NAME: avalonstar.tv
+    ports:
+      - '4324:3000'
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "bun", "-e", "fetch('http://localhost:3000').then(() => process.exit(0)).catch(() => process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
