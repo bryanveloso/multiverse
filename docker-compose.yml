@@ -1,10 +1,10 @@
 services:
-  bryanveloso:
+  bryanvelo.so:
     build:
       context: .
       dockerfile: docker/Dockerfile
       args:
-        APP_NAME: bryanveloso
+        APP_NAME: bryanvelo.so
     ports:
       - '4321:3000'
     environment:
@@ -30,12 +30,12 @@ services:
         max-size: "5m"
         max-file: "2"
 
-  avalonstar:
+  avalonstar.com:
     build:
       context: .
       dockerfile: docker/Dockerfile
       args:
-        APP_NAME: avalonstar
+        APP_NAME: avalonstar.com
     ports:
       - '4322:3000'
     environment:
@@ -48,12 +48,12 @@ services:
       retries: 3
       start_period: 40s
 
-  omnyist:
+  omnyist.com:
     build:
       context: .
       dockerfile: docker/Dockerfile
       args:
-        APP_NAME: omnyist
+        APP_NAME: omnyist.com
     ports:
       - '4323:3000'
     environment:
