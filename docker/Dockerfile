@@ -16,16 +16,17 @@ COPY package.json bun.lock ./
 COPY turbo.json ./
 
 # Create all necessary directories
-RUN mkdir -p packages/config packages/data packages/shared packages/ui apps/avalonstar apps/bryanveloso apps/omnyist
+RUN mkdir -p packages/config packages/data packages/shared packages/ui apps/avalonstar.com apps/bryanvelo.so apps/omnyist.com apps/avalonstar.tv
 
 # Copy all package.json files (needed for lockfile integrity)
 COPY packages/config/package.json ./packages/config/
 COPY packages/data/package.json ./packages/data/
 COPY packages/shared/package.json ./packages/shared/
 COPY packages/ui/package.json ./packages/ui/
-COPY apps/avalonstar/package.json ./apps/avalonstar/
-COPY apps/bryanveloso/package.json ./apps/bryanveloso/
-COPY apps/omnyist/package.json ./apps/omnyist/
+COPY apps/avalonstar.com/package.json ./apps/avalonstar.com/
+COPY apps/bryanvelo.so/package.json ./apps/bryanvelo.so/
+COPY apps/omnyist.com/package.json ./apps/omnyist.com/
+COPY apps/avalonstar.tv/package.json ./apps/avalonstar.tv/
 
 # Install all dependencies (this layer will be cached if dependencies don't change)
 RUN bun install --frozen-lockfile

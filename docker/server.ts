@@ -60,6 +60,29 @@ const server = Bun.serve({
 
     console.log(`Received request: ${path}`)
 
+    // Health check endpoint
+    if (path === '/health') {
+      const uptime = process.uptime()
+      const memoryUsage = process.memoryUsage()
+      
+      return new Response(JSON.stringify({
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        uptime: Math.floor(uptime),
+        memory: {
+          rss: Math.round(memoryUsage.rss / 1024 / 1024), // MB
+          heapUsed: Math.round(memoryUsage.heapUsed / 1024 / 1024), // MB
+          heapTotal: Math.round(memoryUsage.heapTotal / 1024 / 1024) // MB
+        },
+        environment: process.env.NODE_ENV || 'development'
+      }), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache'
+        }
+      })
+    }
+
     // Check for redirects
     for (const rule of redirectRules) {
       const matches = path.match(rule.pattern)

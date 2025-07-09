@@ -7,9 +7,9 @@
     "start": "turbo run start",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
-    "build:avalonstar": "turbo run build --filter=avalonstar",
-    "build:bryanveloso": "turbo run build --filter=bryanveloso",
-    "build:omnyist": "turbo run build --filter=omnyist",
+    "build:avalonstar.com": "turbo run build --filter=avalonstar.com",
+    "build:bryanvelo.so": "turbo run build --filter=bryanvelo.so",
+    "build:omnyist.com": "turbo run build --filter=omnyist.com",
     "format": "prettier --write ."
   },
   "devDependencies": {
