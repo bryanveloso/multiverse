@@ -14,5 +14,5 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           docker compose down
-          sleep 2
           docker compose up -d --build
+          docker image prune -f
