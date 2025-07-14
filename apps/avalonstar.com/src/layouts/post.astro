@@ -146,7 +146,7 @@ const nextPost = posts[currentIndex + 1]
                 {previousPost && (
                   <div class="sm:col-start-1">
                     <div class="font-caps text-pewter">Previously</div>
-                    <a class="text-xl leading-tight font-light" href={`/blog/${formatPostUrl(previousPost.id)}`}>
+                    <a class="text-xl/5 font-light" href={`/blog/${formatPostUrl(previousPost.id)}`}>
                       {previousPost.data.title}
                     </a>
                   </div>
@@ -154,7 +154,7 @@ const nextPost = posts[currentIndex + 1]
                 {nextPost && (
                   <div class="sm:col-start-3">
                     <div class="font-caps text-pewter">Up Next</div>
-                    <a class="text-xl leading-tight font-light" href={`/blog/${formatPostUrl(nextPost.id)}`}>
+                    <a class="text-xl/5 font-light" href={`/blog/${formatPostUrl(nextPost.id)}`}>
                       {nextPost.data.title}
                     </a>
                   </div>

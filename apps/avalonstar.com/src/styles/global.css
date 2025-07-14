@@ -33,11 +33,14 @@
 
 a:hover {
   color: var(--color-sky);
-  @apply transition-colors;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 body {
-  @apply antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Accessibility improvements. */
@@ -77,15 +80,17 @@ body {
 
 /* MDX overrides that I can't hit using Tailwind. */
 .footnotes {
-  @apply border-t border-t-white/10;
-  @apply mt-12;
-  @apply text-sm;
-  @apply opacity-75;
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+  margin-top: 3rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  opacity: 0.75;
 }
 
 #footnote-label {
-  @apply font-caps;
-  @apply text-sm;
+  font-family: var(--font-caps);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 [data-footnote-ref]::before {
