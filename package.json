@@ -23,9 +23,9 @@
     "apps/*",
     "packages/*"
   ],
-  "packageManager": "bun@1.2.18",
+  "packageManager": "bun@1.2.19",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.846.0",
+    "@aws-sdk/client-s3": "^3.850.0",
     "dotenv": "^16.6.1"
   }
 }
