@@ -1,0 +1,13 @@
+{
+  "artist": "Another Artist",
+  "emotes": [
+    {
+      "name": "avalonWave",
+      "imageUrl": "/emotes/avalonwave.png"
+    },
+    {
+      "name": "avalonGG",
+      "imageUrl": "/emotes/avalongg.png"
+    }
+  ]
+}

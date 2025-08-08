@@ -1,0 +1,198 @@
+---
+import { getCollection } from 'astro:content'
+import Base from '@/layouts/base.astro'
+import type { EmoteWithArtist } from '@/types/emote'
+
+const artistCollections = await getCollection('emotes')
+
+// Flatten artist collections into individual emotes with artist info
+const allEmotes: EmoteWithArtist[] = artistCollections.flatMap(artistCollection => 
+  artistCollection.data.emotes.map(emote => ({
+    ...emote,
+    artist: artistCollection.data.artist,
+    artistUrl: artistCollection.data.artistUrl
+  }))
+)
+
+// Group emotes by artist
+const emotesByArtist = allEmotes.reduce((acc, emote) => {
+  const artist = emote.artist
+  if (!acc[artist]) {
+    acc[artist] = []
+  }
+  acc[artist].push(emote)
+  return acc
+}, {} as Record<string, EmoteWithArtist[]>)
+
+// Sort artists alphabetically
+const sortedArtists = Object.keys(emotesByArtist).sort()
+---
+
+<Base title="Emote Library - Avalonstar.tv" description="Complete collection of Avalonstar channel emotes organized by artist">
+  <main>
+    <header>
+      <h1>Emote Library</h1>
+      <p>All 400+ emotes from the Avalonstar Twitch channel, organized by artist.</p>
+      <nav>
+        <a href="/">← Back to Home</a>
+      </nav>
+    </header>
+
+    <section>
+      <h2>Search & Filter</h2>
+      <div>
+        <input type="text" placeholder="Search emotes or artists..." id="search-input" />
+        <select id="artist-filter">
+          <option value="">All Artists</option>
+          {sortedArtists.map(artist => (
+            <option value={artist}>{artist}</option>
+          ))}
+        </select>
+      </div>
+    </section>
+
+    <section>
+      <h2>Emotes by Artist</h2>
+      {sortedArtists.map(artist => (
+        <div data-artist={artist}>
+          <h3>
+            {emotesByArtist[artist][0].artistUrl ? (
+              <a href={emotesByArtist[artist][0].artistUrl} target="_blank" rel="noopener noreferrer">
+                {artist}
+              </a>
+            ) : (
+              artist
+            )}
+          </h3>
+          <div class="emote-grid">
+            {emotesByArtist[artist].map(emote => (
+              <div class="emote-item" data-emote-name={emote.name}>
+                <img 
+                  src={emote.imageUrl} 
+                  alt={emote.name}
+                  loading="lazy"
+                  class="emote-image"
+                />
+                <span class="emote-name">{emote.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+  </main>
+</Base>
+
+<style>
+  /* Minimal structural CSS only - no visual design */
+  .emote-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+
+  .emote-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .emote-image {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    /* Right-click protection */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+  }
+
+  .emote-name {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  input, select {
+    margin-right: 1rem;
+    padding: 0.5rem;
+  }
+</style>
+
+<script>
+  // Basic search and filter functionality
+  const searchInput = document.getElementById('search-input') as HTMLInputElement
+  const artistFilter = document.getElementById('artist-filter') as HTMLSelectElement
+  
+  function filterEmotes() {
+    const searchTerm = searchInput.value.toLowerCase()
+    const selectedArtist = artistFilter.value
+    
+    const artistSections = document.querySelectorAll('[data-artist]')
+    
+    artistSections.forEach(section => {
+      const artist = section.getAttribute('data-artist')
+      const emoteItems = section.querySelectorAll('.emote-item')
+      let hasVisibleEmotes = false
+      
+      // Check if artist matches filter
+      const artistMatches = !selectedArtist || artist === selectedArtist
+      
+      if (artistMatches) {
+        emoteItems.forEach(item => {
+          const emoteName = item.getAttribute('data-emote-name')?.toLowerCase() || ''
+          const artistName = artist?.toLowerCase() || ''
+          
+          const matches = emoteName.includes(searchTerm) || artistName.includes(searchTerm)
+          
+          if (matches) {
+            item.style.display = 'flex'
+            hasVisibleEmotes = true
+          } else {
+            item.style.display = 'none'
+          }
+        })
+      }
+      
+      // Show/hide entire artist section
+      if (artistMatches && hasVisibleEmotes) {
+        section.style.display = 'block'
+      } else {
+        section.style.display = 'none'
+      }
+    })
+  }
+  
+  searchInput.addEventListener('input', filterEmotes)
+  artistFilter.addEventListener('change', filterEmotes)
+  
+  // Prevent right-click on emote images
+  document.addEventListener('contextmenu', (e) => {
+    if ((e.target as HTMLElement).classList.contains('emote-image')) {
+      e.preventDefault()
+    }
+  })
+  
+  // Prevent drag start on emote images
+  document.addEventListener('dragstart', (e) => {
+    if ((e.target as HTMLElement).classList.contains('emote-image')) {
+      e.preventDefault()
+    }
+  })
+  
+  // Prevent keyboard shortcuts for saving images
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      const target = e.target as HTMLElement
+      if (target.classList.contains('emote-image') || target.closest('.emote-item')) {
+        e.preventDefault()
+      }
+    }
+  })
+</script>

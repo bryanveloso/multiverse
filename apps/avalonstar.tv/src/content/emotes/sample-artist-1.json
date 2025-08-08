@@ -1,0 +1,18 @@
+{
+  "artist": "Sample Artist",
+  "artistUrl": "https://example.com/artist1",
+  "emotes": [
+    {
+      "name": "avalonHYPE",
+      "imageUrl": "/emotes/avalonhype.png"
+    },
+    {
+      "name": "avalonLove",
+      "imageUrl": "/emotes/avalonlove.png"
+    },
+    {
+      "name": "avalonRage",
+      "imageUrl": "/emotes/avalonrage.png"
+    }
+  ]
+}
