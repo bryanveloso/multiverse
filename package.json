@@ -8,8 +8,13 @@
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
     "build:avalonstar.com": "turbo run build --filter=avalonstar.com",
+    "build:avalonstar.tv": "turbo run build --filter=avalonstar.tv",
     "build:bryanvelo.so": "turbo run build --filter=bryanvelo.so",
     "build:omnyist.com": "turbo run build --filter=omnyist.com",
+    "dev:avalonstar.com": "turbo run dev --filter=avalonstar.com",
+    "dev:avalonstar.tv": "turbo run dev --filter=avalonstar.tv",
+    "dev:bryanvelo.so": "turbo run dev --filter=bryanvelo.so",
+    "dev:omnyist.com": "turbo run dev --filter=omnyist.com",
     "format": "prettier --write ."
   },
   "devDependencies": {

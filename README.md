@@ -5,6 +5,7 @@ A monorepo containing my personal websites.
 ## Projects
 
 - **avalonstar.com**: Personal blog and historical archive ([avalonstar.com](https://avalonstar.com))
+- **avalonstar.tv**: Streaming and emote management platform ([avalonstar.tv](https://avalonstar.tv))
 - **bryanvelo.so**: Personal site and portfolio ([bryanvelo.so](https://bryanvelo.so))
 - **omnyist.com**: TBD ([omnyist.com](https://omnyist.com))
 
@@ -18,15 +19,19 @@ bun install
 bun run dev
 
 # Start development server for a specific app
-bun run dev:avalonstar
-bun run dev:bryanveloso
-bun run dev:omnyist
+bun run dev:avalonstar.com
+bun run dev:avalonstar.tv
+bun run dev:bryanvelo.so
+bun run dev:omnyist.com
 
 # Build all apps
 bun run build
 
 # Build a specific app
-bun run build:avalonstar
+bun run build:avalonstar.com
+bun run build:avalonstar.tv
+bun run build:bryanvelo.so
+bun run build:omnyist.com
 ```
 
 ## Deployment
