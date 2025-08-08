@@ -81,8 +81,8 @@ pip-delete-this-directory.txt
 .turbo/
 
 # Claude
-**/CLAUDE.md
-**/.claude/settings.local.json
+.claude/
+!CLAUDE.md
 
 # Temporary
 migrate/
