@@ -62,22 +62,9 @@ const server = Bun.serve({
 
     // Health check endpoint
     if (path === '/health') {
-      const uptime = process.uptime()
-      const memoryUsage = process.memoryUsage()
-      
-      return new Response(JSON.stringify({
-        status: 'healthy',
-        timestamp: new Date().toISOString(),
-        uptime: Math.floor(uptime),
-        memory: {
-          rss: Math.round(memoryUsage.rss / 1024 / 1024), // MB
-          heapUsed: Math.round(memoryUsage.heapUsed / 1024 / 1024), // MB
-          heapTotal: Math.round(memoryUsage.heapTotal / 1024 / 1024) // MB
-        },
-        environment: process.env.NODE_ENV || 'development'
-      }), {
+      return new Response('OK', {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
           'Cache-Control': 'no-cache'
         }
       })
@@ -92,12 +79,7 @@ const server = Bun.serve({
         return new Response(null, {
           status: 301,
           headers: {
-            Location: redirectPath,
-            // Security headers even for redirects
-            'X-Content-Type-Options': 'nosniff',
-            'X-Frame-Options': 'DENY',
-            'X-XSS-Protection': '1; mode=block',
-            'Referrer-Policy': 'strict-origin-when-cross-origin'
+            Location: redirectPath
           }
         })
       }
@@ -124,14 +106,8 @@ const server = Bun.serve({
       return new Response(fileContent, {
         headers: {
           'Content-Type': contentType,
-          // Add cache control for static assets
           'Cache-Control': filePath.endsWith('.html') ? 'no-cache' : 'public, max-age=31536000',
-          // Security headers
-          'X-Content-Type-Options': 'nosniff',
-          'X-Frame-Options': 'DENY',
-          'X-XSS-Protection': '1; mode=block',
-          'Referrer-Policy': 'strict-origin-when-cross-origin',
-          'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+          'X-Content-Type-Options': 'nosniff'
         }
       })
     } catch (error) {
@@ -144,12 +120,7 @@ const server = Bun.serve({
           status: 404,
           headers: {
             'Content-Type': 'text/html; charset=utf-8',
-            // Security headers
-            'X-Content-Type-Options': 'nosniff',
-            'X-Frame-Options': 'DENY',
-            'X-XSS-Protection': '1; mode=block',
-            'Referrer-Policy': 'strict-origin-when-cross-origin',
-            'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+            'X-Content-Type-Options': 'nosniff'
           }
         })
       } catch {
