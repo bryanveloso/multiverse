@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+
+/* Multiverse libraries. */
+@import '@multiverse/ui/styles/fonts.css';
+@import '@multiverse/ui/styles/variables.css';

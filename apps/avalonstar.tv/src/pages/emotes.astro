@@ -152,19 +152,19 @@ const sortedArtists = Object.keys(emotesByArtist).sort()
           const matches = emoteName.includes(searchTerm) || artistName.includes(searchTerm)
           
           if (matches) {
-            item.style.display = 'flex'
+            (item as HTMLElement).style.display = 'flex'
             hasVisibleEmotes = true
           } else {
-            item.style.display = 'none'
+            (item as HTMLElement).style.display = 'none'
           }
         })
       }
       
       // Show/hide entire artist section
       if (artistMatches && hasVisibleEmotes) {
-        section.style.display = 'block'
+        (section as HTMLElement).style.display = 'block'
       } else {
-        section.style.display = 'none'
+        (section as HTMLElement).style.display = 'none'
       }
     })
   }
