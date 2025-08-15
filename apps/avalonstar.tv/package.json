@@ -13,9 +13,9 @@
     "@astrojs/mdx": "^4.3.3",
     "@multiverse/config": "workspace:*",
     "@multiverse/shared": "workspace:*",
-    "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.12.9",
-    "tailwindcss": "^4.1.11",
+    "@tailwindcss/vite": "^4.1.12",
+    "astro": "^5.13.0",
+    "tailwindcss": "^4.1.12",
     "typescript": "^5.9.2"
   }
 }
