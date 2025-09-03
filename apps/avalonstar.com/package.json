@@ -26,16 +26,16 @@
     "@multiverse/ui": "workspace:*",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.12",
-    "astro": "^5.13.0",
+    "astro": "^5.13.5",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.20",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
+    "@types/bun": "^1.2.21",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
     "typescript": "^5.9.2"
   }
 }
