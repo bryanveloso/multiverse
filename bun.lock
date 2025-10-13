@@ -116,6 +116,9 @@
     "packages/data": {
       "name": "@multiverse/data",
       "version": "1.0.0",
+      "devDependencies": {
+        "@multiverse/config": "workspace:*",
+      },
     },
     "packages/shared": {
       "name": "@multiverse/shared",

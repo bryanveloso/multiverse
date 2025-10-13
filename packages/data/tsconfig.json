@@ -1,5 +1,5 @@
 {
-  "extends": "@multiverse/config/typescript/base.json",
+  "extends": "@multiverse/config/typescript/base",
   "compilerOptions": {
     "resolveJsonModule": true
   },

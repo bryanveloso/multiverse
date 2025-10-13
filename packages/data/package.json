@@ -9,5 +9,8 @@
     "./jobs": "./src/jobs.json",
     "./locations": "./src/locations.json",
     "./eras": "./src/eras.json"
+  },
+  "devDependencies": {
+    "@multiverse/config": "workspace:*"
   }
 }

@@ -6,6 +6,9 @@
     "tailwind",
     "typescript"
   ],
+  "exports": {
+    "./typescript/base/tsconfig.json": "./typescript/base.json"
+  },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.12",
     "@tailwindcss/vite": "^4.1.12",
