@@ -109,6 +109,9 @@
         "tailwindcss": "^4.1.12",
         "typescript": "^5.9.2",
       },
+      "devDependencies": {
+        "astro": "^5.13.5",
+      },
     },
     "packages/data": {
       "name": "@multiverse/data",
