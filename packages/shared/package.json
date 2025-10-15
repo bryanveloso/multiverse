@@ -7,8 +7,8 @@
   ],
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",
-    "satori": "^0.18.2",
-    "sharp": "^0.34.3",
-    "typescript": "^5.9.2"
+    "satori": "^0.18.3",
+    "sharp": "^0.34.4",
+    "typescript": "^5.9.3"
   }
 }
