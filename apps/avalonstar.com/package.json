@@ -18,27 +18,27 @@
     "@astrojs/react": "4.3.0",
     "@astrojs/rss": "4.0.12",
     "@astrojs/sitemap": "3.4.1",
-    "@fontsource-variable/andada-pro": "^5.2.6",
-    "@fontsource-variable/geologica": "^5.2.6",
+    "@fontsource-variable/andada-pro": "^5.2.8",
+    "@fontsource-variable/geologica": "^5.2.8",
     "@multiverse/config": "workspace:*",
     "@multiverse/data": "workspace:*",
     "@multiverse/shared": "workspace:*",
     "@multiverse/ui": "workspace:*",
-    "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.1.12",
-    "astro": "^5.13.5",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.1.14",
+    "astro": "^5.14.5",
     "clsx": "^2.1.1",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.12"
+    "tailwindcss": "^4.1.14"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
-    "@types/bun": "^1.2.21",
-    "@types/react": "^19.1.12",
-    "@types/react-dom": "^19.1.9",
+    "@types/bun": "^1.3.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
     "satori": "^0.18.3",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   }
 }
