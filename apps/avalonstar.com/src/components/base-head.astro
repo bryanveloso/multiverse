@@ -1,5 +1,4 @@
 ---
-import Geologica from '@fontsource-variable/geologica/files/geologica-latin-full-normal.woff2?url'
 import { ClientRouter } from 'astro:transitions'
 
 interface Props {
@@ -9,15 +8,25 @@ interface Props {
   type?: 'website' | 'article'
   publishDate?: Date
   author?: string
+  postId?: string // For generating OG images for blog posts
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const defaultImage = '/placeholder.png'
 
-const { title, description, image = defaultImage, type = 'website', publishDate, author = 'Bryan Veloso' } = Astro.props
+const { title, description, image = defaultImage, type = 'website', publishDate, author = 'Bryan Veloso', postId } = Astro.props
 
 // Generate absolute URL for the image
-const absoluteImageUrl = image.startsWith('http') ? image : new URL(image, Astro.site).toString()
+// If it's a blog post and no custom image is provided, generate OG image
+let absoluteImageUrl: string
+if (type === 'article' && postId && image === defaultImage) {
+  // Generate OG image URL for blog posts using Base64 encoding
+  const encodedSlug = Buffer.from(postId).toString('base64url')
+  const ogImagePath = `/og/${encodedSlug}.png`
+  absoluteImageUrl = new URL(ogImagePath, Astro.site).toString()
+} else {
+  absoluteImageUrl = image.startsWith('http') ? image : new URL(image, Astro.site).toString()
+}
 ---
 
 <!-- Global Metadata -->
@@ -27,7 +36,6 @@ const absoluteImageUrl = image.startsWith('http') ? image : new URL(image, Astro
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
-<link rel="preload" href={Geologica} as="font" type="font/woff2" crossorigin="anonymous" />
 <link rel="preload" href="https://cdn.velo.so/fonts/optiker-k.woff" as="font" type="font/woff" crossorigin />
 
 <!-- Canonical URL -->

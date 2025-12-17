@@ -1,8 +1,5 @@
 ---
-import '@fontsource/dm-mono/400.css'
-import '@fontsource/dm-mono/500.css'
-import '@fontsource/dm-serif-display'
-import '@fontsource-variable/dm-sans'
+import { Font } from 'astro:assets'
 
 import BaseHead from '@/components/base-head.astro'
 import Header from '@/components/header.astro'
@@ -36,6 +33,9 @@ const pageTitle = title || defaultTitles[activeSite]
 <html lang="en">
   <head>
     <BaseHead title={pageTitle} {description} {image} />
+    <Font cssVariable="--font-dm-sans" preload />
+    <Font cssVariable="--font-dm-mono" preload />
+    <Font cssVariable="--font-dm-serif-display" preload />
   </head>
   <body class="bg-cool-black text-white-frost relative w-full">
     <div

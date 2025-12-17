@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config'
+import { defineConfig, fontProviders } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
@@ -14,5 +14,16 @@ export default defineConfig({
   integrations: [mdx(), react(), sitemap()],
   vite: {
     plugins: [tailwindcss()]
+  },
+  experimental: {
+    fonts: [
+      {
+        provider: fontProviders.google(),
+        name: 'Andada Pro',
+        cssVariable: '--font-andada-pro',
+        weights: [400, 500, 600, 700, 800, 900],
+        styles: ['normal', 'italic']
+      }
+    ]
   }
 })

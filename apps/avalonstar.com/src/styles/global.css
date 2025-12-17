@@ -28,7 +28,7 @@
   --font-caps: 'OpticianSans', sans-serif;
   --font-heading: 'ReallySansLarge', sans-serif;
   --font-sans: 'ReallySansSmall', sans-serif;
-  --font-serif: 'Andada Pro Variable', serif;
+  --font-serif: var(--font-andada-pro), serif;
 }
 
 a:hover {

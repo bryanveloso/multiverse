@@ -86,3 +86,6 @@ pip-delete-this-directory.txt
 
 # Temporary
 migrate/
+
+# Override global *.so pattern for domain directory
+!apps/bryanvelo.so/

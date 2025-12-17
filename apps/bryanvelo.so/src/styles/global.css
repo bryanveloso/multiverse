@@ -27,9 +27,9 @@
   --color-mid-grey: oklch(0.71 0.012 260);
   --color-dark-grey: oklch(0.4 0.012 265);
 
-  --font-hero: 'DM Serif Display', serif;
-  --font-mono: 'DM Mono', monospace;
-  --font-sans: 'DM Sans Variable', sans-serif;
+  --font-hero: var(--font-dm-serif-display), serif;
+  --font-mono: var(--font-dm-mono), monospace;
+  --font-sans: var(--font-dm-sans), sans-serif;
 
   /* Animation Utilities */
   --easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);

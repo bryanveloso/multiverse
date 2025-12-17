@@ -1,6 +1,5 @@
 ---
-import '@fontsource-variable/andada-pro'
-import '@fontsource-variable/geologica/full.css'
+import { Font } from 'astro:assets'
 
 import BaseHead from '@/components/base-head.astro'
 
@@ -41,6 +40,7 @@ const pageTitle = title || defaultTitles[activeSite]
 <html lang="en">
   <head>
     <BaseHead title={pageTitle} {description} {image} {type} {publishDate} {author} />
+    <Font cssVariable="--font-andada-pro" preload />
   </head>
   <body class="bg-ink from-ink to-onyx text-chalk relative mr-0 min-h-dvh bg-linear-to-b from-0% to-100%">
     <a href="#main" class="skip-to-content">Skip to content</a>
