@@ -1,6 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { Image } from 'astro:assets'
+import { Picture } from 'astro:assets'
 import { getJobsArray, getLocationsArray, getErasArray } from '@multiverse/data'
 
 import FormattedDate from '@/components/formatted-date.astro'
@@ -16,9 +16,9 @@ import { JobIcon } from '@/components/job-icon'
 import { EraIcon } from '@/components/era-icon'
 import { BackIcon } from '@/components/back-icon'
 
-type Props = CollectionEntry<'blog'>['data']
+type Props = CollectionEntry<'blog'>['data'] & { postId?: string }
 
-const { title, description, date, updatedDate, heroImage } = Astro.props
+const { title, description, date, updatedDate, heroImage, postId } = Astro.props
 const currentPost = Astro.props as Props
 
 const authorAge = getAuthorAge(date)
@@ -58,7 +58,7 @@ const previousPost = posts[currentIndex - 1]
 const nextPost = posts[currentIndex + 1]
 ---
 
-<Base {title} {description} image={heroImage ? heroImage.src : undefined} type="article" publishDate={date}>
+<Base {title} {description} image={heroImage ? heroImage.src : undefined} type="article" publishDate={date} {postId}>
   <div class="grid min-h-dvh grid-cols-1 gap-8 md:grid-cols-[24px_1fr]">
     <div
       class="col-start-1 row-span-full hidden bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat [--pattern-fg:var(--color-white)]/10 md:block">
@@ -134,7 +134,14 @@ const nextPost = posts[currentIndex + 1]
             class="prose prose-a:underline-offset-4 prose-p:mb-[1lh] prose-h2:font-heading prose-img:rounded prose-img:shadow prose-a:decoration-sky prose-lead:text-md prose-lead:font-light prose-lead:text-mist prose-invert">
             {
               heroImage && (
-                <Image src={heroImage} alt={title} class="aspect-video w-full rounded-lg object-cover shadow" />
+                <Picture
+                  src={heroImage}
+                  alt={title}
+                  class="aspect-video w-full rounded-lg object-cover shadow"
+                  formats={['avif', 'webp']}
+                  widths={[640, 960, 1280]}
+                  sizes="(max-width: 768px) 640px, (max-width: 1024px) 960px, 1280px"
+                />
               )
             }
             {isLegacyPost && <LegacyDisclaimer />}
