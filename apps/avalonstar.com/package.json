@@ -25,18 +25,18 @@
     "@multiverse/shared": "workspace:*",
     "@multiverse/ui": "workspace:*",
     "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.1.17",
-    "astro": "^5.15.6",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.6",
     "clsx": "^2.1.1",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "tailwind-merge": "^3.4.0",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
-    "@types/bun": "^1.3.2",
-    "@types/react": "^19.2.4",
+    "@types/bun": "^1.3.5",
+    "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "satori": "^0.18.3",
     "typescript": "^5.9.3"

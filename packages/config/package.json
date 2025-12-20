@@ -10,12 +10,12 @@
     "./typescript/base/tsconfig.json": "./typescript/base.json"
   },
   "dependencies": {
-    "@tailwindcss/postcss": "^4.1.17",
-    "@tailwindcss/vite": "^4.1.17",
-    "tailwindcss": "^4.1.17",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/vite": "^4.1.18",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "astro": "^5.15.6"
+    "astro": "^5.16.6"
   }
 }
