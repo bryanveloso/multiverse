@@ -16,7 +16,7 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   experimental: {
-    // svgOptimization: true, // TODO: enable when CI installs Astro 5.16+
+    svgOptimization: true,
     fonts: [
       {
         provider: fontProviders.google(),
