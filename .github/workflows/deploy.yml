@@ -14,5 +14,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           docker compose down
-          docker compose up -d --build
+          # TODO: Remove --no-cache after this builds successfully (one-time cache bust)
+          docker compose build --no-cache
+          docker compose up -d
           docker image prune -f
