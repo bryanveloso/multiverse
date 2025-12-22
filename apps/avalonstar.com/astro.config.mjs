@@ -16,7 +16,7 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   experimental: {
-    svgOptimization: true,
+    svgo: true,
     fonts: [
       {
         provider: fontProviders.google(),

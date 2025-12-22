@@ -30,9 +30,6 @@ COPY apps/omnyist.com/package.json ./apps/omnyist.com/
 # Install all dependencies (this layer will be cached if dependencies don't change)
 RUN bun install --frozen-lockfile
 
-# Debug: Print installed Astro version
-RUN echo "Installed Astro version:" && cat node_modules/astro/package.json | grep '"version"'
-
 # Now copy all source files
 COPY . .
 
