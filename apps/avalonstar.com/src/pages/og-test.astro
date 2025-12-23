@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content'
+
+const blogPosts = await getCollection('blog')
+// Sort by date descending to get the most recent posts first
+const sortedPosts = blogPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+const recentPosts = sortedPosts.slice(0, 8) // Show 8 most recent posts
+
+// Helper to encode slugs
+const encodeSlug = (id: string) => Buffer.from(id).toString('base64url')
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OG Image Test Page</title>
+  <style>
+    body {
+      background: #0d0a11;
+      color: #fff;
+      font-family: system-ui;
+      padding: 2rem;
+    }
+    .grid {
+      display: grid;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #1a1f23;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .info {
+      padding: 1rem;
+    }
+    h2 {
+      margin: 0 0 0.5rem 0;
+      color: #fff683;
+    }
+    .refresh {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: #fff683;
+      color: #0d0a11;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <button class="refresh" onclick="location.reload()">Refresh Images</button>
+
+  <h1>OG Image Preview</h1>
+  <p>Edit src/components/og-image-with-hero.tsx and refresh to see changes</p>
+
+  <div class="grid">
+    {recentPosts.map((post) => (
+      <div class="card">
+        <img
+          src={`/og/${encodeSlug(post.id)}.png`}
+          alt={post.data.title}
+        />
+        <div class="info">
+          <h2>{post.data.title}</h2>
+          <p>ID: {post.id}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</body>
+</html>

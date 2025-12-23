@@ -4,24 +4,32 @@ import * as React from 'react'
 import { readFile } from 'fs/promises'
 import { OgImageWithHero } from '@/components/og-image-with-hero'
 import { getAuthorAge } from '@/utils/age'
+import { OG_COLORS } from '@/utils/og-constants'
 import * as path from 'path'
 import { fileURLToPath } from 'url'
 import * as sharp from 'sharp'
+import type { ImageMetadata } from 'astro'
+
+interface SatoriFont {
+  name: string
+  data: ArrayBuffer
+  weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+  style: 'normal' | 'italic'
+}
 
 interface GenerateOgImageOptions {
   title: string
   date: Date
   description?: string
-  heroImage?: any
-  siteUrl: string
+  heroImage?: ImageMetadata
 }
 
-export async function generateOgImage({ title, date, description, heroImage, siteUrl }: GenerateOgImageOptions): Promise<Buffer> {
+export async function generateOgImage({ title, date, description, heroImage }: GenerateOgImageOptions): Promise<Buffer> {
   const authorAge = getAuthorAge(date)
 
   // Satori only supports woff/ttf/otf fonts, not woff2
   // Load fonts from cdn.velo.so to match site typography
-  let fonts: { name: string; data: ArrayBuffer; weight: number; style: 'normal' | 'italic' }[] = []
+  let fonts: SatoriFont[] = []
 
   try {
     const [
@@ -114,12 +122,12 @@ export async function generateOgImage({ title, date, description, heroImage, sit
     {
       width: 1200,
       height: 630,
-      fonts: fonts as any
+      fonts
     }
   )
 
   const resvg = new Resvg(svg, {
-    background: 'rgba(13, 10, 17, 1)',
+    background: OG_COLORS.background,
     fitTo: {
       mode: 'width',
       value: 1200

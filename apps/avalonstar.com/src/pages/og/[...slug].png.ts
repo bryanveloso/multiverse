@@ -1,4 +1,4 @@
-import type { APIContext } from 'astro'
+import type { APIContext, ImageMetadata } from 'astro'
 import { getCollection, getEntry } from 'astro:content'
 import { generateOgImage } from '@/utils/og-image'
 
@@ -22,7 +22,7 @@ export async function GET(context: APIContext) {
   let title: string
   let date: Date
   let description: string | undefined
-  let heroImage: any
+  let heroImage: ImageMetadata | undefined
 
   // In dev mode, props might be undefined, so we need to fetch the data
   if (import.meta.env.DEV && !props) {
@@ -51,7 +51,7 @@ export async function GET(context: APIContext) {
       title: string
       date: Date
       description?: string
-      heroImage?: any
+      heroImage?: ImageMetadata
     }
     title = postProps.title
     date = postProps.date
@@ -63,8 +63,7 @@ export async function GET(context: APIContext) {
     title,
     date,
     description,
-    heroImage,
-    siteUrl: context.url.origin
+    heroImage
   })
 
   return new Response(new Uint8Array(png), {

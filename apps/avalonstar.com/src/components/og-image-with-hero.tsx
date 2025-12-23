@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { OG_COLORS, OG_DIMENSIONS, OG_BRAND } from '@/utils/og-constants'
 
 interface OgImageWithHeroProps {
   title: string
@@ -25,9 +26,9 @@ export function OgImageWithHero({ title, date, authorAge, description, hasHeroIm
     return (
       <div
         style={{
-          width: 1200,
-          height: 630,
-          backgroundColor: '#0d0a11',
+          width: OG_DIMENSIONS.width,
+          height: OG_DIMENSIONS.height,
+          backgroundColor: OG_COLORS.background,
           display: 'flex',
           fontFamily: `${bodyFont}, sans-serif`
         }}>
@@ -40,23 +41,23 @@ export function OgImageWithHero({ title, date, authorAge, description, hasHeroIm
             flexDirection: 'column',
             justifyContent: 'space-between'
           }}>
-          <div style={{ display: 'flex', fontSize: 18, color: '#fff683', fontWeight: 600 }}>
-            Avalonstar
+          <div style={{ display: 'flex', fontSize: 18, color: OG_COLORS.brand, fontWeight: 600 }}>
+            {OG_BRAND.name}
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            <div style={{ fontSize: title.length > 40 ? 42 : 52, fontWeight: 700, color: '#ffffff', lineHeight: 1.1, fontFamily: `${headingFont}, sans-serif` }}>
+            <div style={{ fontSize: title.length > 40 ? 42 : 52, fontWeight: 700, color: OG_COLORS.textPrimary, lineHeight: 1.1, fontFamily: `${headingFont}, sans-serif` }}>
               {title}
             </div>
 
             {description && (
-              <div style={{ fontSize: 18, color: '#b4cbd6', lineHeight: 1.4 }}>
-                {description.length > 120 ? description.substring(0, 120) + '...' : description}
+              <div style={{ fontSize: 18, color: OG_COLORS.textSecondary, lineHeight: 1.4 }}>
+                {description}
               </div>
             )}
           </div>
 
-          <div style={{ display: 'flex', fontSize: 16, color: '#939393', gap: 10 }}>
+          <div style={{ display: 'flex', fontSize: 16, color: OG_COLORS.textMuted, gap: 10 }}>
             <span>{formatDate(date)}</span>
             <span>•</span>
             <span>Age {authorAge}</span>
@@ -66,26 +67,26 @@ export function OgImageWithHero({ title, date, authorAge, description, hasHeroIm
         {/* Right side - Hero image */}
         <div
           style={{
-            width: 400,
-            backgroundColor: '#241f33',
+            width: OG_DIMENSIONS.heroWidth,
+            backgroundColor: OG_COLORS.backgroundAccent,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            borderLeft: '4px solid #bbf4b0'
+            borderLeft: `4px solid ${OG_COLORS.accent}`
           }}>
           {heroImageData ? (
             <div style={{ display: 'flex', width: '100%', height: '100%' }}>
               <img
                 src={heroImageData}
-                width={400}
-                height={630}
+                width={OG_DIMENSIONS.heroWidth}
+                height={OG_DIMENSIONS.height}
                 style={{ display: 'block' }}
               />
             </div>
           ) : (
             <div
               style={{
-                color: '#6d8591',
+                color: OG_COLORS.imagePlaceholder,
                 fontSize: 14,
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
@@ -103,18 +104,18 @@ export function OgImageWithHero({ title, date, authorAge, description, hasHeroIm
   return (
     <div
       style={{
-        width: 1200,
-        height: 630,
-        backgroundColor: '#0d0a11',
-        color: '#ffffff',
+        width: OG_DIMENSIONS.width,
+        height: OG_DIMENSIONS.height,
+        backgroundColor: OG_COLORS.background,
+        color: OG_COLORS.textPrimary,
         padding: 80,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         fontFamily: `${bodyFont}, sans-serif`
       }}>
-      <div style={{ display: 'flex', fontSize: 18, color: '#fff683', fontWeight: 600 }}>
-        Avalonstar
+      <div style={{ display: 'flex', fontSize: 18, color: OG_COLORS.brand, fontWeight: 600 }}>
+        {OG_BRAND.name}
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -123,13 +124,13 @@ export function OgImageWithHero({ title, date, authorAge, description, hasHeroIm
         </div>
 
         {description && (
-          <div style={{ fontSize: 20, color: '#b4cbd6', textAlign: 'center' }}>
+          <div style={{ fontSize: 20, color: OG_COLORS.textSecondary, textAlign: 'center' }}>
             {description}
           </div>
         )}
       </div>
 
-      <div style={{ display: 'flex', fontSize: 16, color: '#939393' }}>
+      <div style={{ display: 'flex', fontSize: 16, color: OG_COLORS.textMuted }}>
         {formatDate(date)} • Age {authorAge}
       </div>
     </div>
