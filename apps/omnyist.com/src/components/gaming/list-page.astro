@@ -1,0 +1,61 @@
+---
+import type { ListDetail } from '@/lib/questlog'
+
+interface Props {
+  list: ListDetail
+}
+
+const { list } = Astro.props
+
+// Sort entries by position if ranked, otherwise by order received
+const sortedEntries = list.is_ranked
+  ? [...list.entries].sort((a, b) => (a.position ?? 999) - (b.position ?? 999))
+  : list.entries
+---
+
+<article class="py-8">
+  <header class="mb-8">
+    <a href="/gaming/" class="text-sm text-gray-500 hover:text-gray-700 mb-4 inline-block">
+      ← Back to Gaming
+    </a>
+    <h1 class="text-4xl font-bold mb-2">{list.name}</h1>
+    {list.description && (
+      <p class="text-gray-600 text-lg">{list.description}</p>
+    )}
+    <div class="mt-2 text-sm text-gray-500">
+      {list.entries.length} {list.entries.length === 1 ? 'entry' : 'entries'}
+      {list.is_ranked && ' · Ranked'}
+    </div>
+  </header>
+
+  {sortedEntries.length > 0 && (
+    <section>
+      <ol class={list.is_ranked ? 'space-y-3' : 'space-y-2'}>
+        {sortedEntries.map((entry, index) => (
+          <li class="flex items-start gap-4">
+            {list.is_ranked && entry.position && (
+              <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-black-100 text-sm font-semibold">
+                {entry.position}
+              </span>
+            )}
+            <div class="flex-1">
+              <a
+                href={`/gaming/${entry.work_slug}/`}
+                class="font-medium hover:underline"
+              >
+                {entry.work_name}
+              </a>
+              {entry.notes && (
+                <p class="text-sm text-gray-600 mt-1">{entry.notes}</p>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  {sortedEntries.length === 0 && (
+    <p class="text-gray-500">This list is empty.</p>
+  )}
+</article>

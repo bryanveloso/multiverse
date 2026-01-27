@@ -1,0 +1,82 @@
+---
+import Base from '@/layouts/base.astro'
+import { getLists, getWorks, getFranchises } from '@/lib/questlog'
+
+const lists = await getLists()
+const works = await getWorks({ limit: 20 })
+const franchises = await getFranchises()
+---
+
+<Base title="Gaming" description="My gaming journey - works played, lists curated, memories preserved.">
+  <div class="py-8">
+    <header class="mb-12">
+      <h1 class="text-4xl font-bold mb-2">Gaming</h1>
+      <p class="text-gray-600">Works played, lists curated, memories preserved.</p>
+    </header>
+
+    {lists.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4">Lists</h2>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {lists.map((list) => (
+            <a
+              href={`/gaming/${list.slug}/`}
+              class="block p-4 rounded-lg bg-black-100 hover:bg-black-50 transition-colors"
+            >
+              <h3 class="font-semibold mb-1">{list.name}</h3>
+              {list.description && (
+                <p class="text-sm text-gray-600 mb-2">{list.description}</p>
+              )}
+              <p class="text-xs text-gray-500">
+                {list.entry_count} {list.entry_count === 1 ? 'entry' : 'entries'}
+                {list.is_ranked && ' · Ranked'}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {franchises.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4">By Franchise</h2>
+        <div class="flex flex-wrap gap-2">
+          {franchises.map((franchise) => (
+            <a
+              href={`/gaming/?franchise=${franchise.slug}`}
+              class="px-3 py-1 text-sm rounded-full bg-black-100 hover:bg-black-50 transition-colors"
+            >
+              {franchise.name}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {works.length > 0 && (
+      <section>
+        <h2 class="text-2xl font-semibold mb-4">Recent Works</h2>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {works.map((work) => (
+            <a
+              href={`/gaming/${work.slug}/`}
+              class="block p-4 rounded-lg bg-black-100 hover:bg-black-50 transition-colors"
+            >
+              <h3 class="font-medium">{work.name}</h3>
+              {work.franchise && (
+                <p class="text-xs text-gray-500">{work.franchise.name}</p>
+              )}
+              {work.original_release_year && (
+                <p class="text-xs text-gray-500">{work.original_release_year}</p>
+              )}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {lists.length === 0 && works.length === 0 && (
+      <p class="text-gray-500">No gaming data available yet.</p>
+    )}
+  </div>
+</Base>

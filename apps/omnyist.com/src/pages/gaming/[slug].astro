@@ -1,0 +1,57 @@
+---
+import Base from '@/layouts/base.astro'
+import { getWorks, getWork, getLists, getList } from '@/lib/questlog'
+import type { WorkDetail, ListDetail } from '@/lib/questlog'
+
+import WorkPage from '@/components/gaming/work-page.astro'
+import ListPage from '@/components/gaming/list-page.astro'
+
+export async function getStaticPaths() {
+  const [works, lists] = await Promise.all([
+    getWorks({ limit: 500 }),
+    getLists(),
+  ])
+
+  const workPaths = works.map((work) => ({
+    params: { slug: work.slug },
+    props: { type: 'work' as const, slug: work.slug },
+  }))
+
+  const listPaths = lists.map((list) => ({
+    params: { slug: list.slug },
+    props: { type: 'list' as const, slug: list.slug },
+  }))
+
+  return [...workPaths, ...listPaths]
+}
+
+interface Props {
+  type: 'work' | 'list'
+  slug: string
+}
+
+const { type, slug } = Astro.props
+
+let work: WorkDetail | null = null
+let list: ListDetail | null = null
+
+if (type === 'work') {
+  work = await getWork(slug)
+} else {
+  list = await getList(slug)
+}
+
+if (!work && !list) {
+  return Astro.redirect('/404')
+}
+
+const title = work?.name || list?.name || 'Not Found'
+const description = work
+  ? `${work.name} - ${work.editions.length} edition${work.editions.length === 1 ? '' : 's'}`
+  : list?.description || ''
+---
+
+<Base {title} {description}>
+  {work && <WorkPage work={work} />}
+  {list && <ListPage list={list} />}
+</Base>
