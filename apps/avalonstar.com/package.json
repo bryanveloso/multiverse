@@ -14,12 +14,9 @@
   "dependencies": {
     "@astrojs/check": "0.9.4",
     "@astrojs/mdx": "4.3.0",
-    "@astrojs/node": "9.3.0",
     "@astrojs/react": "4.3.0",
     "@astrojs/rss": "4.0.12",
     "@astrojs/sitemap": "3.4.1",
-    "@fontsource-variable/andada-pro": "^5.2.8",
-    "@fontsource-variable/geologica": "^5.2.8",
     "@multiverse/config": "workspace:*",
     "@multiverse/data": "workspace:*",
     "@multiverse/shared": "workspace:*",

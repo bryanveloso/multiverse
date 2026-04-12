@@ -2,9 +2,11 @@
 import Base from '@/layouts/base.astro'
 import { getLists, getWorks, getFranchises } from '@/lib/questlog'
 
-const lists = await getLists()
-const works = await getWorks({ limit: 20 })
-const franchises = await getFranchises()
+const [lists, works, franchises] = await Promise.all([
+  getLists(),
+  getWorks({ limit: 20 }),
+  getFranchises(),
+])
 ---
 
 <Base title="Gaming" description="My gaming journey - works played, lists curated, memories preserved.">

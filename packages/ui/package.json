@@ -11,6 +11,6 @@
     "@types/react-dom": "^19.2.3"
   },
   "peerDependencies": {
-    "astro": ">=5.0.0"
+    "astro": ">=6.0.0"
   }
 }

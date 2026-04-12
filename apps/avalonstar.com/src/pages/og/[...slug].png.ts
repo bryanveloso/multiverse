@@ -41,7 +41,7 @@ export async function GET(context: APIContext) {
       title = post.data.title
       date = post.data.date
       description = post.data.description
-      heroImage = post.data.heroImage
+      heroImage = post.data.heroImage as ImageMetadata | undefined
     } catch (error) {
       return new Response('Error loading post', { status: 500 })
     }

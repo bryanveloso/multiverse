@@ -12,12 +12,8 @@
   "dependencies": {
     "@astrojs/check": "0.9.4",
     "@astrojs/mdx": "^4.3.13",
-    "@astrojs/node": "9.3.0",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.6.0",
-    "@fontsource-variable/dm-sans": "^5.2.8",
-    "@fontsource/dm-mono": "^5.2.7",
-    "@fontsource/dm-serif-display": "^5.2.8",
     "@multiverse/config": "workspace:*",
     "@multiverse/shared": "workspace:*",
     "@multiverse/ui": "workspace:*",

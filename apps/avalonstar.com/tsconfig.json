@@ -2,6 +2,8 @@
   "extends": "@multiverse/config/typescript/base",
   "compilerOptions": {
     "baseUrl": ".",
+    "moduleResolution": "Bundler",
+    "verbatimModuleSyntax": true,
     "paths": {
       "@/*": ["src/*"]
     }

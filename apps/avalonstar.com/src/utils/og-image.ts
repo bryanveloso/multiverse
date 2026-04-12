@@ -7,7 +7,7 @@ import { getAuthorAge } from '@/utils/age'
 import { OG_COLORS } from '@/utils/og-constants'
 import * as path from 'path'
 import { fileURLToPath } from 'url'
-import * as sharp from 'sharp'
+import sharp from 'sharp'
 import type { ImageMetadata } from 'astro'
 
 interface SatoriFont {
@@ -88,9 +88,7 @@ export async function generateOgImage({ title, date, description, heroImage }: G
         const imageBuffer = await readFile(fullPath)
 
         // Use sharp to resize and convert to JPEG for smaller size
-        // @ts-expect-error - sharp ESM/CJS interop
-        const sharpFn = sharp.default || sharp
-        const optimizedBuffer = await sharpFn(imageBuffer)
+        const optimizedBuffer = await sharp(imageBuffer)
           .resize(400, 630, { fit: 'cover' })
           .jpeg({ quality: 80 })
           .toBuffer()

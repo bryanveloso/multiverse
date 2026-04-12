@@ -73,6 +73,7 @@ describe('Timeline Data Processing', () => {
     test('returns false when date is after end', () => {
       const location: TimelineLocation = {
         type: 'location',
+        title: 'San Francisco',
         name: 'San Francisco',
         startDate: new Date('2020-01-01'),
         endDate: new Date('2023-12-31')

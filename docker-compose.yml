@@ -67,6 +67,7 @@ services:
       dockerfile: docker/Dockerfile
       args:
         APP_NAME: omnyist.com
+        QUESTLOG_API_URL: https://questlog.omnyist.com/api
     ports:
       - '4323:3000'
     environment:
