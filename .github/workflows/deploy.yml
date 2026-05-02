@@ -10,9 +10,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy with OrbStack
+      - name: Build images
         run: |
           cd ${{ github.workspace }}
-          docker compose down
-          docker compose up -d --build
+          docker compose build
+
+      - name: Deploy
+        run: |
+          cd ${{ github.workspace }}
+          docker compose up -d
           docker image prune -f
