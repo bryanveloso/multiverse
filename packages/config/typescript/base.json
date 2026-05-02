@@ -2,6 +2,7 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
