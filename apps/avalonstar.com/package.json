@@ -15,7 +15,7 @@
     "@astrojs/check": "0.9.9",
     "@astrojs/mdx": "5.0.4",
     "@astrojs/react": "5.0.4",
-    "@astrojs/rss": "4.0.12",
+    "@astrojs/rss": "4.0.15-beta.4",
     "@astrojs/sitemap": "3.7.2",
     "@multiverse/config": "workspace:*",
     "@multiverse/data": "workspace:*",
