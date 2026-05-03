@@ -1,12 +1,11 @@
 {
   "extends": "@multiverse/config/typescript/base",
   "compilerOptions": {
-    "baseUrl": ".",
     "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   }
 }

@@ -14,11 +14,6 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@multiverse/ui/*": ["../../packages/ui/*"],
-      "@multiverse/shared/*": ["../../packages/shared/*"],
-      "@/*": ["./src/*"]
-    },
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }

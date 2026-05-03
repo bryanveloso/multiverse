@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { OG_COLORS, OG_DIMENSIONS, OG_BRAND } from '@/utils/og-constants'
 
 interface OgImageWithHeroProps {

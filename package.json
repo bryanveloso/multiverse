@@ -20,7 +20,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "turbo": "^2.9.8",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "workspaces": [
     "apps/*",
