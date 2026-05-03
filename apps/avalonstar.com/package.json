@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "test": "bun test",
     "test:watch": "bun test --watch",
-    "astro": "astro"
+    "astro": "astro",
+    "optimize-images": "bun run scripts/optimize-images.ts"
   },
   "dependencies": {
     "@astrojs/check": "0.9.9",
