@@ -13,7 +13,12 @@ export default defineConfig({
   site: 'https://avalonstar.com',
   integrations: [mdx(), react(), sitemap()],
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@': new URL('./src', import.meta.url).pathname
+      }
+    }
   },
   fonts: [
     {

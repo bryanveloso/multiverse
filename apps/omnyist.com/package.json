@@ -10,14 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.4",
-    "@astrojs/mdx": "^4.3.13",
-    "@astrojs/react": "^4.4.2",
+    "@astrojs/check": "0.9.9",
+    "@astrojs/mdx": "^5.0.6",
+    "@astrojs/react": "^5.0.7",
     "@multiverse/config": "workspace:*",
     "@multiverse/shared": "workspace:*",
     "@multiverse/ui": "workspace:*",
     "@tailwindcss/vite": "^4.1.18",
-    "astro": "^6.2.1",
+    "astro": "^6.4.8",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "tailwindcss": "^4.1.18",

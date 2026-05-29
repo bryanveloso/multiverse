@@ -9,7 +9,12 @@ export default defineConfig({
   },
   site: 'https://omnyist.com',
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@': new URL('./src', import.meta.url).pathname
+      }
+    }
   },
   output: 'static'
 })
