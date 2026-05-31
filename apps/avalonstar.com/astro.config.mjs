@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders, svgoOptimizer } from 'astro/config'
+import { satteri } from '@astrojs/markdown-satteri'
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
@@ -12,6 +13,11 @@ export default defineConfig({
   },
   site: 'https://avalonstar.com',
   integrations: [mdx(), react(), sitemap()],
+  markdown: {
+    processor: satteri({
+      features: { directive: true }
+    })
+  },
   vite: {
     plugins: [tailwindcss()],
     resolve: {
