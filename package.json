@@ -16,10 +16,10 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "prettier": "^3.8.3",
+    "prettier": "^3.8.4",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
-    "turbo": "^2.9.8",
+    "turbo": "^2.9.18",
     "typescript": "^6.0.3"
   },
   "workspaces": [
@@ -34,9 +34,8 @@
     "@astrojs/react": "^5.0.7",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
-    "@aws-sdk/client-s3": "^3.956.0",
     "astro": "^6.4.8",
     "dotenv": "^17.4.2",
-    "sharp": "^0.34.5"
+    "sharp": "^0.35.2"
   }
 }
