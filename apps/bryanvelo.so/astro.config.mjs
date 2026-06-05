@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config'
+import { satteri } from '@astrojs/markdown-satteri'
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
@@ -11,6 +12,11 @@ export default defineConfig({
     port: 5322
   },
   site: 'https://bryanvelo.so',
+  markdown: {
+    processor: satteri({
+      features: { directive: true }
+    })
+  },
   vite: {
     plugins: [tailwindcss()],
     resolve: {
