@@ -1,0 +1,20 @@
+---
+import Base from '@/layouts/base.astro'
+import WarframeMastery from '@/components/gaming/warframe-mastery'
+---
+
+<Base
+  title="Warframe Mastery"
+  description="What's left to master in Warframe, ranked by mastery payoff."
+>
+  <div class="py-8">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-2">Warframe Mastery</h1>
+      <p class="text-gray-600">
+        What's left to master, ranked by mastery payoff. Live from Questlog.
+      </p>
+    </header>
+
+    <WarframeMastery client:load />
+  </div>
+</Base>

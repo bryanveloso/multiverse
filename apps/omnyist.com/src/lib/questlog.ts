@@ -118,3 +118,24 @@ export async function getListActivity(slug: string, limit?: number): Promise<Lis
   const query = limit ? `?limit=${limit}` : ''
   return (await fetchAPI<ListActivity[]>(`/lists/${slug}/activity${query}`)) || []
 }
+
+// --- Warframe mastery (consumed client-side by the grind-list island) ---
+
+export interface RemainingItem {
+  name: string
+  category: string
+  mastery_req: number
+  mastery_value: number
+  is_prime: boolean
+  vaulted: boolean
+  equippable: boolean
+  acquisition: string
+}
+
+export interface MasteryRemaining {
+  current_mastery_rank: number
+  total_remaining: number
+  total_obtainable: number
+  obtainable_mastery_points: number
+  items: RemainingItem[]
+}

@@ -16,6 +16,19 @@ const [lists, works, franchises] = await Promise.all([
       <p class="text-gray-600">Works played, lists curated, memories preserved.</p>
     </header>
 
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Tools</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <a
+          href="/gaming/warframe/mastery/"
+          class="block p-4 rounded-lg bg-black-100 hover:bg-black-50 transition-colors"
+        >
+          <h3 class="font-semibold mb-1">Warframe Mastery</h3>
+          <p class="text-sm text-gray-600">What's left to master, ranked by payoff.</p>
+        </a>
+      </div>
+    </section>
+
     {lists.length > 0 && (
       <section class="mb-12">
         <h2 class="text-2xl font-semibold mb-4">Lists</h2>
