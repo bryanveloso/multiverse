@@ -59,7 +59,6 @@
       "version": "0.0.1",
       "dependencies": {
         "@astrojs/check": "0.9.9",
-        "@astrojs/mdx": "^6.0.3",
         "@astrojs/react": "^5.0.7",
         "@astrojs/sitemap": "^3.7.3",
         "@multiverse/config": "workspace:*",
