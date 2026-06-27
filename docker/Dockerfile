@@ -36,6 +36,7 @@ COPY . .
 # Build with proper type checking
 ARG APP_NAME
 ARG QUESTLOG_API_URL
+ARG ZENITH_URL
 RUN cd apps/${APP_NAME} && bun run astro build
 
 # Runner stage 
