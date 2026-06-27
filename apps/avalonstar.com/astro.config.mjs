@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, fontProviders, svgoOptimizer } from 'astro/config'
 import { satteri } from '@astrojs/markdown-satteri'
+import { directivesPlugin } from './src/plugins/directives'
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
@@ -15,7 +16,8 @@ export default defineConfig({
   integrations: [mdx(), react(), sitemap()],
   markdown: {
     processor: satteri({
-      features: { directive: true }
+      features: { directive: true },
+      mdastPlugins: [directivesPlugin],
     })
   },
   image: {
