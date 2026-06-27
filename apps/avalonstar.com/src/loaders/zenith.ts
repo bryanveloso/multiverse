@@ -10,6 +10,22 @@ function toEntryId(post: ZenithPostDetail): string {
   return `${dateStr}-${post.slug}`
 }
 
+const CONTAINER_DIRECTIVES: Record<string, [string, string]> = {
+  lead: ['<div class="lead">', '</div>'],
+  crosspost: ['<aside class="crosspost">', '</aside>'],
+}
+
+function preprocessDirectives(body: string): string {
+  let result = body
+  for (const [name, [open, close]] of Object.entries(CONTAINER_DIRECTIVES)) {
+    result = result.replace(
+      new RegExp(`^:::${name}\\n(.*?)\\n^:::$`, 'gms'),
+      `${open}\n\n$1\n\n${close}`,
+    )
+  }
+  return result
+}
+
 export function zenithBlogLoader(): Loader {
   return {
     name: 'zenith-blog',
@@ -35,7 +51,9 @@ export function zenithBlogLoader(): Loader {
           },
         })
 
-        const rendered = post.body ? await renderMarkdown(post.body) : undefined
+        const rendered = post.body
+          ? await renderMarkdown(preprocessDirectives(post.body))
+          : undefined
 
         store.set({ id, data, rendered })
       }
