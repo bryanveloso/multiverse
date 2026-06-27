@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "multiverse",
@@ -115,6 +116,9 @@
     "packages/data": {
       "name": "@multiverse/data",
       "version": "1.0.0",
+      "dependencies": {
+        "@astrojs/markdown-satteri": "^0.3.0",
+      },
       "devDependencies": {
         "@multiverse/config": "workspace:*",
       },
