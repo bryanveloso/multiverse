@@ -22,6 +22,10 @@ const redirectRules = [
   {
     pattern: /^\/(blog|journal|legacy\/blog)\/?$/i,
     getRedirect: () => '/'
+  },
+  {
+    pattern: /^\/sitemap\.xml$/,
+    getRedirect: () => '/sitemap-index.xml'
   }
 ]
 
@@ -42,7 +46,9 @@ const contentTypes: Record<string, string> = {
   '.woff': 'font/woff',
   '.woff2': 'font/woff2',
   '.ttf': 'font/ttf',
-  '.otf': 'font/otf'
+  '.otf': 'font/otf',
+  '.xml': 'application/xml; charset=utf-8',
+  '.xsl': 'text/xsl; charset=utf-8'
 }
 
 // Helper function to determine content type
