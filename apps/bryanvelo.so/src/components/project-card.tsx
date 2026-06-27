@@ -74,10 +74,8 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
       >
         {project.data.heroImage ? (
           <img
-            src={project.data.heroImage.src}
+            src={project.data.heroImage}
             alt={project.data.title}
-            width={project.data.heroImage.width}
-            height={project.data.heroImage.height}
             className="aspect-[4/1] h-auto w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           />
         ) : (

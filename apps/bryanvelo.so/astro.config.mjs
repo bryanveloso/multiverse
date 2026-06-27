@@ -25,6 +25,9 @@ export default defineConfig({
       }
     }
   },
+  image: {
+    remotePatterns: [{ hostname: 'cdn.velo.so' }],
+  },
   integrations: [mdx(), react(), sitemap()],
   fonts: [
     {

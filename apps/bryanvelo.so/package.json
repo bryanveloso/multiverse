@@ -15,6 +15,7 @@
     "@astrojs/react": "^5.0.7",
     "@astrojs/sitemap": "^3.7.3",
     "@multiverse/config": "workspace:*",
+    "@multiverse/data": "workspace:*",
     "@multiverse/shared": "workspace:*",
     "@multiverse/ui": "workspace:*",
     "@tailwindcss/typography": "^0.5.19",

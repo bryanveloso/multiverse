@@ -15,9 +15,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
   
   // Demo gallery images (in a real implementation, you would use project.data.images.gallery)
   const galleryImages = [
-    { src: project?.data.heroImage?.src || '', alt: project?.data.title || '' },
-    { src: project?.data.heroImage?.src || '', alt: project?.data.title || '' },
-    { src: project?.data.heroImage?.src || '', alt: project?.data.title || '' },
+    { src: project?.data.heroImage || '', alt: project?.data.title || '' },
   ];
 
   // Lock body scroll when modal is open

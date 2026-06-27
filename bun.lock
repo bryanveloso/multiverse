@@ -63,6 +63,7 @@
         "@astrojs/react": "^5.0.7",
         "@astrojs/sitemap": "^3.7.3",
         "@multiverse/config": "workspace:*",
+        "@multiverse/data": "workspace:*",
         "@multiverse/shared": "workspace:*",
         "@multiverse/ui": "workspace:*",
         "@tailwindcss/typography": "^0.5.19",
@@ -116,9 +117,6 @@
     "packages/data": {
       "name": "@multiverse/data",
       "version": "1.0.0",
-      "dependencies": {
-        "@astrojs/markdown-satteri": "^0.3.0",
-      },
       "devDependencies": {
         "@multiverse/config": "workspace:*",
       },

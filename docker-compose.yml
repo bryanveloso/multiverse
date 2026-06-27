@@ -5,6 +5,7 @@ services:
       dockerfile: docker/Dockerfile
       args:
         APP_NAME: bryanvelo.so
+        ZENITH_URL: http://host.docker.internal:7181
     ports:
       - '4321:3000'
     environment:
