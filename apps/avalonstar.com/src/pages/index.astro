@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content'
-import { getJobsArray, getLocationsArray, getErasArray } from '@multiverse/data'
 import type { TimelineItem } from '@/types/timeline'
 
 import Base from '@/layouts/base.astro'
@@ -8,82 +7,74 @@ import Timeline from '@/components/timeline'
 import Footer from '@/components/footer.astro'
 import Header from '@/components/header.astro'
 
-// Get content collections (only the ones that are actually markdown/MDX)
-// Consider filtering out drafts in production
-const gaps = await getCollection('gaps')
-const posts = await getCollection('blog')
+const events = await getCollection('timeline')
 
-// Get shared data
-const jobs = getJobsArray()
-const locations = getLocationsArray()
-const eras = getErasArray()
+const timelineItems: TimelineItem[] = events.map((event) => {
+  const d = event.data
+  switch (d.eventType) {
+    case 'post':
+      return {
+        type: 'post' as const,
+        id: `${d.date.toISOString().slice(0, 10)}-${d.slug}`,
+        title: d.title,
+        date: d.date,
+        description: d.description,
+        significance: d.significance,
+        crosspost: (d.metadata.crosspost as boolean) ?? false,
+        heroImage: (d.metadata.hero_image as string) || undefined,
+      }
+    case 'era':
+      return {
+        type: 'era' as const,
+        title: d.title,
+        startDate: d.date,
+        endDate: d.endDate ?? new Date(),
+        description: d.description,
+        color: d.color,
+      }
+    case 'gap':
+      return {
+        type: 'gap' as const,
+        title: d.title,
+        date: d.date,
+        description: d.description,
+        color: d.color,
+        significance: d.significance,
+      }
+    case 'location':
+      return {
+        type: 'location' as const,
+        name: d.title,
+        title: d.title,
+        startDate: d.date,
+        endDate: d.endDate,
+        description: d.description,
+        color: d.color,
+      }
+    case 'job':
+      return {
+        type: 'job' as const,
+        company: (d.metadata.company as string) ?? d.title,
+        title: d.title,
+        startDate: d.date,
+        endDate: d.endDate,
+        description: d.description,
+        color: d.color,
+      }
+    default:
+      return {
+        type: 'gap' as const,
+        title: d.title,
+        date: d.date,
+        description: d.description,
+        significance: d.significance,
+      }
+  }
+})
 
-// Combine all into timeline items
-const timelineItems: TimelineItem[] = [
-  // Blog posts
-  ...posts.map((post) => ({
-    type: 'post' as const,
-    title: post.data.title,
-    date: post.data.date,
-    description: post.data.description,
-    id: post.id,
-    significance: post.data.significance || 3,
-    crosspost: post.data.crosspost,
-    heroImage: post.data.heroImage
-  })),
-
-  // Major life eras
-  ...eras.map((era) => ({
-    type: 'era' as const,
-    title: era.title,
-    startDate: new Date(era.startDate),
-    endDate: 'endDate' in era && era.endDate ? new Date(era.endDate) : new Date(),
-    description: era.description,
-    color: era.color
-  })),
-
-  // Life events/gaps
-  ...gaps.map((gap) => ({
-    type: 'gap' as const,
-    title: gap.data.title,
-    date: gap.data.date,
-    description: gap.data.description,
-    color: gap.data.color,
-    significance: gap.data.significance || 3
-  })),
-
-  // Locations lived
-  ...locations.map((location) => ({
-    type: 'location' as const,
-    name: location.name,
-    title: location.name,
-    startDate: new Date(location.startDate),
-    endDate: 'endDate' in location && location.endDate ? new Date(location.endDate) : undefined,
-    description: location.description,
-    color: location.color
-  })),
-
-  // Jobs held
-  ...jobs.map((job) => ({
-    type: 'job' as const,
-    company: job.company,
-    title: job.title,
-    startDate: new Date(job.startDate),
-    endDate: 'endDate' in job && job.endDate ? new Date(job.endDate) : undefined,
-    description: job.description,
-    color: job.color
-  }))
-]
-
-// Sort all items by date at build time
-// Since this is a static blog, all data processing happens during the build
-// The client receives pre-sorted, pre-processed data for optimal performance
 const sortedTimelineItems = timelineItems.sort((a, b) => {
-  // Extract dates based on item type
   const dateA = 'date' in a ? a.date : a.startDate
   const dateB = 'date' in b ? b.date : b.startDate
-  
-  // Sort in descending order (newest first)
   return dateB.getTime() - dateA.getTime()
 })
 ---

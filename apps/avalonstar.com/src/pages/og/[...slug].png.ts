@@ -1,4 +1,4 @@
-import type { APIContext, ImageMetadata } from 'astro'
+import type { APIContext } from 'astro'
 import { getCollection, getEntry } from 'astro:content'
 import { generateOgImage } from '@/utils/og-image'
 
@@ -6,14 +6,13 @@ export async function getStaticPaths() {
   const blogPosts = await getCollection('blog')
 
   return blogPosts.map((post) => ({
-    // Use Base64 encoding for reliable slug transformation
     params: { slug: Buffer.from(post.id).toString('base64url') },
     props: {
       title: post.data.title,
       date: post.data.date,
       description: post.data.description,
-      heroImage: post.data.heroImage
-    }
+      heroImage: post.data.heroImage,
+    },
   }))
 }
 
@@ -22,15 +21,13 @@ export async function GET(context: APIContext) {
   let title: string
   let date: Date
   let description: string | undefined
-  let heroImage: ImageMetadata | undefined
+  let heroImage: string | undefined
 
-  // In dev mode, props might be undefined, so we need to fetch the data
   if (import.meta.env.DEV && !props) {
     if (!params.slug) {
       return new Response('Not found', { status: 404 })
     }
 
-    // Decode Base64 slug back to original post ID
     const slug = Buffer.from(params.slug, 'base64url').toString('utf-8')
 
     try {
@@ -41,17 +38,16 @@ export async function GET(context: APIContext) {
       title = post.data.title
       date = post.data.date
       description = post.data.description
-      heroImage = post.data.heroImage as ImageMetadata | undefined
+      heroImage = post.data.heroImage
     } catch (error) {
       return new Response('Error loading post', { status: 500 })
     }
   } else {
-    // In production, use the props from getStaticPaths
     const postProps = props as {
       title: string
       date: Date
       description?: string
-      heroImage?: ImageMetadata
+      heroImage?: string
     }
     title = postProps.title
     date = postProps.date
@@ -63,13 +59,13 @@ export async function GET(context: APIContext) {
     title,
     date,
     description,
-    heroImage
+    heroImage,
   })
 
   return new Response(new Uint8Array(png), {
     headers: {
       'Content-Type': 'image/png',
-      'Cache-Control': 'public, max-age=31536000, immutable'
-    }
+      'Cache-Control': 'public, max-age=31536000, immutable',
+    },
   })
 }

@@ -16,7 +16,10 @@ async function fetchZenith<T>(path: string, params?: Record<string, string | num
     headers['Authorization'] = `Bearer ${ZENITH_API_KEY}`
   }
 
-  const response = await fetch(url.toString(), { headers })
+  const response = await fetch(url.toString(), {
+    headers,
+    signal: AbortSignal.timeout(60000),
+  })
   if (!response.ok) {
     throw new Error(`Zenith API error: ${response.status} ${response.statusText} for ${path}`)
   }
@@ -165,6 +168,19 @@ export async function getAllPosts() {
   return posts
 }
 
+export async function getAllPostDetails() {
+  const posts: ZenithPostDetail[] = []
+  let offset = 0
+  const limit = 100
+  while (true) {
+    const batch = await fetchZenith<ZenithPostDetail[]>('/posts/bulk', { limit, offset })
+    posts.push(...batch)
+    if (batch.length < limit) break
+    offset += limit
+  }
+  return posts
+}
+
 export async function getPost(slug: string) {
   return fetchZenith<ZenithPostDetail>(`/posts/${slug}`)
 }
@@ -174,6 +190,41 @@ export async function getPostAnnotations(slug: string) {
 }
 
 // --- Timeline ---
+
+export interface ZenithTimelineEvent {
+  id: string
+  event_type: string
+  date: string
+  end_date: string | null
+  title: string
+  slug: string
+  description: string
+  color: string
+  significance: number
+  metadata: Record<string, unknown>
+}
+
+export async function getTimeline(options?: { limit?: number; offset?: number; event_type?: string; significance?: number }) {
+  const params: Record<string, string | number> = {}
+  if (options?.limit) params.limit = options.limit
+  if (options?.offset) params.offset = options.offset
+  if (options?.event_type) params.event_type = options.event_type
+  if (options?.significance) params.significance = options.significance
+  return fetchZenith<ZenithTimelineEvent[]>('/timeline', params)
+}
+
+export async function getAllTimelineEvents() {
+  const events: ZenithTimelineEvent[] = []
+  let offset = 0
+  const limit = 200
+  while (true) {
+    const batch = await getTimeline({ limit, offset })
+    events.push(...batch)
+    if (batch.length < limit) break
+    offset += limit
+  }
+  return events
+}
 
 export async function getEras() {
   return fetchZenith<ZenithEra[]>('/eras')

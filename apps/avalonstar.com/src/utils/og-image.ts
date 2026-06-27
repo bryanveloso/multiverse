@@ -1,14 +1,10 @@
 import satori from 'satori'
 import { Resvg } from '@resvg/resvg-js'
 import React from 'react'
-import { readFile } from 'fs/promises'
 import { OgImageWithHero } from '@/components/og-image-with-hero'
 import { getAuthorAge } from '@/utils/age'
 import { OG_COLORS } from '@/utils/og-constants'
-import path from 'path'
-import { fileURLToPath } from 'url'
 import sharp from 'sharp'
-import type { ImageMetadata } from 'astro'
 
 interface SatoriFont {
   name: string
@@ -21,7 +17,7 @@ interface GenerateOgImageOptions {
   title: string
   date: Date
   description?: string
-  heroImage?: ImageMetadata
+  heroImage?: string
 }
 
 export async function generateOgImage({ title, date, description, heroImage }: GenerateOgImageOptions): Promise<Buffer> {
@@ -61,40 +57,17 @@ export async function generateOgImage({ title, date, description, heroImage }: G
     fonts.push({ name: 'Inter', data: await fontResponse.arrayBuffer(), weight: 400, style: 'normal' })
   }
 
-  // Process hero image if it exists
   let heroImageData: string | undefined
   if (heroImage) {
     try {
-      // Handle Astro image imports (they have a src property)
-      const imagePath = heroImage.src || heroImage
-
-      if (typeof imagePath === 'string') {
-        let fullPath: string
-
-        if (imagePath.startsWith('/@fs/')) {
-          // Dev mode: Astro serves files with /@fs/ prefix
-          fullPath = imagePath.replace('/@fs/', '/').split('?')[0]
-        } else if (imagePath.startsWith('@/')) {
-          // Build mode: Direct asset reference
-          const __dirname = path.dirname(fileURLToPath(import.meta.url))
-          const relativePath = imagePath.replace('@/', '../')
-          fullPath = path.join(__dirname, relativePath)
-        } else {
-          // Assume it's already a full path
-          fullPath = imagePath
-        }
-
-        // Read and optimize the image for OG display
-        const imageBuffer = await readFile(fullPath)
-
-        // Use sharp to resize and convert to JPEG for smaller size
+      const response = await fetch(heroImage)
+      if (response.ok) {
+        const imageBuffer = Buffer.from(await response.arrayBuffer())
         const optimizedBuffer = await sharp(imageBuffer)
           .resize(400, 630, { fit: 'cover' })
           .jpeg({ quality: 80 })
           .toBuffer()
-
-        const base64 = optimizedBuffer.toString('base64')
-        heroImageData = `data:image/jpeg;base64,${base64}`
+        heroImageData = `data:image/jpeg;base64,${optimizedBuffer.toString('base64')}`
       }
     } catch (error) {
       console.error('Failed to load hero image:', error)

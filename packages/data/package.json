@@ -7,14 +7,11 @@
   "exports": {
     ".": "./src/index.ts",
     "./zenith": "./src/zenith.ts",
-    "./markdown": "./src/markdown.ts",
     "./jobs": "./src/jobs.json",
     "./locations": "./src/locations.json",
     "./eras": "./src/eras.json"
   },
-  "dependencies": {
-    "@astrojs/markdown-satteri": "^0.3.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@multiverse/config": "workspace:*"
   }

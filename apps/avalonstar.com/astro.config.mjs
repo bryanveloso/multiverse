@@ -18,6 +18,9 @@ export default defineConfig({
       features: { directive: true }
     })
   },
+  image: {
+    remotePatterns: [{ hostname: 'cdn.velo.so' }],
+  },
   vite: {
     plugins: [tailwindcss()],
     resolve: {

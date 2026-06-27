@@ -1,8 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { Picture } from 'astro:assets'
-import type { ImageMetadata } from 'astro'
-import { getJobsArray, getLocationsArray, getErasArray } from '@multiverse/data'
+import { Image } from 'astro:assets'
 
 import FormattedDate from '@/components/formatted-date.astro'
 import LegacyDisclaimer from '@/components/blog/legacy.astro'
@@ -26,28 +24,24 @@ const authorAge = getAuthorAge(date)
 const isLegacyPost = date.getFullYear() < 2013
 const defaultColor = 'oklch(100% 0 0 / 10%)'
 
-// Get shared data
-const eras = getErasArray()
-const jobs = getJobsArray()
-const locations = getLocationsArray()
+const timeline = await getCollection('timeline')
 
-// Find the active items at the time of the post
-const activeEra = eras.find((era) => {
-  const startDate = new Date(era.startDate)
-  const endDate = 'endDate' in era && era.endDate ? new Date(era.endDate) : new Date()
-  return date >= startDate && date <= endDate
+const activeEra = timeline.find((e) => {
+  if (e.data.eventType !== 'era') return false
+  const endDate = e.data.endDate ?? new Date()
+  return date >= e.data.date && date <= endDate
 })
 
-const activeJob = jobs.find((job) => {
-  const startDate = new Date(job.startDate)
-  const endDate = 'endDate' in job && job.endDate ? new Date(job.endDate) : new Date()
-  return date >= startDate && date <= endDate
+const activeJob = timeline.find((e) => {
+  if (e.data.eventType !== 'job') return false
+  const endDate = e.data.endDate ?? new Date()
+  return date >= e.data.date && date <= endDate
 })
 
-const activeLocation = locations.find((location) => {
-  const startDate = new Date(location.startDate)
-  const endDate = 'endDate' in location && location.endDate ? new Date(location.endDate) : new Date()
-  return date >= startDate && date <= endDate
+const activeLocation = timeline.find((e) => {
+  if (e.data.eventType !== 'location') return false
+  const endDate = e.data.endDate ?? new Date()
+  return date >= e.data.date && date <= endDate
 })
 
 // Helper function to format post ID to URL path
@@ -106,9 +100,9 @@ const nextPost = posts[currentIndex + 1]
         <!-- Row 3 - Timeline Lines -->
         {
           [
-            { item: activeEra, label: activeEra?.title },
-            { item: activeJob, label: activeJob?.company },
-            { item: activeLocation, label: activeLocation?.name }
+            { item: activeEra?.data, label: activeEra?.data.title },
+            { item: activeJob?.data, label: (activeJob?.data.metadata.company as string) ?? activeJob?.data.title },
+            { item: activeLocation?.data, label: activeLocation?.data.title }
           ].map(({ item, label }) => (
             <div class="relative h-full">
               {item ? (
@@ -135,13 +129,11 @@ const nextPost = posts[currentIndex + 1]
             class="prose prose-a:underline-offset-4 prose-p:mb-[1lh] prose-h2:font-heading prose-img:rounded prose-img:shadow prose-a:decoration-sky prose-lead:text-md prose-lead:font-light prose-lead:text-mist prose-invert">
             {
               heroImage && (
-                <Picture
-                  src={heroImage as ImageMetadata}
+                <Image
+                  src={heroImage}
                   alt={title}
                   class="aspect-video w-full rounded-lg object-cover shadow"
-                  formats={['avif', 'webp']}
-                  widths={[640, 960, 1280]}
-                  sizes="(max-width: 768px) 640px, (max-width: 1024px) 960px, 1280px"
+                  inferSize
                 />
               )
             }
