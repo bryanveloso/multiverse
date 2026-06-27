@@ -1,4 +1,4 @@
-FROM oven/bun:latest AS base
+FROM --platform=linux/amd64 oven/bun:latest AS base
 
 # Main stage
 FROM base AS builder
