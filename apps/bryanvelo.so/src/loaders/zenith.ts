@@ -3,7 +3,6 @@ import {
   getProjects,
   getProject,
   getQuotes,
-  type ZenithProject,
   type ZenithProjectDetail,
 } from '@multiverse/data/zenith'
 

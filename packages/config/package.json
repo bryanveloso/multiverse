@@ -7,7 +7,8 @@
     "typescript"
   ],
   "exports": {
-    "./typescript/base/tsconfig.json": "./typescript/base.json"
+    "./typescript/base": "./typescript/base.json",
+    "./typescript/base.json": "./typescript/base.json"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.18",
