@@ -57,7 +57,7 @@ export const Post: FC<TimelineItemProps<TimelinePost>> = ({ item, itemIndex, con
         </h2>
         {item.heroImage && item.significance == 5 && (
           <img
-            src={item.heroImage.src}
+            src={item.heroImage}
             alt={item.title}
             className="my-2 hidden aspect-[6/1] w-full rounded object-cover shadow"
           />

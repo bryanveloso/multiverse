@@ -25,12 +25,7 @@ interface TimelinePost extends TimelinePointItem {
   type: 'post'
   id: string // Required for posts
   crosspost?: boolean
-  heroImage?: {
-    src?: string
-    width?: number
-    height?: number
-    format?: string
-  }
+  heroImage?: string
   significance: number // Required for posts (defaults to 3)
 }
 

@@ -10,7 +10,7 @@ const projects = defineCollection({
     date: z.coerce.date(),
     summary: z.string(),
     involvement: z.string(),
-    heroImage: z.string().url().optional(),
+    heroImage: z.url().optional(),
     links: z
       .array(
         z.object({

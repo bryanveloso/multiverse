@@ -53,7 +53,7 @@ const previousPost = posts[currentIndex - 1]
 const nextPost = posts[currentIndex + 1]
 ---
 
-<Base {title} {description} image={heroImage ? heroImage.src : undefined} type="article" publishDate={date} {postId}>
+<Base {title} {description} image={heroImage || undefined} type="article" publishDate={date} {postId}>
   <div class="grid min-h-dvh grid-cols-1 gap-8 md:grid-cols-[24px_1fr]">
     <div
       class="col-start-1 row-span-full hidden bg-[image:repeating-linear-gradient(45deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-repeat [--pattern-fg:var(--color-white)]/10 md:block">
@@ -180,7 +180,7 @@ const nextPost = posts[currentIndex + 1]
     description: description,
     datePublished: date.toISOString(),
     dateModified: updatedDate ? updatedDate.toISOString() : date.toISOString(),
-    image: heroImage ? heroImage.src : undefined,
+    image: heroImage || undefined,
     author: {
       '@type': 'Person',
       name: 'Bryan Veloso',

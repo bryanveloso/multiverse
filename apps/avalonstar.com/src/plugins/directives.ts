@@ -1,5 +1,4 @@
 import { defineMdastPlugin } from 'satteri'
-import type { LeafDirective } from 'satteri'
 
 function escapeHtml(str: string): string {
   return str
@@ -12,7 +11,7 @@ function escapeHtml(str: string): string {
 export const directivesPlugin = defineMdastPlugin({
   name: 'avalonstar-directives',
 
-  leafDirective(node: Readonly<LeafDirective>) {
+  leafDirective(node) {
     if (node.name === 'figure') {
       const attrs = node.attributes ?? {}
       const src = attrs.src ?? ''
