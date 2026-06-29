@@ -13,6 +13,10 @@ function wikiUrl(name: string): string {
   return `https://wiki.warframe.com/w/${encodeURIComponent(name.replace(/ /g, '_'))}`
 }
 
+function fmtK(n: number): string {
+  return n >= 1000 ? `${Math.round(n / 100) / 10}k` : String(n)
+}
+
 export default function WarframeMastery() {
   const [data, setData] = useState<MasteryRemaining | null>(null)
   const [loading, setLoading] = useState(true)
@@ -20,6 +24,7 @@ export default function WarframeMastery() {
 
   // Filters (client-side over a single fetch)
   const [category, setCategory] = useState('')
+  const [acquisition, setAcquisition] = useState('')
   const [hidePrimes, setHidePrimes] = useState(false)
   const [equippableOnly, setEquippableOnly] = useState(true)
   const [includeVaulted, setIncludeVaulted] = useState(false)
@@ -54,6 +59,7 @@ export default function WarframeMastery() {
     if (!data) return []
     const filtered = data.items.filter((i) => {
       if (category && i.category !== category) return false
+      if (acquisition && i.acquisition !== acquisition) return false
       if (hidePrimes && i.is_prime) return false
       if (equippableOnly && !i.equippable) return false
       if (!includeVaulted && i.vaulted) return false
@@ -64,7 +70,7 @@ export default function WarframeMastery() {
       if (sortKey === 'name') return a.name.localeCompare(b.name) * dir
       return (a[sortKey] - b[sortKey]) * dir
     })
-  }, [data, category, hidePrimes, equippableOnly, includeVaulted, sortKey, sortDir])
+  }, [data, category, acquisition, hidePrimes, equippableOnly, includeVaulted, sortKey, sortDir])
 
   function toggleSort(key: SortKey) {
     if (key === sortKey) {
@@ -95,6 +101,37 @@ export default function WarframeMastery() {
           value={data.obtainable_mastery_points.toLocaleString()}
         />
       </div>
+
+      {/* Acquisition breakdown — where remaining mastery is gated; click to filter */}
+      {data.by_acquisition.length > 0 && (
+        <div className="mb-6">
+          <div className="text-xs text-gray-500 mb-2">
+            Where your remaining mastery is gated (obtainable only) — click to filter
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {data.by_acquisition.map((g) => {
+              const active = acquisition === g.acquisition
+              return (
+                <button
+                  key={g.acquisition}
+                  type="button"
+                  onClick={() => setAcquisition(active ? '' : g.acquisition)}
+                  className={`rounded-full px-3 py-1 text-xs transition-colors ${
+                    active
+                      ? 'bg-black-50 text-turquoise-400 ring-1 ring-turquoise-400'
+                      : 'bg-black-100 hover:bg-black-50 text-gray-300'
+                  }`}
+                >
+                  {g.acquisition || 'Other'}{' '}
+                  <span className="text-gray-500">
+                    {g.count} · {fmtK(g.mastery_points)}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-3 mb-4 text-sm">

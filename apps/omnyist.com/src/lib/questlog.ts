@@ -130,6 +130,14 @@ export interface RemainingItem {
   vaulted: boolean
   equippable: boolean
   acquisition: string
+  tags: string[]
+  vault_date: string
+}
+
+export interface AcquisitionGroup {
+  acquisition: string
+  count: number
+  mastery_points: number
 }
 
 export interface MasteryRemaining {
@@ -137,5 +145,6 @@ export interface MasteryRemaining {
   total_remaining: number
   total_obtainable: number
   obtainable_mastery_points: number
+  by_acquisition: AcquisitionGroup[]
   items: RemainingItem[]
 }
