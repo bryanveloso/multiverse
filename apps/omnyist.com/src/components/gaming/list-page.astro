@@ -1,5 +1,5 @@
 ---
-import type { ListDetail } from '@/lib/questlog'
+import type { ListDetail } from '@multiverse/data/questlog'
 
 interface Props {
   list: ListDetail
@@ -31,7 +31,7 @@ const sortedEntries = list.is_ranked
   {sortedEntries.length > 0 && (
     <section>
       <ol class={list.is_ranked ? 'space-y-3' : 'space-y-2'}>
-        {sortedEntries.map((entry, index) => (
+        {sortedEntries.map((entry) => (
           <li class="flex items-start gap-4">
             {list.is_ranked && entry.position && (
               <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-black-100 text-sm font-semibold">

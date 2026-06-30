@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 
-import type { MasteryRemaining, RemainingItem } from '@/lib/questlog'
+import type { MasteryRemaining, RemainingItem } from '@multiverse/data/questlog'
 
 const API =
   import.meta.env.PUBLIC_QUESTLOG_API_URL || 'https://questlog.omnyist.com/api'

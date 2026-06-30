@@ -242,6 +242,30 @@ export async function getGaps() {
   return fetchZenith<ZenithGap[]>('/gaps')
 }
 
+// --- Editorial ---
+
+export interface ZenithEditorial {
+  id: string
+  subject: string
+  slug: string
+  title: string
+  body: string
+  position: number | null
+  work_ref: string
+}
+
+export async function getEditorials(subject: string) {
+  return fetchZenith<ZenithEditorial[]>('/editorials', { subject })
+}
+
+export async function getEditorial(subject: string, slug: string) {
+  return fetchZenith<ZenithEditorial>(`/editorials/${subject}/${slug}`)
+}
+
+export async function getSubjects() {
+  return fetchZenith<string[]>('/subjects')
+}
+
 // --- Works ---
 
 export async function getProjects(options?: { limit?: number; offset?: number }) {

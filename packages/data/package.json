@@ -7,6 +7,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./zenith": "./src/zenith.ts",
+    "./questlog": "./src/questlog.ts",
     "./jobs": "./src/jobs.json",
     "./locations": "./src/locations.json",
     "./eras": "./src/eras.json"

@@ -1,8 +1,20 @@
-/**
- * Questlog API client for Omnyist
- */
+const QUESTLOG_API_URL = import.meta.env.QUESTLOG_API_URL || 'http://localhost:7176/api'
 
-const API_BASE = import.meta.env.QUESTLOG_API_URL || 'http://localhost:7176/api'
+async function fetchAPI<T>(endpoint: string): Promise<T | null> {
+  try {
+    const response = await fetch(`${QUESTLOG_API_URL}${endpoint}`)
+    if (!response.ok) {
+      if (response.status === 404) return null
+      throw new Error(`API error: ${response.status}`)
+    }
+    return response.json()
+  } catch (error) {
+    console.error(`Failed to fetch ${endpoint}:`, error)
+    return null
+  }
+}
+
+// --- Types ---
 
 export interface Franchise {
   id: string
@@ -72,19 +84,37 @@ export interface ListActivity {
   metadata: Record<string, unknown>
 }
 
-async function fetchAPI<T>(endpoint: string): Promise<T | null> {
-  try {
-    const response = await fetch(`${API_BASE}${endpoint}`)
-    if (!response.ok) {
-      if (response.status === 404) return null
-      throw new Error(`API error: ${response.status}`)
-    }
-    return response.json()
-  } catch (error) {
-    console.error(`Failed to fetch ${endpoint}:`, error)
-    return null
-  }
+// --- Warframe ---
+
+export interface RemainingItem {
+  name: string
+  category: string
+  mastery_req: number
+  mastery_value: number
+  is_prime: boolean
+  vaulted: boolean
+  equippable: boolean
+  acquisition: string
+  tags: string[]
+  vault_date: string
 }
+
+export interface AcquisitionGroup {
+  acquisition: string
+  count: number
+  mastery_points: number
+}
+
+export interface MasteryRemaining {
+  current_mastery_rank: number
+  total_remaining: number
+  total_obtainable: number
+  obtainable_mastery_points: number
+  by_acquisition: AcquisitionGroup[]
+  items: RemainingItem[]
+}
+
+// --- API Functions ---
 
 export async function getWorks(options?: { franchise?: string; limit?: number }): Promise<Work[]> {
   const params = new URLSearchParams()
@@ -117,34 +147,4 @@ export async function getList(slug: string): Promise<ListDetail | null> {
 export async function getListActivity(slug: string, limit?: number): Promise<ListActivity[]> {
   const query = limit ? `?limit=${limit}` : ''
   return (await fetchAPI<ListActivity[]>(`/lists/${slug}/activity${query}`)) || []
-}
-
-// --- Warframe mastery (consumed client-side by the grind-list island) ---
-
-export interface RemainingItem {
-  name: string
-  category: string
-  mastery_req: number
-  mastery_value: number
-  is_prime: boolean
-  vaulted: boolean
-  equippable: boolean
-  acquisition: string
-  tags: string[]
-  vault_date: string
-}
-
-export interface AcquisitionGroup {
-  acquisition: string
-  count: number
-  mastery_points: number
-}
-
-export interface MasteryRemaining {
-  current_mastery_rank: number
-  total_remaining: number
-  total_obtainable: number
-  obtainable_mastery_points: number
-  by_acquisition: AcquisitionGroup[]
-  items: RemainingItem[]
 }

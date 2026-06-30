@@ -1,6 +1,6 @@
 ---
 import Base from '@/layouts/base.astro'
-import { getLists, getWorks, getFranchises } from '@/lib/questlog'
+import { getLists, getWorks, getFranchises } from '@multiverse/data/questlog'
 
 const [lists, works, franchises] = await Promise.all([
   getLists(),
