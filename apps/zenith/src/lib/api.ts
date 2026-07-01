@@ -1,4 +1,7 @@
-const API_BASE = import.meta.env.PUBLIC_ZENITH_URL || 'http://localhost:7181'
+// Empty base ⇒ same-origin relative calls (/api/cms/...) in production, where the
+// CMS and Zenith API share a hostname behind the tunnel. Dev sets PUBLIC_ZENITH_URL
+// to reach Zenith on Saya directly (cross-origin, covered by the CORS allow-list).
+const API_BASE = import.meta.env.PUBLIC_ZENITH_URL ?? ''
 
 async function fetchApi<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}/api/cms${path}`, {

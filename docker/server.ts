@@ -117,6 +117,25 @@ const server = Bun.serve({
         }
       })
     } catch (error) {
+      // SPA fallback: apps that route on the client (the Zenith CMS) opt in via
+      // SPA_FALLBACK so deep links like /editorials/<id> survive a hard refresh.
+      // Only extension-less paths fall back — missing assets still 404 honestly.
+      const lastSegment = path.slice(path.lastIndexOf('/'))
+      if (process.env.SPA_FALLBACK === 'true' && !lastSegment.includes('.')) {
+        try {
+          const indexContent = readFileSync(join(DIST_PATH, 'index.html'))
+          return new Response(indexContent, {
+            headers: {
+              'Content-Type': 'text/html; charset=utf-8',
+              'Cache-Control': 'no-cache',
+              'X-Content-Type-Options': 'nosniff'
+            }
+          })
+        } catch {
+          // fall through to 404 handling
+        }
+      }
+
       // If file not found, try to serve 404.html
       try {
         const notFoundPath = join(DIST_PATH, '404.html')
