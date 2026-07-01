@@ -37,6 +37,7 @@ COPY . .
 ARG APP_NAME
 ARG QUESTLOG_API_URL
 ARG ZENITH_URL
+ARG CACHEBUST=0
 RUN cd apps/${APP_NAME} && bun run astro build
 
 # Runner stage 

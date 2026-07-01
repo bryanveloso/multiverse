@@ -15,8 +15,9 @@ jobs:
       - name: Build images
         run: |
           cd ${{ github.workspace }}
-          if [ "${{ github.event.client_payload.site }}" != "" ]; then
-            docker compose build ${{ github.event.client_payload.site }}
+          SITE="${{ github.event.client_payload.site }}"
+          if [ "$SITE" != "" ]; then
+            docker compose build --build-arg CACHEBUST=$(date +%s) $SITE
           else
             docker compose build
           fi
@@ -24,8 +25,9 @@ jobs:
       - name: Deploy
         run: |
           cd ${{ github.workspace }}
-          if [ "${{ github.event.client_payload.site }}" != "" ]; then
-            docker compose up -d ${{ github.event.client_payload.site }}
+          SITE="${{ github.event.client_payload.site }}"
+          if [ "$SITE" != "" ]; then
+            docker compose up -d $SITE
           else
             docker compose up -d
           fi
