@@ -7,7 +7,7 @@
 - `bun run lint`: Lint all apps
 - `bun run start`: Start all apps
 - `bun run clean`: Clean build artifacts
-- Build specific app: `bun run build:avalonstar.com` (also available for bryanvelo.so, omnyist.com)
+- Build specific app: `bun run build:avalonstar` (also available for bryanveloso, omnyist)
 - Docker (Production): `docker compose up -d` (ports 4321-4324)
 - Docker (Single App Test): `docker build -t app-test -f docker/Dockerfile --build-arg APP_NAME=<app-name> . && docker run -p <port>:3000 -e DIST_PATH=./dist app-test`
 
@@ -28,13 +28,13 @@
 - Shared middleware in packages/shared
 - Imports use @multiverse/\* namespace for shared packages
 - Turbo for monorepo management
-- Development ports: 5321-5324 (avalonstar.com, bryanvelo.so, omnyist.com)
+- Development ports: 5321-5324 (avalonstar, bryanveloso, omnyist)
 - Docker ports: 4321-4324 (corresponding to each app)
 - **URL Handling**: Astro middleware only works for SSR routes. For static sites, custom Bun server (docker/server.ts) handles:
   - Legacy URL redirects (e.g., `/blog/YEAR/MONTH/DAY/slug/` → `/blog/YEAR/slug`)
   - Section root redirects (e.g., `/blog/` → `/`)
   - Static file serving with proper MIME types
-- **Enhanced Portfolio**: bryanvelo.so app includes new interactive components:
+- **Enhanced Portfolio**: bryanveloso app includes new interactive components:
   - Skills matrix for filtering projects by technology
   - Expandable project cards with detailed information
   - Modal view for in-depth project exploration
@@ -60,8 +60,8 @@
 
 - Upgraded to Tailwind CSS v4.1.5
 - Upgraded to React 19.1.0
-- Added enhanced portfolio components to bryanvelo.so app
-- Refactored app folder structure to use domain names (avalonstar → avalonstar.com, bryanveloso → bryanvelo.so, omnyist → omnyist.com)
+- Added enhanced portfolio components to bryanveloso app
+- App folders use simple names (avalonstar, bryanveloso, omnyist, zenith)
 - Updated font middleware for better caching
 - Bumped TypeScript to 5.8.3
 - Improved server-side error handling

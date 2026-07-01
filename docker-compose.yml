@@ -1,10 +1,10 @@
 services:
-  bryanvelo.so:
+  bryanveloso:
     build:
       context: .
       dockerfile: docker/Dockerfile
       args:
-        APP_NAME: bryanvelo.so
+        APP_NAME: bryanveloso
         ZENITH_URL: http://host.docker.internal:7181
     ports:
       - '4321:3000'
@@ -31,12 +31,12 @@ services:
         max-size: "5m"
         max-file: "2"
 
-  avalonstar.com:
+  avalonstar:
     build:
       context: .
       dockerfile: docker/Dockerfile
       args:
-        APP_NAME: avalonstar.com
+        APP_NAME: avalonstar
         ZENITH_URL: http://host.docker.internal:7181
     ports:
       - '4322:3000'
@@ -63,12 +63,12 @@ services:
         max-size: "5m"
         max-file: "2"
 
-  omnyist.com:
+  omnyist:
     build:
       context: .
       dockerfile: docker/Dockerfile
       args:
-        APP_NAME: omnyist.com
+        APP_NAME: omnyist
         QUESTLOG_API_URL: https://questlog.omnyist.com/api
     ports:
       - '4323:3000'

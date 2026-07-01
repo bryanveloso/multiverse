@@ -7,12 +7,12 @@
     "start": "turbo run start",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
-    "build:avalonstar.com": "turbo run build --filter=avalonstar.com",
-    "build:bryanvelo.so": "turbo run build --filter=bryanvelo.so",
-    "build:omnyist.com": "turbo run build --filter=omnyist.com",
-    "dev:avalonstar.com": "turbo run dev --filter=avalonstar.com",
-    "dev:bryanvelo.so": "turbo run dev --filter=bryanvelo.so",
-    "dev:omnyist.com": "turbo run dev --filter=omnyist.com",
+    "build:avalonstar": "turbo run build --filter=avalonstar",
+    "build:bryanveloso": "turbo run build --filter=bryanveloso",
+    "build:omnyist": "turbo run build --filter=omnyist",
+    "dev:avalonstar": "turbo run dev --filter=avalonstar",
+    "dev:bryanveloso": "turbo run dev --filter=bryanveloso",
+    "dev:omnyist": "turbo run dev --filter=omnyist",
     "format": "prettier --write ."
   },
   "devDependencies": {
