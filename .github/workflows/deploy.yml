@@ -27,8 +27,8 @@ jobs:
           cd ${{ github.workspace }}
           SITE="${{ github.event.client_payload.site }}"
           if [ "$SITE" != "" ]; then
-            docker compose up -d $SITE
+            docker compose up -d --remove-orphans $SITE
           else
-            docker compose up -d
+            docker compose up -d --remove-orphans
           fi
           docker image prune -f
