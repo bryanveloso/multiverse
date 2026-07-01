@@ -2,6 +2,8 @@ name: Deploy
 on:
   push:
     branches: [main]
+  repository_dispatch:
+    types: [content-update]
 
 jobs:
   deploy:
@@ -13,10 +15,18 @@ jobs:
       - name: Build images
         run: |
           cd ${{ github.workspace }}
-          docker compose build
+          if [ "${{ github.event.client_payload.site }}" != "" ]; then
+            docker compose build ${{ github.event.client_payload.site }}
+          else
+            docker compose build
+          fi
 
       - name: Deploy
         run: |
           cd ${{ github.workspace }}
-          docker compose up -d
+          if [ "${{ github.event.client_payload.site }}" != "" ]; then
+            docker compose up -d ${{ github.event.client_payload.site }}
+          else
+            docker compose up -d
+          fi
           docker image prune -f
