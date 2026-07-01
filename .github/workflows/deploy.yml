@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
   repository_dispatch:
-    types: [content-update]
+    types: [Content updated.]
 
 jobs:
   deploy:
