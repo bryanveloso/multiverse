@@ -13,6 +13,8 @@
     "dev:avalonstar": "turbo run dev --filter=avalonstar",
     "dev:bryanveloso": "turbo run dev --filter=bryanveloso",
     "dev:omnyist": "turbo run dev --filter=omnyist",
+    "build:zenith": "turbo run build --filter=zenith",
+    "dev:zenith": "turbo run dev --filter=zenith",
     "format": "prettier --write ."
   },
   "devDependencies": {

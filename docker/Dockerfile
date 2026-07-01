@@ -16,7 +16,7 @@ COPY package.json bun.lock ./
 COPY turbo.json ./
 
 # Create all necessary directories
-RUN mkdir -p packages/config packages/data packages/shared packages/ui apps/avalonstar apps/bryanveloso apps/omnyist
+RUN mkdir -p packages/config packages/data packages/shared packages/ui apps/avalonstar apps/bryanveloso apps/omnyist apps/zenith
 
 # Copy all package.json files (needed for lockfile integrity)
 COPY packages/config/package.json ./packages/config/
@@ -26,6 +26,7 @@ COPY packages/ui/package.json ./packages/ui/
 COPY apps/avalonstar/package.json ./apps/avalonstar/
 COPY apps/bryanveloso/package.json ./apps/bryanveloso/
 COPY apps/omnyist/package.json ./apps/omnyist/
+COPY apps/zenith/package.json ./apps/zenith/
 
 # Install all dependencies (this layer will be cached if dependencies don't change)
 RUN bun install --frozen-lockfile

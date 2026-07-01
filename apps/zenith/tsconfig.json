@@ -1,0 +1,13 @@
+{
+  "extends": "@multiverse/config/typescript/base",
+  "compilerOptions": {
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "types": ["bun"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@multiverse/ui/*": ["../../packages/ui/*"]
+    }
+  }
+}
