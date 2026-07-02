@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { getPosts, getGaps, createGap, createPost } from '@/lib/api'
 import type { Post, Gap } from '@/lib/api'
+import { Modal } from '../ui/modal'
 
 function slugify(value: string): string {
   return value
@@ -21,6 +22,8 @@ export function Timeline() {
   const [posts, setPosts] = useState<Post[]>([])
   const [gaps, setGaps] = useState<Gap[]>([])
   const [loading, setLoading] = useState(true)
+  const [createKind, setCreateKind] = useState<'post' | 'gap' | null>(null)
+  const [createTitle, setCreateTitle] = useState('')
   const [creating, setCreating] = useState(false)
 
   useEffect(() => {
@@ -34,30 +37,24 @@ export function Timeline() {
       .catch(() => {})
   }, [])
 
-  async function handleNewPost() {
-    const title = prompt('Post title:')
-    if (!title) return
-    setCreating(true)
-    try {
-      const post = await createPost({
-        title,
-        slug: `${slugify(title)}-${Date.now().toString(36)}`,
-        date: new Date().toISOString(),
-      })
-      navigate(`/posts/${post.slug}`)
-    } finally {
-      setCreating(false)
-    }
+  function openCreate(kind: 'post' | 'gap') {
+    setCreateKind(kind)
+    setCreateTitle('')
   }
 
-  async function handleNewGap() {
-    const title = prompt('Gap title:')
-    if (!title) return
-    const today = new Date().toISOString().slice(0, 10)
+  async function submitCreate(e: React.FormEvent) {
+    e.preventDefault()
+    if (!createTitle || !createKind) return
+    const slug = `${slugify(createTitle)}-${Date.now().toString(36)}`
     setCreating(true)
     try {
-      const gap = await createGap({ title, slug: `${slugify(title)}-${Date.now().toString(36)}`, date: today })
-      navigate(`/gaps/${gap.id}`)
+      if (createKind === 'post') {
+        const post = await createPost({ title: createTitle, slug, date: new Date().toISOString() })
+        navigate(`/posts/${post.slug}`)
+      } else {
+        const gap = await createGap({ title: createTitle, slug, date: new Date().toISOString().slice(0, 10) })
+        navigate(`/gaps/${gap.id}`)
+      }
     } finally {
       setCreating(false)
     }
@@ -94,18 +91,16 @@ export function Timeline() {
         <h2 className="text-2xl font-bold tracking-tight">Timeline</h2>
         <div className="flex items-center gap-2">
           <button
-            onClick={handleNewGap}
-            disabled={creating}
-            className="rounded border border-neutral-700 px-3 py-1.5 text-sm font-medium text-neutral-200 hover:bg-neutral-800 disabled:opacity-50"
+            onClick={() => openCreate('gap')}
+            className="rounded border border-neutral-700 px-3 py-1.5 text-sm font-medium text-neutral-200 hover:bg-neutral-800"
           >
             New Gap
           </button>
           <button
-            onClick={handleNewPost}
-            disabled={creating}
-            className="rounded bg-white px-3 py-1.5 text-sm font-medium text-neutral-950 hover:bg-neutral-200 disabled:opacity-50"
+            onClick={() => openCreate('post')}
+            className="rounded bg-white px-3 py-1.5 text-sm font-medium text-neutral-950 hover:bg-neutral-200"
           >
-            {creating ? 'Creating...' : 'New Post'}
+            New Post
           </button>
         </div>
       </div>
@@ -169,6 +164,45 @@ export function Timeline() {
           </tbody>
         </table>
       )}
+
+      <Modal
+        open={createKind !== null}
+        onClose={() => setCreateKind(null)}
+        title={createKind === 'gap' ? 'New Gap' : 'New Post'}
+      >
+        <form onSubmit={submitCreate} className="space-y-4">
+          <div>
+            <label className="mb-1 block text-sm text-neutral-400">Title</label>
+            <input
+              type="text"
+              value={createTitle}
+              onChange={(e) => setCreateTitle(e.target.value)}
+              className="w-full rounded border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white outline-none focus:border-neutral-600"
+            />
+          </div>
+          <p className="text-xs text-neutral-500">
+            {createKind === 'gap'
+              ? 'Creates a gap dated today; adjust the date in the editor.'
+              : 'Creates a draft dated today; edit and publish in the editor.'}
+          </p>
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => setCreateKind(null)}
+              className="rounded border border-neutral-700 px-3 py-1.5 text-sm text-neutral-200 hover:bg-neutral-800"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={creating || !createTitle}
+              className="rounded bg-white px-3 py-1.5 text-sm font-medium text-neutral-950 hover:bg-neutral-200 disabled:opacity-50"
+            >
+              {creating ? 'Creating...' : 'Create'}
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   )
 }

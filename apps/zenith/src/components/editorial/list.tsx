@@ -1,14 +1,22 @@
 import { useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router'
+import { Link, useSearchParams, useNavigate } from 'react-router'
 import { getEditorials, getSubjects, createEditorial, deleteEditorial } from '@/lib/api'
 import type { Editorial } from '@/lib/api'
+import { Modal, ConfirmDialog } from '../ui/modal'
 
 export function EditorialList() {
+  const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const [editorials, setEditorials] = useState<Editorial[]>([])
   const [subjects, setSubjects] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
+
+  const [createOpen, setCreateOpen] = useState(false)
   const [creating, setCreating] = useState(false)
+  const [formSubject, setFormSubject] = useState('')
+  const [formSlug, setFormSlug] = useState('')
+  const [formTitle, setFormTitle] = useState('')
+  const [deleteTarget, setDeleteTarget] = useState<Editorial | null>(null)
 
   const activeSubject = searchParams.get('subject') || undefined
   const activeStatus = searchParams.get('status') || undefined
@@ -34,26 +42,31 @@ export function EditorialList() {
     })
   }
 
-  async function handleCreate() {
-    const subject = activeSubject || prompt('Subject slug (e.g., final-fantasy):')
-    if (!subject) return
+  function openCreate() {
+    setFormSubject(activeSubject || '')
+    setFormSlug('')
+    setFormTitle('')
+    setCreateOpen(true)
+  }
 
-    const slug = prompt('Entry slug (e.g., intro, ffvii):')
-    if (!slug) return
-
+  async function submitCreate(e: React.FormEvent) {
+    e.preventDefault()
+    if (!formSubject || !formSlug) return
     setCreating(true)
     try {
-      const editorial = await createEditorial({ subject, slug })
-      setEditorials((prev) => [...prev, editorial])
+      const editorial = await createEditorial({ subject: formSubject, slug: formSlug, title: formTitle })
+      setCreateOpen(false)
+      navigate(`/editorials/${editorial.id}`)
     } finally {
       setCreating(false)
     }
   }
 
-  async function handleDelete(id: string) {
-    if (!confirm('Delete this editorial?')) return
-    await deleteEditorial(id)
-    setEditorials((prev) => prev.filter((e) => e.id !== id))
+  async function confirmDelete() {
+    if (!deleteTarget) return
+    await deleteEditorial(deleteTarget.id)
+    setEditorials((prev) => prev.filter((e) => e.id !== deleteTarget.id))
+    setDeleteTarget(null)
   }
 
   return (
@@ -61,11 +74,10 @@ export function EditorialList() {
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold tracking-tight">Editorials</h2>
         <button
-          onClick={handleCreate}
-          disabled={creating}
-          className="rounded bg-white px-3 py-1.5 text-sm font-medium text-neutral-950 hover:bg-neutral-200 disabled:opacity-50"
+          onClick={openCreate}
+          className="rounded bg-white px-3 py-1.5 text-sm font-medium text-neutral-950 hover:bg-neutral-200"
         >
-          {creating ? 'Creating...' : 'New Editorial'}
+          New Editorial
         </button>
       </div>
 
@@ -156,14 +168,9 @@ export function EditorialList() {
                     {e.status}
                   </span>
                 </td>
-                <td className="py-2 pr-4 text-neutral-500">
-                  {new Date(e.modified_at).toLocaleDateString()}
-                </td>
+                <td className="py-2 pr-4 text-neutral-500">{new Date(e.modified_at).toLocaleDateString()}</td>
                 <td className="py-2 text-right">
-                  <button
-                    onClick={() => handleDelete(e.id)}
-                    className="text-neutral-600 hover:text-red-400"
-                  >
+                  <button onClick={() => setDeleteTarget(e)} className="text-neutral-600 hover:text-red-400">
                     Delete
                   </button>
                 </td>
@@ -172,6 +179,64 @@ export function EditorialList() {
           </tbody>
         </table>
       )}
+
+      <Modal open={createOpen} onClose={() => setCreateOpen(false)} title="New Editorial">
+        <form onSubmit={submitCreate} className="space-y-4">
+          <div>
+            <label className="mb-1 block text-sm text-neutral-400">Subject</label>
+            <input
+              type="text"
+              value={formSubject}
+              onChange={(e) => setFormSubject(e.target.value)}
+              placeholder="final-fantasy"
+              className="w-full rounded border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white outline-none focus:border-neutral-600"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm text-neutral-400">Slug</label>
+            <input
+              type="text"
+              value={formSlug}
+              onChange={(e) => setFormSlug(e.target.value)}
+              placeholder="intro"
+              className="w-full rounded border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white outline-none focus:border-neutral-600"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm text-neutral-400">Title (optional)</label>
+            <input
+              type="text"
+              value={formTitle}
+              onChange={(e) => setFormTitle(e.target.value)}
+              className="w-full rounded border border-neutral-800 bg-neutral-950 px-3 py-2 text-sm text-white outline-none focus:border-neutral-600"
+            />
+          </div>
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => setCreateOpen(false)}
+              className="rounded border border-neutral-700 px-3 py-1.5 text-sm text-neutral-200 hover:bg-neutral-800"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={creating || !formSubject || !formSlug}
+              className="rounded bg-white px-3 py-1.5 text-sm font-medium text-neutral-950 hover:bg-neutral-200 disabled:opacity-50"
+            >
+              {creating ? 'Creating...' : 'Create'}
+            </button>
+          </div>
+        </form>
+      </Modal>
+
+      <ConfirmDialog
+        open={deleteTarget !== null}
+        onClose={() => setDeleteTarget(null)}
+        onConfirm={confirmDelete}
+        title="Delete editorial"
+        message={`Delete "${deleteTarget?.title || deleteTarget?.slug}"? This can't be undone.`}
+      />
     </div>
   )
 }
