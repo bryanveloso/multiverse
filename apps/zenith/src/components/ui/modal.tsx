@@ -12,6 +12,13 @@ interface ModalProps {
 export function Modal({ open, onClose, title, children }: ModalProps) {
   const ref = useRef<HTMLDivElement>(null)
 
+  // Focus the first field once, only when the dialog opens — NOT on every
+  // re-render (typing changes parent state, which would otherwise re-focus it).
+  useEffect(() => {
+    if (!open) return
+    ref.current?.querySelector<HTMLElement>('input, textarea, select, button')?.focus()
+  }, [open])
+
   useEffect(() => {
     if (!open) return
     function onKey(e: KeyboardEvent) {
@@ -20,8 +27,6 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
     document.addEventListener('keydown', onKey)
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    // Focus the first field so keyboard users land inside the dialog.
-    ref.current?.querySelector<HTMLElement>('input, textarea, select, button')?.focus()
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
