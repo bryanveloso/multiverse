@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 import { getPosts, getGaps, createGap, createPost } from '@/lib/api'
 import type { Post, Gap } from '@/lib/api'
 import { Modal } from '../ui/modal'
@@ -121,7 +121,11 @@ export function Timeline() {
           </thead>
           <tbody>
             {items.map((it) => (
-              <tr key={`${it.kind}-${it.id}`} className="border-b border-neutral-800/50 hover:bg-neutral-900/50">
+              <tr
+                key={`${it.kind}-${it.id}`}
+                onClick={() => navigate(it.to)}
+                className="cursor-pointer border-b border-neutral-800/50 hover:bg-neutral-900/50"
+              >
                 <td className="py-2 pr-4">
                   {it.kind === 'gap' ? (
                     <span className="flex items-center gap-2">
@@ -130,14 +134,10 @@ export function Timeline() {
                         className="inline-block h-2 w-2 shrink-0 rounded-full"
                         style={{ backgroundColor: it.color || '#f59e0b' }}
                       />
-                      <Link to={it.to} className="italic text-neutral-300 hover:text-white">
-                        {it.title}
-                      </Link>
+                      <span className="italic text-neutral-300">{it.title}</span>
                     </span>
                   ) : (
-                    <Link to={it.to} className="text-neutral-200 hover:text-white">
-                      {it.title}
-                    </Link>
+                    <span className="text-neutral-200">{it.title}</span>
                   )}
                 </td>
                 <td className="py-2 pr-4 text-neutral-500">{new Date(it.date).toLocaleDateString()}</td>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useSearchParams, useNavigate } from 'react-router'
+import { useSearchParams, useNavigate } from 'react-router'
 import { getEditorials, getSubjects, createEditorial, deleteEditorial } from '@/lib/api'
 import type { Editorial } from '@/lib/api'
 import { Modal, ConfirmDialog } from '../ui/modal'
@@ -147,12 +147,14 @@ export function EditorialList() {
           </thead>
           <tbody>
             {editorials.map((e) => (
-              <tr key={e.id} className="border-b border-neutral-800/50 hover:bg-neutral-900/50">
+              <tr
+                key={e.id}
+                onClick={() => navigate(`/editorials/${e.id}`)}
+                className="cursor-pointer border-b border-neutral-800/50 hover:bg-neutral-900/50"
+              >
                 <td className="py-2 pr-4 text-neutral-400">{e.subject}</td>
                 <td className="py-2 pr-4">
-                  <Link to={`/editorials/${e.id}`} className="text-neutral-200 hover:text-white">
-                    {e.title || e.slug}
-                  </Link>
+                  <span className="text-neutral-200">{e.title || e.slug}</span>
                   {e.title && <span className="ml-2 text-neutral-600">{e.slug}</span>}
                 </td>
                 <td className="py-2 pr-4 text-neutral-400">{e.position ?? '—'}</td>
@@ -170,7 +172,13 @@ export function EditorialList() {
                 </td>
                 <td className="py-2 pr-4 text-neutral-500">{new Date(e.modified_at).toLocaleDateString()}</td>
                 <td className="py-2 text-right">
-                  <button onClick={() => setDeleteTarget(e)} className="text-neutral-600 hover:text-red-400">
+                  <button
+                    onClick={(ev) => {
+                      ev.stopPropagation()
+                      setDeleteTarget(e)
+                    }}
+                    className="text-neutral-600 hover:text-red-400"
+                  >
                     Delete
                   </button>
                 </td>
