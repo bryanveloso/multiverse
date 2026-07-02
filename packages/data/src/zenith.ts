@@ -242,11 +242,10 @@ export async function getGaps() {
   return fetchZenith<ZenithGap[]>('/gaps')
 }
 
-// --- Editorial ---
+// --- Editorial pages ---
 
-export interface ZenithEditorial {
+export interface ZenithSlot {
   id: string
-  subject: string
   slug: string
   title: string
   body: string
@@ -254,16 +253,22 @@ export interface ZenithEditorial {
   work_ref: string
 }
 
-export async function getEditorials(subject: string) {
-  return fetchZenith<ZenithEditorial[]>('/editorials', { subject })
+export interface ZenithPage {
+  slug: string
+  title: string
+  path: string
 }
 
-export async function getEditorial(subject: string, slug: string) {
-  return fetchZenith<ZenithEditorial>(`/editorials/${subject}/${slug}`)
+export interface ZenithPageDetail extends ZenithPage {
+  slots: ZenithSlot[]
 }
 
-export async function getSubjects() {
-  return fetchZenith<string[]>('/subjects')
+export async function getPages() {
+  return fetchZenith<ZenithPage[]>('/pages')
+}
+
+export async function getPage(slug: string) {
+  return fetchZenith<ZenithPageDetail>(`/pages/${slug}`)
 }
 
 // --- Works ---

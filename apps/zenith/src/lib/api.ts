@@ -19,15 +19,34 @@ async function fetchApi<T>(path: string, options?: RequestInit): Promise<T> {
 
 // --- Types ---
 
-export interface Editorial {
+export interface Slot {
   id: string
-  subject: string
   slug: string
   title: string
   body: string
   position: number | null
   work_ref: string
   status: 'draft' | 'published'
+  created_at: string
+  modified_at: string
+}
+
+export interface Page {
+  id: string
+  slug: string
+  title: string
+  path: string
+  slot_count: number
+  created_at: string
+  modified_at: string
+}
+
+export interface PageDetail {
+  id: string
+  slug: string
+  title: string
+  path: string
+  slots: Slot[]
   created_at: string
   modified_at: string
 }
@@ -59,80 +78,56 @@ export interface Gap {
   modified_at: string
 }
 
-// --- Editorial ---
+// --- Pages ---
 
-export async function getEditorials(subject?: string, status?: string): Promise<Editorial[]> {
-  const params = new URLSearchParams()
-  if (subject) params.set('subject', subject)
-  if (status) params.set('status', status)
-  const qs = params.toString()
-  return fetchApi<Editorial[]>(`/editorials${qs ? `?${qs}` : ''}`)
+export async function getPages(): Promise<Page[]> {
+  return fetchApi<Page[]>('/pages')
 }
 
-export async function getEditorial(id: string): Promise<Editorial> {
-  return fetchApi<Editorial>(`/editorials/${id}`)
+export async function getPage(slug: string): Promise<PageDetail> {
+  return fetchApi<PageDetail>(`/pages/${slug}`)
 }
 
-export async function createEditorial(data: Partial<Editorial>): Promise<Editorial> {
-  return fetchApi<Editorial>('/editorials', {
+export async function createPage(data: { slug: string; title?: string; path?: string }): Promise<PageDetail> {
+  return fetchApi<PageDetail>('/pages', {
     method: 'POST',
     body: JSON.stringify(data),
   })
 }
 
-export async function updateEditorial(id: string, data: Partial<Editorial>): Promise<Editorial> {
-  return fetchApi<Editorial>(`/editorials/${id}`, {
+export async function updatePage(slug: string, data: Partial<Page>): Promise<PageDetail> {
+  return fetchApi<PageDetail>(`/pages/${slug}`, {
     method: 'PATCH',
     body: JSON.stringify(data),
   })
 }
 
-export async function deleteEditorial(id: string): Promise<void> {
-  await fetchApi(`/editorials/${id}`, { method: 'DELETE' })
+export async function deletePage(slug: string): Promise<void> {
+  await fetchApi(`/pages/${slug}`, { method: 'DELETE' })
 }
 
-export async function getSubjects(): Promise<string[]> {
-  return fetchApi<string[]>('/subjects')
-}
+// --- Slots ---
 
-// --- Page manifests ---
-
-export interface Slot {
-  name: string
-  label: string
-  required: boolean
-}
-
-export interface PageManifest {
-  id: string
-  subject: string
-  title: string
-  page_path: string
-  slots: Slot[]
-  created_at: string
-  modified_at: string
-}
-
-export async function getManifests(): Promise<PageManifest[]> {
-  return fetchApi<PageManifest[]>('/manifests')
-}
-
-export async function getManifest(subject: string): Promise<PageManifest> {
-  return fetchApi<PageManifest>(`/manifests/${subject}`)
-}
-
-export async function upsertManifest(
-  subject: string,
-  data: { title?: string; page_path?: string; slots: Slot[] }
-): Promise<PageManifest> {
-  return fetchApi<PageManifest>(`/manifests/${subject}`, {
-    method: 'PUT',
+export async function createSlot(pageSlug: string, data: Partial<Slot>): Promise<Slot> {
+  return fetchApi<Slot>(`/pages/${pageSlug}/slots`, {
+    method: 'POST',
     body: JSON.stringify(data),
   })
 }
 
-export async function deleteManifest(subject: string): Promise<void> {
-  await fetchApi(`/manifests/${subject}`, { method: 'DELETE' })
+export async function getSlot(id: string): Promise<Slot> {
+  return fetchApi<Slot>(`/slots/${id}`)
+}
+
+export async function updateSlot(id: string, data: Partial<Slot>): Promise<Slot> {
+  return fetchApi<Slot>(`/slots/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function deleteSlot(id: string): Promise<void> {
+  await fetchApi(`/slots/${id}`, { method: 'DELETE' })
 }
 
 // --- Posts ---

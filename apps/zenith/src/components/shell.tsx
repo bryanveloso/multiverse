@@ -2,8 +2,7 @@ import { NavLink, Outlet } from 'react-router'
 
 const NAV_ITEMS = [
   { to: '/', label: 'Dashboard', end: true },
-  { to: '/editorials', label: 'Editorials' },
-  { to: '/composer', label: 'Composer' },
+  { to: '/pages', label: 'Pages' },
   { to: '/posts', label: 'Timeline' },
 ]
 

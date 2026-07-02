@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router'
-import { getSubjects, getEditorials, getPosts } from '@/lib/api'
-import type { Editorial, Post } from '@/lib/api'
+import { Link, useNavigate } from 'react-router'
+import { getPages, getPosts } from '@/lib/api'
+import type { Page, Post } from '@/lib/api'
 
 export function Dashboard() {
-  const [subjects, setSubjects] = useState<string[]>([])
-  const [recentEditorials, setRecentEditorials] = useState<Editorial[]>([])
+  const navigate = useNavigate()
+  const [pages, setPages] = useState<Page[]>([])
   const [recentPosts, setRecentPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    Promise.all([getSubjects(), getEditorials(), getPosts()])
-      .then(([s, e, p]) => {
-        setSubjects(s)
-        setRecentEditorials(e.slice(0, 5))
+    Promise.all([getPages(), getPosts()])
+      .then(([pg, p]) => {
+        setPages(pg)
         setRecentPosts(p.slice(0, 5))
       })
+      .catch(() => {})
       .finally(() => setLoading(false))
   }, [])
 
@@ -23,18 +23,20 @@ export function Dashboard() {
     return <p className="text-neutral-500">Loading...</p>
   }
 
+  const slotTotal = pages.reduce((sum, p) => sum + p.slot_count, 0)
+
   return (
     <div className="space-y-8">
       <h2 className="text-2xl font-bold tracking-tight">Dashboard</h2>
 
       <div className="grid grid-cols-3 gap-4">
         <div className="rounded-lg border border-neutral-800 bg-neutral-900 p-4">
-          <p className="text-sm text-neutral-400">Subjects</p>
-          <p className="text-3xl font-bold">{subjects.length}</p>
+          <p className="text-sm text-neutral-400">Pages</p>
+          <p className="text-3xl font-bold">{pages.length}</p>
         </div>
         <div className="rounded-lg border border-neutral-800 bg-neutral-900 p-4">
-          <p className="text-sm text-neutral-400">Editorials</p>
-          <p className="text-3xl font-bold">{recentEditorials.length}+</p>
+          <p className="text-sm text-neutral-400">Slots</p>
+          <p className="text-3xl font-bold">{slotTotal}</p>
         </div>
         <div className="rounded-lg border border-neutral-800 bg-neutral-900 p-4">
           <p className="text-sm text-neutral-400">Posts</p>
@@ -45,33 +47,29 @@ export function Dashboard() {
       <div className="grid grid-cols-2 gap-8">
         <div>
           <div className="mb-3 flex items-center justify-between">
-            <h3 className="font-semibold">Recent Editorials</h3>
-            <Link to="/editorials" className="text-sm text-neutral-400 hover:text-white">
+            <h3 className="font-semibold">Pages</h3>
+            <Link to="/pages" className="text-sm text-neutral-400 hover:text-white">
               View all
             </Link>
           </div>
-          {recentEditorials.length === 0 ? (
-            <p className="text-sm text-neutral-500">No editorials yet.</p>
+          {pages.length === 0 ? (
+            <p className="text-sm text-neutral-500">No pages yet.</p>
           ) : (
             <ul className="space-y-2">
-              {recentEditorials.map((e) => (
-                <li key={e.id}>
-                  <Link
-                    to={`/editorials/${e.id}`}
-                    className="block rounded border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm hover:border-neutral-700"
+              {pages.map((p) => (
+                <li key={p.id}>
+                  <div
+                    onClick={() => navigate(`/pages/${p.slug}`)}
+                    className="flex cursor-pointer items-center justify-between rounded border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm hover:border-neutral-700"
                   >
-                    <span className="text-neutral-200">{e.title || e.slug}</span>
-                    <span className="ml-2 text-neutral-500">{e.subject}</span>
-                    <span
-                      className={`ml-2 inline-block rounded px-1.5 py-0.5 text-xs ${
-                        e.status === 'published'
-                          ? 'bg-emerald-900/50 text-emerald-400'
-                          : 'bg-neutral-800 text-neutral-400'
-                      }`}
-                    >
-                      {e.status}
+                    <span>
+                      <span className="text-neutral-200">{p.title || p.slug}</span>
+                      <span className="ml-2 text-neutral-500">{p.slug}</span>
                     </span>
-                  </Link>
+                    <span className="text-xs text-neutral-500">
+                      {p.slot_count} slot{p.slot_count === 1 ? '' : 's'}
+                    </span>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -93,9 +91,7 @@ export function Dashboard() {
                 <li key={p.id}>
                   <div className="rounded border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm">
                     <span className="text-neutral-200">{p.title}</span>
-                    <span className="ml-2 text-neutral-500">
-                      {new Date(p.date).toLocaleDateString()}
-                    </span>
+                    <span className="ml-2 text-neutral-500">{new Date(p.date).toLocaleDateString()}</span>
                   </div>
                 </li>
               ))}

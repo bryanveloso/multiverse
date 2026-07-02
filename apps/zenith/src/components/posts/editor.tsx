@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import { getPost, updatePost } from '@/lib/api'
 import type { Post } from '@/lib/api'
-import { MarkdownEditor } from '../editorial/markdown-editor'
+import { MarkdownEditor } from '../pages/markdown-editor'
 
 export function PostEditor() {
   const { slug } = useParams<{ slug: string }>()

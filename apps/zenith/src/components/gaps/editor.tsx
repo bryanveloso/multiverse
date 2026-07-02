@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import { getGap, updateGap } from '@/lib/api'
 import type { Gap } from '@/lib/api'
-import { MarkdownEditor } from '../editorial/markdown-editor'
+import { MarkdownEditor } from '../pages/markdown-editor'
 
 export function GapEditor() {
   const { id } = useParams<{ id: string }>()
