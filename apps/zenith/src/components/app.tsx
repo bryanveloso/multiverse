@@ -2,7 +2,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import { Shell } from './shell'
 import { EditorialList } from './editorial/list'
 import { EditorialEditor } from './editorial/editor'
-import { PostList } from './posts/list'
+import { Timeline } from './posts/list'
+import { PostEditor } from './posts/editor'
+import { GapEditor } from './gaps/editor'
 import { Dashboard } from './dashboard'
 
 const router = createBrowserRouter([
@@ -13,7 +15,9 @@ const router = createBrowserRouter([
       { index: true, Component: Dashboard },
       { path: 'editorials', Component: EditorialList },
       { path: 'editorials/:id', Component: EditorialEditor },
-      { path: 'posts', Component: PostList },
+      { path: 'posts', Component: Timeline },
+      { path: 'posts/:slug', Component: PostEditor },
+      { path: 'gaps/:id', Component: GapEditor },
     ],
   },
 ])

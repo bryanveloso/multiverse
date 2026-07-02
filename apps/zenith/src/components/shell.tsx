@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router'
 const NAV_ITEMS = [
   { to: '/', label: 'Dashboard', end: true },
   { to: '/editorials', label: 'Editorials' },
-  { to: '/posts', label: 'Posts' },
+  { to: '/posts', label: 'Timeline' },
 ]
 
 export function Shell() {

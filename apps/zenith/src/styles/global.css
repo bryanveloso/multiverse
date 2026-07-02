@@ -1,1 +1,90 @@
 @import 'tailwindcss';
+
+/* Markdown editor: highlighted <pre> layered under a transparent-text <textarea>.
+   Both must share every metric that affects glyph position so they align. */
+.md-editor {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.md-editor__pre,
+.md-editor__textarea {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  letter-spacing: 0;
+  tab-size: 2;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.md-editor__pre {
+  overflow: auto;
+  pointer-events: none;
+  color: #e5e5e5;
+  background: #171717; /* neutral-900 */
+  border-color: #262626; /* neutral-800 */
+}
+
+.md-editor__textarea {
+  overflow: auto;
+  resize: none;
+  color: transparent;
+  background: transparent;
+  caret-color: #fafafa;
+  outline: none;
+}
+
+.md-editor__textarea:focus {
+  border-color: #525252; /* neutral-600 */
+}
+
+.md-editor__textarea::placeholder {
+  color: #525252;
+}
+
+/* Token colors */
+.tok-directive {
+  color: #c4b5fd; /* violet-300 */
+  font-weight: 600;
+}
+.tok-attr {
+  color: #fcd34d; /* amber-300 */
+}
+.tok-heading {
+  color: #fafafa;
+  font-weight: 700;
+}
+.tok-strong {
+  color: #f5f5f5;
+  font-weight: 700;
+}
+.tok-em {
+  color: #d4d4d4;
+  font-style: italic;
+}
+.tok-code {
+  color: #6ee7b7; /* emerald-300 */
+}
+.tok-link-text {
+  color: #7dd3fc; /* sky-300 */
+}
+.tok-link-url {
+  color: #737373; /* neutral-500 */
+}
+.tok-quote {
+  color: #a3a3a3; /* neutral-400 */
+  font-style: italic;
+}
+.tok-list {
+  color: #7dd3fc; /* sky-300 */
+}

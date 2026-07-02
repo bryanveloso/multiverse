@@ -1,53 +1,45 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router'
-import { getEditorial, updateEditorial } from '@/lib/api'
-import type { Editorial } from '@/lib/api'
-import { MarkdownEditor } from './markdown-editor'
+import { getPost, updatePost } from '@/lib/api'
+import type { Post } from '@/lib/api'
+import { MarkdownEditor } from '../editorial/markdown-editor'
 
-export function EditorialEditor() {
-  const { id } = useParams<{ id: string }>()
+export function PostEditor() {
+  const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
-  const [editorial, setEditorial] = useState<Editorial | null>(null)
+  const [post, setPost] = useState<Post | null>(null)
   const [body, setBody] = useState('')
   const [title, setTitle] = useState('')
-  const [position, setPosition] = useState<string>('')
-  const [workRef, setWorkRef] = useState('')
-  const [status, setStatus] = useState<'draft' | 'published'>('draft')
+  const [description, setDescription] = useState('')
+  const [status, setStatus] = useState('draft')
   const [saving, setSaving] = useState(false)
   const [dirty, setDirty] = useState(false)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!id) return
-    getEditorial(id)
-      .then((e) => {
-        setEditorial(e)
-        setBody(e.body)
-        setTitle(e.title)
-        setPosition(e.position !== null ? String(e.position) : '')
-        setWorkRef(e.work_ref)
-        setStatus(e.status)
+    if (!slug) return
+    getPost(slug)
+      .then((p) => {
+        setPost(p)
+        setBody(p.body)
+        setTitle(p.title)
+        setDescription(p.description)
+        setStatus(p.status)
       })
       .finally(() => setLoading(false))
-  }, [id])
+  }, [slug])
 
   const handleSave = useCallback(async () => {
-    if (!id || !editorial) return
+    if (!slug || !post) return
     setSaving(true)
     try {
-      const updated = await updateEditorial(id, {
-        title,
-        body,
-        position: position !== '' ? Number(position) : null,
-        work_ref: workRef,
-        status,
-      })
-      setEditorial(updated)
+      const updated = await updatePost(slug, { title, description, body, status })
+      setPost(updated)
       setDirty(false)
     } finally {
       setSaving(false)
     }
-  }, [id, editorial, title, body, position, workRef, status])
+  }, [slug, post, title, description, body, status])
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -64,27 +56,20 @@ export function EditorialEditor() {
     return <p className="text-neutral-500">Loading...</p>
   }
 
-  if (!editorial) {
-    return <p className="text-neutral-500">Editorial not found.</p>
+  if (!post) {
+    return <p className="text-neutral-500">Post not found.</p>
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => navigate('/editorials')}
-            className="text-neutral-400 hover:text-white"
-          >
+          <button onClick={() => navigate('/posts')} className="text-neutral-400 hover:text-white">
             &larr;
           </button>
           <div>
-            <h2 className="text-2xl font-bold tracking-tight">
-              {editorial.title || editorial.slug}
-            </h2>
-            <p className="text-sm text-neutral-500">
-              {editorial.subject}/{editorial.slug}
-            </p>
+            <h2 className="text-2xl font-bold tracking-tight">{title || post.slug}</h2>
+            <p className="text-sm text-neutral-500">{post.slug}</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -111,7 +96,6 @@ export function EditorialEditor() {
                 setDirty(true)
               }}
               className="w-full rounded border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-white outline-none focus:border-neutral-600"
-              placeholder="Entry title"
             />
           </div>
           <div className="flex-1">
@@ -134,55 +118,41 @@ export function EditorialEditor() {
             <select
               value={status}
               onChange={(e) => {
-                setStatus(e.target.value as 'draft' | 'published')
+                setStatus(e.target.value)
                 setDirty(true)
               }}
               className="w-full rounded border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-white outline-none focus:border-neutral-600"
             >
               <option value="draft">Draft</option>
               <option value="published">Published</option>
+              <option value="archived">Archived</option>
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-sm text-neutral-400">Position</label>
-            <input
-              type="number"
-              value={position}
+            <label className="mb-1 block text-sm text-neutral-400">Description</label>
+            <textarea
+              value={description}
               onChange={(e) => {
-                setPosition(e.target.value)
+                setDescription(e.target.value)
                 setDirty(true)
               }}
-              className="w-full rounded border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-white outline-none focus:border-neutral-600"
-              placeholder="—"
+              rows={4}
+              className="w-full resize-none rounded border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-white outline-none focus:border-neutral-600"
             />
           </div>
-          <div>
-            <label className="mb-1 block text-sm text-neutral-400">Work Reference</label>
-            <input
-              type="text"
-              value={workRef}
-              onChange={(e) => {
-                setWorkRef(e.target.value)
-                setDirty(true)
-              }}
-              className="w-full rounded border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-white outline-none focus:border-neutral-600"
-              placeholder="questlog-work-slug"
-            />
+          <div className="rounded border border-amber-900/40 bg-amber-950/30 p-3 text-xs text-amber-400/80">
+            Saving a published post triggers a rebuild of avalonstar.com.
           </div>
           <div className="rounded border border-neutral-800 bg-neutral-900 p-3 text-xs text-neutral-500">
             <p>
-              <strong className="text-neutral-400">Subject:</strong> {editorial.subject}
+              <strong className="text-neutral-400">Date:</strong> {new Date(post.date).toLocaleDateString()}
             </p>
             <p>
-              <strong className="text-neutral-400">Slug:</strong> {editorial.slug}
-            </p>
-            <p>
-              <strong className="text-neutral-400">Created:</strong>{' '}
-              {new Date(editorial.created_at).toLocaleString()}
+              <strong className="text-neutral-400">Significance:</strong> {post.significance}
             </p>
             <p>
               <strong className="text-neutral-400">Modified:</strong>{' '}
-              {new Date(editorial.modified_at).toLocaleString()}
+              {new Date(post.modified_at).toLocaleString()}
             </p>
           </div>
         </div>

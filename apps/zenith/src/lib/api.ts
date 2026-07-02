@@ -46,6 +46,19 @@ export interface Post {
   modified_at: string
 }
 
+export interface Gap {
+  id: string
+  title: string
+  slug: string
+  date: string
+  description: string
+  body: string
+  color: string
+  significance: number
+  created_at: string
+  modified_at: string
+}
+
 // --- Editorial ---
 
 export async function getEditorials(subject?: string, status?: string): Promise<Editorial[]> {
@@ -91,4 +104,46 @@ export async function getPosts(status?: string): Promise<Post[]> {
 
 export async function getPost(slug: string): Promise<Post> {
   return fetchApi<Post>(`/posts/${slug}`)
+}
+
+export async function createPost(data: Partial<Post>): Promise<Post> {
+  return fetchApi<Post>('/posts', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function updatePost(slug: string, data: Partial<Post>): Promise<Post> {
+  return fetchApi<Post>(`/posts/${slug}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  })
+}
+
+// --- Gaps ---
+
+export async function getGaps(): Promise<Gap[]> {
+  return fetchApi<Gap[]>('/gaps')
+}
+
+export async function getGap(id: string): Promise<Gap> {
+  return fetchApi<Gap>(`/gaps/${id}`)
+}
+
+export async function createGap(data: Partial<Gap>): Promise<Gap> {
+  return fetchApi<Gap>('/gaps', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function updateGap(id: string, data: Partial<Gap>): Promise<Gap> {
+  return fetchApi<Gap>(`/gaps/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function deleteGap(id: string): Promise<void> {
+  await fetchApi(`/gaps/${id}`, { method: 'DELETE' })
 }
