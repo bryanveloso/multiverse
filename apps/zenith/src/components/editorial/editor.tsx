@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router'
 import { getEditorial, updateEditorial } from '@/lib/api'
 import type { Editorial } from '@/lib/api'
 import { MarkdownEditor } from './markdown-editor'
+import { WorkRefInput } from './work-ref-input'
 
 export function EditorialEditor() {
   const { id } = useParams<{ id: string }>()
@@ -158,15 +159,12 @@ export function EditorialEditor() {
           </div>
           <div>
             <label className="mb-1 block text-sm text-neutral-400">Work Reference</label>
-            <input
-              type="text"
+            <WorkRefInput
               value={workRef}
-              onChange={(e) => {
-                setWorkRef(e.target.value)
+              onChange={(v) => {
+                setWorkRef(v)
                 setDirty(true)
               }}
-              className="w-full rounded border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-white outline-none focus:border-neutral-600"
-              placeholder="questlog-work-slug"
             />
           </div>
           <div className="rounded border border-neutral-800 bg-neutral-900 p-3 text-xs text-neutral-500">
