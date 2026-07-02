@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import { App } from '@/components/app'
 
 export function getStaticPaths() {
   return [
@@ -18,9 +19,6 @@ export function getStaticPaths() {
     <title>Zenith</title>
   </head>
   <body class="bg-neutral-950 text-neutral-100">
-    <div id="root"></div>
-    <script>
-      import '../main'
-    </script>
+    <App client:only="react" />
   </body>
 </html>
