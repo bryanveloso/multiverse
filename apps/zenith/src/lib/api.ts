@@ -95,6 +95,46 @@ export async function getSubjects(): Promise<string[]> {
   return fetchApi<string[]>('/subjects')
 }
 
+// --- Page manifests ---
+
+export interface Slot {
+  name: string
+  label: string
+  required: boolean
+}
+
+export interface PageManifest {
+  id: string
+  subject: string
+  title: string
+  page_path: string
+  slots: Slot[]
+  created_at: string
+  modified_at: string
+}
+
+export async function getManifests(): Promise<PageManifest[]> {
+  return fetchApi<PageManifest[]>('/manifests')
+}
+
+export async function getManifest(subject: string): Promise<PageManifest> {
+  return fetchApi<PageManifest>(`/manifests/${subject}`)
+}
+
+export async function upsertManifest(
+  subject: string,
+  data: { title?: string; page_path?: string; slots: Slot[] }
+): Promise<PageManifest> {
+  return fetchApi<PageManifest>(`/manifests/${subject}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function deleteManifest(subject: string): Promise<void> {
+  await fetchApi(`/manifests/${subject}`, { method: 'DELETE' })
+}
+
 // --- Posts ---
 
 export async function getPosts(status?: string): Promise<Post[]> {
