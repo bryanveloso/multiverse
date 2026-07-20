@@ -166,6 +166,7 @@ export default function WarframeMastery() {
               <Th onClick={() => toggleSort('mastery_req')} right>
                 Req{arrow('mastery_req')}
               </Th>
+              <th className="px-3 py-2">Status</th>
               <th className="px-3 py-2">Acquire</th>
             </tr>
           </thead>
@@ -256,6 +257,15 @@ function Row({ item }: { item: RemainingItem }) {
       <td className="px-3 py-2 text-gray-600">{item.category}</td>
       <td className="px-3 py-2 text-right">{item.mastery_value.toLocaleString()}</td>
       <td className="px-3 py-2 text-right text-gray-600">{item.mastery_req}</td>
+      <td className="px-3 py-2">
+        {item.owned ? (
+          <span className="text-turquoise-400">
+            Owned <span className="text-gray-500">· {item.mastery_progress}%</span>
+          </span>
+        ) : (
+          <span className="text-gray-600">Not owned</span>
+        )}
+      </td>
       <td className="px-3 py-2 text-gray-600">{item.acquisition || '—'}</td>
     </tr>
   )

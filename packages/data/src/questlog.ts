@@ -97,6 +97,8 @@ export interface RemainingItem {
   acquisition: string
   tags: string[]
   vault_date: string
+  owned: boolean
+  mastery_progress: number
 }
 
 export interface AcquisitionGroup {
